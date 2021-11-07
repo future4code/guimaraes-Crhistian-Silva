@@ -1,0 +1,3 @@
+# Aprendizados da semana
+
+Está semana aprendi a usar alguns comandos git usando o terminal gitbash, também aprendi a **NÃO** esquecer de usar o **(-m)** quando usar o comando commit, pois ele abre um editor de texto e pra sair dele...vixixi...não consegui, tive que deletar as pastas e criar novas...
