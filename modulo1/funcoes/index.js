@@ -161,11 +161,15 @@ console.log(soma(numNovo1, numNovo2), diferenca(numNovo1, numNovo2), multiplicac
 Então, funções podem chamar/invocar outras funções também. Sua tarefa é escrever duas funções */
     
 //a) Escreva uma *arrow function* que recebe um parâmetro e imprime no console esse parâmetro
-let arrowFuncao = arrow =>{
-        let parametro = prompt("Digite aqui sua mensagem")
-        return console.log(parametro)
-
+let arrowFuncao = (param) =>{
+      console.log(param)
     }
-    arrowFuncao()
+    //arrowFuncao("Olá, Mundo!)
 
-2. 
+//2.b) Escreva outra arrow function que recebe dois valores como parâmetros mas nenhum retorno.
+//Faça a soma entre esses valores e chame a sua primeira função mandando este resultado da soma como entrada para imprimi-lo
+function somaNumeros = (n5,n6) => {
+          let somar = n5 + n6
+          arroWFuncao(somar)
+    }
+somaNumeros(20, 40)
