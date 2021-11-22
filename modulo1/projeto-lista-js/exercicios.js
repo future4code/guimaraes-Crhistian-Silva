@@ -115,31 +115,28 @@ return comparar
 // EXERCÍCIO 13
 function checaRenovacaoRG() {
   // implemente sua lógica aqui
-function renovaCarteira(ano1, ano2, ano3){
-let anoAtual = Number(prompt("Qual o ano atual? "))
-let anoNasc= Number(prompt("Qual o ano que você nasceu ?"))
-let anoDoc = Number(prompt("Qual ano seu documento foi emitido"))
-let menos20 = (anoAtual - anoNasc) <= 20 && (anoAtual - anoDoc) >= 5
-let maior20 = (anoAtual - anoNasc) > 20 && (anoAtual - anoNasc) >= 50 && (anoAtual - anoDoc) >= 10
-let maior50 = (anoAtual - anoNasc) > 50 && (anoAtual - anoDoc) || 10
-
-
-return console.log(menos20, maior20, maior50)
-
-}
-
-renovaCarteira()
+//function renovaCarteira(ano1, ano2, ano3){
+  /* 
+  const menor20 = (ano1 - ano2) <= 20 && (ano1 - ano3) >= 5
+  const maior20 = (ano1 - ano2) > 20 && (ano1 - ano2) <= 50 && (ano1 - ano3) >= 10
+  const maior50 = (ano1 - ano2) > 50 && (ano1 - ano3) >= 15
+  return console.log(menor20, maior20, maior50)
+   */
 }
 
 // EXERCÍCIO 14
 function checaAnoBissexto(ano) {
   // implemente sua lógica aqui
- // let anoRecebido = (anoRecebido % 400 === 0) || (anoRecebido % 4 === 0) && (anoRecebido % 100 !==0)
- // return anoRecebido
+  let anoModulo4 = (ano % 4) === 0 && (ano % 100) !== 0 || (ano % 400 === 0)
+  return anoModulo4
 }
 
 // EXERCÍCIO 15
 function checaValidadeInscricaoLabenu() {
   // implemente sua lógica aqui
-
+  let perg1 = String(prompt("tem mais de 18: "))
+  let perg2 = String(prompt("tem ensino médio completo? "))
+  let perg3 = String(prompt("tem disponibilidade de horarios?" ))
+  let maior18 = (perg1 === "sim" && perg2 === "sim" && perg3 === "sim")
+  return console.log(maior18)
 }
