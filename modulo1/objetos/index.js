@@ -127,16 +127,7 @@ console.log(carrinho)
         // Exemplo de entrada: "Lais", 26, "Instrutora"
         // O que deve ser impresso no console: 
         { nome: 'Lais', profissao: "Instrutora", idade: 26}
-        ``` */
 
-     /*    let nomeUser = () => {
-            nome = prompt("Qual é seu nome? ")
-            idade = prompt("Qual sua idade? ")
-            profissao = prompt("Qual sua profissao? ")
-            return nomeUser
-            }
-           console.log(nomeUser())
- */
 
           /*  Crie uma função que receba dois objetos que representam filmes. Eles devem ter as propriedades: ano de lançamento e nome. 
            A função deve retornar uma mensagem no seguinte modelo:
