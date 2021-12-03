@@ -98,9 +98,18 @@ console.log(arrayBebidas)
 
 
 //d) Crie um novo array que contenha apenas os objetos cujo nome contenha a palavra "Ypê"  
-
-const novoArray = produtos.filter((valorAtual) =>{
-  return valorAtual.nome.includes("Ypê")
-})
-
-console.log(novoArray)
+const novoArray = produtos.filter(item => item.nome.includes("Ypê"))
+let arrayComPreco= (array) => {
+  let novoProduto = novoArray.map((item) =>{
+    let novoObjeto = {};
+    novoObjeto ={
+      nome: item.nome,
+      preco: item.preco,
+    }
+    return novoObjeto
+  }
+  )
+    return console.log(novoProduto)
+}
+ 
+arrayComPreco(novoArray);
