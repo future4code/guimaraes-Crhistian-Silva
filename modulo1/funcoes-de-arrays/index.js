@@ -113,3 +113,11 @@ let arrayComPreco= (array) => {
 }
  
 arrayComPreco(novoArray);
+
+//e)Crie um novo array onde cada item é uma frase "Compre [NOME] por [PREÇO]". Esse array deve conter frases apenas dos itens cujo nome contenha a palavra "Ypê"
+
+const compreYpe = novoArray.map((prod) => {
+  return `Compre ${prod.nome} por ${prod.preco}`;
+  });
+  
+console.log("item e", compreYpe);
