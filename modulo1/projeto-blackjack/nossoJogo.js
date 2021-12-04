@@ -26,5 +26,3 @@ console.log("----------GOOD LUCK----------"), inicioJogo()
 } else{
    console.log("GAME OVER")
 }
-
-
