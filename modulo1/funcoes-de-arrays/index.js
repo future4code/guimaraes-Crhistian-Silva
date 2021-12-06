@@ -113,3 +113,57 @@ let arrayComPreco= (array) => {
 }
  
 arrayComPreco(novoArray);
+
+
+// DESAFIOS
+
+//1. Dado o seguinte array de pokémons, realize as operações pedidas nos itens abaixo
+
+
+const pokemons = [
+  { nome: "Bulbasaur", tipo: "grama" },
+  { nome: "Bellsprout", tipo: "grama" },
+  { nome: "Charmander", tipo: "fogo" },
+  { nome: "Vulpix", tipo: "fogo" },
+  { nome: "Squirtle", tipo: "água" },
+  { nome: "Psyduck", tipo: "água" },
+]
+
+
+//a) Crie um novo array que contenha apenas o nome dos pokémons em **ordem alfabética**
+
+
+pokemons.sort(function compararArray (a, b) {if(a.nome <  b.nome) {return -1 }else if (a.nome < b.nome) {return 1}})
+console.log(pokemons)
+
+
+//b) Crie um novo array apenas com os tipos dos pokémons, sem repetição
+
+const arraySemRepeticao = new Map()
+
+
+pokemons.forEach((categoria) => {
+  if(!arraySemRepeticao.has(!categoria.tipo, categoria)){
+    arraySemRepeticao.set(categoria.tipo, categoria);
+  
+  }
+}
+)
+console.log([...arraySemRepeticao.keys()])
+
+// EXERCICIO CORRIGIDO
+
+/* const tipos = pokemons.map((categoria => {
+  return categoria.tipo;
+}))
+
+console.log(tipos);
+
+const tiposSemRepetir = tipos.filter((tipo, index, array) => {
+  return array.indexOf(tipo) === index;
+});
+
+console.log("item b", tiposSemRepetir); */
+
+
+  
