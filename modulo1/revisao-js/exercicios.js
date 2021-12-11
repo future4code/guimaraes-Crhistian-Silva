@@ -121,10 +121,11 @@ let menor = arrayNumeros[0]
           segundoMenor = menor;
           menor = array[i]}
 }
-return novoArray.push(segundoMaior, segundoMenor)  */
-}
+return novoArray.push(segundoMaior, segundoMenor)  *///Desse modo funcionou no code...porem aqui nao funciona...o Iago tentou me explicar..porèm nao consegui assimilar e desisti...
 
-//Desse modo funcionou no code...porem aqui nao funciona...o Iago tentou me explicar..porèm nao consegui assimilar e desisti...
+array.sort((a,b) => a - b) 
+    return array = [array[array.length -2], array[1]]
+}
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
