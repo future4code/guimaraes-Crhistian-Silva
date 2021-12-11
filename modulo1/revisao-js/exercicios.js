@@ -44,7 +44,13 @@ arrayPar(array)
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
-
+let par = []
+for (var i = 0; i < array.length; i++) {
+    if (array[i] % 2 === 0) {
+        par.push(Math.pow(array[i],2));
+    }
+    
+    }return par
 }
 
 // EXERCÍCIO 06
@@ -97,7 +103,29 @@ if(ladoA === ladoB && ladoB === ladoC){
 }
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
+/* let novoArray = []
+
+let maior = arrayNumeros[0] 
+
+let segundoMaior = 0
+
+    for(i=0; i < array.length; i++){
+        if(array[i] > maior){
+            segundoMaior = maior;
+            maior = array[i]}
 }
+let menor = arrayNumeros[0] 
+    let segundoMenor = 0
+      for(i=0; i < array.length; i++){
+        if(array[i] < menor){
+          segundoMenor = menor;
+          menor = array[i]}
+}
+return novoArray.push(segundoMaior, segundoMenor)  */
+}
+
+//Desse modo funcionou no code...porem aqui nao funciona...o Iago tentou me explicar..porèm nao consegui assimilar e desisti...
+
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
     return (`Venha assistir ao filme ${filme.nome}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores[0]}, ${filme.atores[1]}, ${filme.atores[2]}, ${filme.atores[3]}.`)
@@ -105,27 +133,42 @@ function retornaChamadaDeFilme(filme) {
 
 // EXERCÍCIO 12
 function retornaPessoaAnonimizada(pessoa) {
-   
+return {
+    ...pessoa,
+    nome: "ANÔNIMO"}
 }
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-   
+let meuNovoArray = pessoas.filter((pessoa)=>{
+    return pessoa.idade > 14 && pessoa.idade < 60 && pessoa.altura >= 1.5})
+    return meuNovoArray
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-  
+let meuNovoArray2 = pessoas.filter((pessoa)=>{
+    return pessoa.idade <= 14 || pessoa.idade > 60 || pessoa.altura <= 1.5})
+    return meuNovoArray2
 }
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-
+// ainda sinto uma absurda dificuldade em acessar objetos, ainda mais esse que é um array de objetos com array dentro...viixixi
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-  
+consultas.sort(function(a,b){
+    if(a.nome < b.nome){
+        console.log(consultas)            
+        return -1;
+    }else{
+        return true;
+    }
+}
+)
+return consultas
 }
 
 // EXERCÍCIO 15B
