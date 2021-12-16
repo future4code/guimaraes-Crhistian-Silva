@@ -1,0 +1,103 @@
+body,html{
+    height: 100%;
+    margin: 0;
+}
+
+.titulos{
+    color: yellow;
+    font-family: sans-serif;
+}
+.titulo {
+    display: inline;
+    background-color: #cd3287;
+    color: yellow;
+    margin-left: 500px
+}
+
+.frase {
+        background-color: blueviolet;
+    color: yellow;
+    margin-right: 520px;
+    margin-left: 570px;
+}
+
+td{
+    color: yellow;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+a{
+    color: yellow;
+    background-color: rgb(80, 64, 224);
+    font-size: 20px;
+}
+
+.fundo-pagina-inicial{
+    background-image: url(/img/einstein.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.titulo-estoque {
+    background-color: rgb(218, 238, 130);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-estoque {
+    background-image: url(./img/fundo\ 4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#controle-estoque{
+    background-color: rgb(219, 219, 118);
+    color: rgb(39, 6, 158);
+    display: inline;
+    margin-top: 15px;
+    font-family: 'algerian';
+}
+
+.titulo-produtos {
+    background-color: rgb(218, 238, 130);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-produto{
+    background-image: url(./img/gambit.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.divs-produtos{
+    display: inline-table;
+    color: yellow;
+    background-color: blue;
+    font-size: 20px;
+}
+
+.titulo-funcionarios {
+    background-color: rgb(218, 238, 130);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-funcionarios{
+    background-image: url(./img/joker.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+

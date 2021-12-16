@@ -16,11 +16,11 @@ function retornaArrayInvertido(array) {
 }
 /* Desafio (OPCIONAL)
 Faça sem utilizar a função reverse() */
-let arrayInvertido = array.map(function(item, indice, array){
+/* let arrayInvertido = array.map(function(item, indice, array){
     return array[array.length - indice - 1];
 })
 
-console.log(arrayInvertido)
+console.log(arrayInvertido) */
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
     return array.sort((a,b) => a -b)
@@ -31,15 +31,17 @@ function retornaNumerosPares(array) {
     return array.filter((par) => (par % 2 === 0))
 }
 // Desafio (OPCIONAL)
-let par = []
+/* let par = []
 function arrayPar() {
+
   for (var i = 0; i < array.length; i++) {
     if (array[i] % 2 === 0) {
       par.push(array[i]);
     }
 }
-}console.log(par)
-arrayPar(array)
+}
+console.log(par)
+arrayPar(array) */
 
 
 // EXERCÍCIO 05
@@ -103,30 +105,39 @@ if(ladoA === ladoB && ladoB === ladoC){
 }
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-/* let novoArray = []
+    let menor = Infinity;
+    let maior = -Infinity;
+    let segundoMenor = Infinity;
+    let segundoMaior = -Infinity;
+    let novoArray = [];
+  
+    for (let i of array) {
+      if (i < menor) {
+        menor = i;
+      }
+      if (i > maior) {
+        maior = i;
+      }
+    }
+  
+    for (let i of array) {
+      if (i < segundoMenor && i !== menor) {
+        segundoMenor = i;
+      }
+      if (i > segundoMaior && i !== maior) {
+        segundoMaior = i;
+      }
+    }
+    novoArray.push(segundoMaior);
+  novoArray.push(segundoMenor);
 
-let maior = arrayNumeros[0] 
-
-let segundoMaior = 0
-
-    for(i=0; i < array.length; i++){
-        if(array[i] > maior){
-            segundoMaior = maior;
-            maior = array[i]}
+  return novoArray;
 }
-let menor = arrayNumeros[0] 
-    let segundoMenor = 0
-      for(i=0; i < array.length; i++){
-        if(array[i] < menor){
-          segundoMenor = menor;
-          menor = array[i]}
-}
-return novoArray.push(segundoMaior, segundoMenor)  *///Desse modo funcionou no code...porem aqui nao funciona...o Iago tentou me explicar..porèm nao consegui assimilar e desisti...
 
+/* 
 array.sort((a,b) => a - b) 
     return array = [array[array.length -2], array[1]]
-}
-
+ */
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
     return (`Venha assistir ao filme ${filme.nome}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores[0]}, ${filme.atores[1]}, ${filme.atores[2]}, ${filme.atores[3]}.`)
@@ -155,7 +166,14 @@ let meuNovoArray2 = pessoas.filter((pessoa)=>{
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-// ainda sinto uma absurda dificuldade em acessar objetos, ainda mais esse que é um array de objetos com array dentro...viixixi
+    contas.forEach((conta) => {
+        let totalDeCompras = 0;
+        conta.compras.forEach((valor) => {
+          totalDeCompras += valor;
+        });
+        conta.saldoTotal -= totalDeCompras;
+      });
+      return contas;
 }
 
 // EXERCÍCIO 15A
@@ -174,5 +192,27 @@ return consultas
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-   
+    for (let i = 0; i < consultasData.length; i++) {
+        for (let j = 0; j < consultasData.length - i - 1; j++) {
+          const arrayData1 = consultasData[j].dataDaConsulta.split("/");
+          const dia1 = Number(arrayData1[0]);
+          const mes1 = Number(arrayData1[1]);
+          const ano1 = Number(arrayData1[2]);
+    
+          const arrayData2 = consultasData[j + 1].dataDaConsulta.split("/");
+          const dia2 = Number(arrayData2[0]);
+          const mes2 = Number(arrayData2[1]);
+          const ano2 = Number(arrayData2[2]);
+    
+          const data1 = new Date(ano1, mes1 - 1, dia1).getTime();
+          const data2 = new Date(ano2, mes2 - 1, dia2).getTime();
+    
+          if (data1 > data2) {
+            const temp = consultasData[j];
+            consultasData[j] = consultasData[j + 1];
+            consultasData[j + 1] = temp;
+          }
+        }
+      }
+      return consultasData;
 }
