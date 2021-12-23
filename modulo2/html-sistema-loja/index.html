@@ -4,33 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nome da Loja</title>
+    <title> Old Skull</title>
+    <link rel="stylesheet" type="text/css" href="layout-da-pagina.css">
 </head>
-<body>
-    <div>
-        <h1>Bem-vind@ à <em> Old Skull Style</em>!</h1>
-        <p><i><b>Tenha Sempre um Ás na Manga</b></i></p>
-    </div>
-
-    <div>
-        <a href="./index.html">Página Inicial</a>
-        <a href="./ctrl-estoque.html">Controle de Estoque</a>
-        <a href="./add-produto.html">Adicionar Produto</a>
-        <a href="./funcionarios.html">Funcionários</a>
-    </div>
+<body class="fundo-pagina-inicial">
+    <header>
+        <div>
+            <h1 class="titulo">Bem-vind@ à <em> Old Skull Style !</em></span></h1>
+            <h3 class="frase"><i><b>Tenha Sempre um Ás na Manga</b></i></h3>
+        </div>
+    
+        <div>
+            <a href="./index.html">Página Inicial</a>
+            <a href="./ctrl-estoque.html">Controle de Estoque</a>
+            <a href="./add-produto.html">Adicionar Produto</a>
+            <a href="./funcionarios.html">Funcionários</a>
+        </div>
+    </header>
 
     <div>
         <!-- ADICIONAR INFORMAÇOES SOBRE SUA LOJINHA -->
     </div>
-
+    
     <div>
-        <p>Siga-nos nas redes sociais!</p>
-
+        <p style="font-size: 20px; background-color: rgb(54, 199, 204) ; display: inline;">Siga-nos nas redes sociais!</p>
+       
         <div>
-            <img src="./img/facebook.png" height="150px"/>
+            <img src="./img/facebook-icon.jpg" height="150px"/>
             <img src="./img/instagram.png" height="150px"/>
             <img src="./img/twitter.png" height="150px"/>
         </div>
+
     </div>
+
+    <footer style="background-color: rgb(54, 199, 204); display: inline-block;">
+        <h2 style="display: inline; background-color: rgb(54, 199, 204)">Contato</h2>
+        <form action="" class="formulario-de-contato">
+
+            <div> Nome </div>
+            <input type="text"; id="Nome"; name="nome"; placeholder="Digite seu nome completo">
+
+            <div> E-mail </div>
+            <input type="email" ; id="E-mail"; name="email"; placeholder="Digite seu e-mail">
+
+            <div>
+                <div>Assunto</div>
+                <input type="text"; id="Assunto"; name="assunto"; placeholder="Digite sua solicitação"; style="height: 200px">
+            </div>
+            <button type="submit", style="color: black; background-color: rgb(216, 219, 25);">Enviar</button>
+        </form>
+        <p> Todos os direitos Reservados</p>
+        <p> Desenvolvido por _CrHiS_</p>
+    </footer>
 </body>
 </html>

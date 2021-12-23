@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pagina-de-vendas</title>
+<link rel="stylesheet" type="text/css" href="layout-da-pagina.css">
+</head>
+<body class="fundo-pagina-vendas">
+<div>
+    <h1 class="pagina-de-vendas"; style="background-color: rgb(0, 174, 255); display: inline;" >Old Skull</h1>
+</div> 
+
+<div >
+    <a href="./index.html">Página Inicial</a>
+    <a href="./ctrl-estoque.html">Controle de Estoque</a>
+    <a href="./add-produto.html">Adicionar Produto</a>
+    <a href="./funcionarios.html">Funcionários</a>
+</div>
+<body class="fundo-pagina-vendas">
+<form action="" class="formulario-de-vendas">
+<br>   
+    <div class="produtos-vendidos">
+        <label for="produto">Produto Vendido: </label>
+        <td><label>
+            <select>
+                <option></option>
+                <option value="camisa_polo">Camisa Polo</option>
+                <option value="bermuda_canvas">Bermuda Canvas</option>
+                <option value="calca_jeans">Calça Jeans</option>
+                <option value="camiseta">Camiseta</option>
+                <option value="camisa_slim">Camisa Slim</option>
+                <option value="bone">Boné</option>
+                <option value="moletom">Moletom</option>
+            </select>
+        </label></td>
+        <br>
+        <label for="cor_vendida">Cor </label>
+            <select>
+                <option></option>
+            <option value="preto">Preta</option>
+            <option value="branco">Branca</option>
+            <option value="azul">Azul</option>
+             </select>
+             <td><label style="margin-left: 50px ;">Tamanho</label>
+                <select>
+                    <option></option>
+                    <option value="grande"><b>G</b></option>
+                    <option value="médio"><b>M</b></option>
+                    <option value="pequeno"><b>P</b></option>
+                </select></td>
+        </select>
+    </div>
+    <br>
+    <div class="preco-quantidade">
+        <label value="preco">Preço (em R$): </label>
+        <input type="number" id="Preco" name="preco" style="
+        width: 135px">
+       <br>
+        <label value="quantidade">Quantidade Vendida: </label>
+        <input type="number" id= "Quantidade" name="quantidade" style="width: 90px;">
+        <br>
+        <td><label value="opção-pagamento">Forma de Pagamento</label></td>
+       <select>
+           <option></option>
+           <option>Cartão de Crédito</option>
+           <option>Cartão de Débito</option>
+           <option>Dinheiro</option>
+           <option>Pix</option>
+       </select>
+    </div>
+
+    <div class="botao-formulario">
+        <button type="submit"><b>Adicionar</b></button>
+    </div>
+</form>
+</body>
+</html>

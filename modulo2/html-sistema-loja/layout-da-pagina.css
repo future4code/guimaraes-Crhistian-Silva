@@ -1,0 +1,127 @@
+body,html{
+    height: 100%;
+    margin: 0;
+}
+
+.titulos{
+    color: yellow;
+    font-family: sans-serif;
+}
+.titulo {
+    display: inline;
+    background-color: rgb(0, 174, 255);
+    color: black;
+    margin-left: 500px
+}
+
+.frase {
+        background-color: rgb(0, 174, 255);
+    color: black;
+    margin-right: 520px;
+    margin-left: 570px;
+}
+
+td{
+    color: yellow;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+a{
+    color: black;
+    background-color: rgb(238, 255, 0);
+    font-size: 20px;
+}
+
+.fundo-pagina-inicial{
+    background-image: url(/img/darksiders.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    background-attachment: fixed;
+}
+
+.titulo-estoque {
+    background-color: rgb(0, 174, 255);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-estoque {
+    background-image: url(./img/black-panther-new-2019_1569186552.jpg);
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position:center;
+    background-attachment: fixed;
+}
+
+#controle-estoque{
+    background-color: rgb(219, 219, 118);
+    color: rgb(39, 6, 158);
+    display: inline;
+    margin-top: 15px;
+    font-family: 'algerian';
+}
+
+.titulo-produtos {
+    background-color: rgb(0, 174, 255);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-produto{
+    background-image: url(./img/skull9.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.divs-produtos{
+    display: inline-table;
+    color: yellow;
+    background-color: blue;
+    font-size: 20px;
+}
+
+.titulo-funcionarios {
+    background-color: rgb(0, 174, 255);
+    color: #10053a;
+    display: inline;
+    margin-left: 400px;
+}
+
+.fundo-pagina-funcionarios{
+    background-image: url(./img/fundo3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.lista-vendedores{ display: inline-block;
+    background-color: white;
+}
+
+.fundo-pagina-vendas{
+    background-image: url(./img/gambit.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.produtos-vendidos{
+    display:inline;
+    font: bold;
+    font-size: 20px;
+    background-color: blanchedalmond;
+}
+
+.preco-quantidade{
+    display: inline;
+    font: bold;
+    font-size: 20px;
+    background-color:blanchedalmond
+}
