@@ -33,9 +33,6 @@ div>p:first-child {
     display: inline;
 }
 
-div img {
-    background: black;
-}
 
 .botao-amarelo {
     background-color: #ffaf43;
@@ -131,6 +128,7 @@ td button {
     background-color: #635a3d
 }
 
-#jeans{
-    text-align: center;
+img{
+    width: 30px;
+    height: 30px;
 }
