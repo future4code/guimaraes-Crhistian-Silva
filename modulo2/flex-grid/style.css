@@ -1,0 +1,94 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+header, footer{
+    display: flex;
+    background-color: mediumvioletred;
+    align-items: center;
+    justify-content: space-between;
+}
+
+img{
+    display: inline-flex;
+    width: 20px;
+
+}
+.titulo{
+    align-items: flex-start;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+button{
+    align-self:end;
+    justify-content: flex-end; 
+    border-radius: 30px;
+    background-color: darkturquoise;
+    margin-right: 10px;
+    width: 50px;
+}
+
+button:hover{
+    background-color: darkviolet;
+    transform: scale(2);
+    color: ghostwhite;
+    margin-right: 30px;
+}
+
+.sidebar-esquerda{
+    display:grid;
+    grid-template-columns: 1fr 7fr 1fr; 
+    align-items: flex-start;
+    background-color: #f2d0e0;
+}
+
+.icones-direita{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.titulos-servicos{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+ 
+.imagens-bolos{
+    width: 180px;
+    height: 200px;
+}
+
+.imagens-bolos:hover{
+    transform: scale(1.5)
+    
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 100vh;
+}
+
+.container-dos-bolos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding-left: 10px;
+    background-color: darkgray;
+    height: 100vh;
+}
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    height: 50px;
+} 
+#coracao{
+    width: 12px;
+    height: 12px;
+}
