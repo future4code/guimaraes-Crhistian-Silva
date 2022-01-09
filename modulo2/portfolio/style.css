@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.fundo-pagina{
+    background-image: url(./img-portfolio/Goku-vs-vegeta-pc.png);
+    background-size: cover;
+    background-position: bottom;
+    background-attachment:scroll;
+
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/*   Estilos Header*/
+.menu-header{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    padding-left: 5px;
+    height: 5vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #EE7752, #E73c7E, #23A605, #23D5AB);
+    background-size: 400% 400%;
+    position: relative;
+    letter-spacing: 2px;
+    animation: change 10s ease-in-out infinite;
+}
+      
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+.menu-header #projetos{
+    margin-left: 20px;
+  }
+
+/*   Estilos Header*/
+
+/* Estilos Main*/
+
+form{
+    background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
+    width:fit-content;
+}
+#botao-form{
+    border-radius: 8px;
+    padding: 2px;
+    background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
+    opacity: .7;
+    color: black;
+}
+
+#botao-form:hover{
+    transform: scale(1.5);
+    margin-left: 10px;
+    color: black;
+ }
+
+input{
+    caret-color: #ff0043;
+}
+
+.container-projetos{
+    display: flex;
+    flex-direction:column;
+    align-content: center;
+    font-size: 18px;
+}
+
+.container-projetos > a{
+  font-size: 16px;
+  font-family: fantasy;
+}
+
+#img-blackjack, #img-loja, #img-confeitaria{
+    height: 160px;
+    margin-top: 10px;;
+}
+
+.lateral-esquerda{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 5px;
+}
+/* Estilos Main*/
+
+
+/* Estilos Footer */
+
+#redes-sociais{
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 30px;
+}
+
+#icon-face{
+    height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+#icon-insta{
+    height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+#icon-github{
+    height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+#icon-face:hover{
+    transform: scale(1.5);
+}
+#icon-insta:hover{
+    transform: scale(1.5);
+}
+#icon-github:hover{
+    transform: scale(1.5);
+}
+
+
