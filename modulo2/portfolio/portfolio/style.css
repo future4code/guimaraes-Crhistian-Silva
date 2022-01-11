@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-header{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    justify-content:space-between;
+    margin: 5px;
+    padding-left: 5px;
+    width: 70vh;
+    height: 5vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #EE7752, #E73c7E, #23A605, #23D5AB);
+    background-size: 400% 400%;
+    position: relative;
+    letter-spacing: 2px;
+    animation: change 10s ease-in-out infinite;
+}
+      
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+main{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.menu-header #projetos{
+  margin-left: 20px;
+}
+
+.container-projetos{
+    display: flex;
+    flex-direction:column;
+}
+
+.fundo-pagina{
+    background-image: url(./img/goku2.jpg);
+    background-size: cover;
+    background-position:bottom;
+    background-attachment:scroll;
+
+}
+
+.lateral-esquerda{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 5px;
+
+}
+
+#botao-form{
+    border-radius: 8px;
+    padding: 2px;
+    background: linear-gradient(to bottom right, #002f4b, #dc4225);
+    opacity: .7;
+    color: black;
+}
+
+#botao-form:hover{
+    transform: scale(1.5);
+    margin-left: 10px;
+    color: black;
+ }
+
+input{
+    caret-color: #ff0043;
+}
+
+/* Estilos Footer */
+
