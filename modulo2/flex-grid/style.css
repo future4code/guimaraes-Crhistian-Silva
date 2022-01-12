@@ -78,7 +78,7 @@ main{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     padding-left: 10px;
-    background-color: darkgray;
+    box-shadow:  darkgray;
     height: 100vh;
 }
 footer{
