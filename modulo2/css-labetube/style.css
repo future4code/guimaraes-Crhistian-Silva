@@ -24,25 +24,19 @@ header div{
 /* Estilo do Header*/
 /****************************************************************************************/
 /* Estilo do Main*/
-main{
-    height: 100vh;
-    width: 100vh;
-    justify-content: center;
-    margin-bottom:400px;
-}
 body{
-    background-color: #b3af34;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
 }
 .bloco-videos{
     display: grid;
     grid-template-columns:repeat(4, 1fr);
     grid-template-rows: 1fr 1fr ;
-    text-align: center;
-    width: 100%;
-    height: fit-content;
     background-color:#34b8c6;
-    padding-left: 30px;
-    padding-right: 30px;
+    justify-content: space-between;
+    padding-bottom: 100px;
+
 }
 
 .video-individual{
@@ -81,6 +75,7 @@ footer{
     color: white;
     border-bottom: solid 2px tomato;
     padding-top: 50px;
+}
 
 /* Estilo do Footer*/
 
