@@ -27,6 +27,7 @@ header div{
 body{
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .bloco-videos{
