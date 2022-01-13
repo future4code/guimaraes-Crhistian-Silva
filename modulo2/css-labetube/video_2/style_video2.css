@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo do Header*/
+header{
+    display: flex;
+    background-color: tomato;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+}
+header div{ 
+    padding-left: 20px;
+}
+#busca{
+    width: 300px;
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+/* Estilo do Header*/
+/****************************************************************************************/
+/* Estilo do Main*/
+main{
+    height: 100vh;
+    background-color: #34b8c6;
+    margin-bottom: 300px;
+}
+
+body{
+    background-color: #b3af34;
+}
+.video-individual{
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+#controle-video{
+    width: 100vh;
+}
+/****************************************************************************************/
+/* Estilo do Footer*/
+footer{
+    display: flex;
+    background-color:#090979;
+    height: 80px;
+    color: white;
+    border-bottom: solid 2px tomato;
+    padding-top: 50px;
+
+/* Estilo do Footer*/

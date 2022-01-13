@@ -8,26 +8,30 @@ header, footer{
     background-color: mediumvioletred;
     align-items: center;
     justify-content: space-between;
+
+}
+
+header div{
+    display: flex;
+    align-items: center;
+}
+header >div > h2{
+    padding-left:10px;
 }
 
 img{
-    display: inline-flex;
+    display: flex;
     width: 20px;
 
 }
-.titulo{
-    align-items: flex-start;
-    flex-grow: 1;
-    padding: 10px;
-}
 
 button{
-    align-self:end;
-    justify-content: flex-end; 
+    
     border-radius: 30px;
     background-color: darkturquoise;
     margin-right: 10px;
     width: 50px;
+    align-items: center;
 }
 
 button:hover{
@@ -38,28 +42,51 @@ button:hover{
 }
 
 .sidebar-esquerda{
-    display:grid;
-    grid-template-columns: 1fr 7fr 1fr; 
-    align-items: flex-start;
+    display:flex;
+    flex-direction: column;
     background-color: #f2d0e0;
+    width: 700px;
+    padding: 10px;
 }
 
-.icones-direita{
+.sidebar-esquerda div{
     display: flex;
-    flex-direction: column;
+  
+}
+
+.sidebar-esquerda div p{
+    padding-left: 10px;
+}
+
+sidebar .sidebar-menu{
+    display: flex;
     justify-content: space-between;
-    
+}
+.icone-texto{
+    display: flex;
+    padding: 10px;
 }
 
-.titulos-servicos{
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
+
+/*Estilizacao do Main*/
+.card-bolo{
+    text-align: center;
+    box-shadow: darkgray;
+    width: fit-content;
+    border: 1px solid;
+    justify-content: space-between;
+
 }
- 
-.imagens-bolos{
-    width: 180px;
-    height: 200px;
+.card-bolo img{
+    width: 100%;
+}
+
+.card-bolo h2{
+    padding: 10px;
+
+}
+.card-bolo p{
+    padding: 0 30px;
 }
 
 .imagens-bolos:hover{
@@ -67,28 +94,37 @@ button:hover{
     
 }
 
-main{
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    height: 100vh;
-}
-
 .container-dos-bolos{
     display: grid;
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center;
     padding-left: 10px;
+<<<<<<< HEAD
     box-shadow:  darkgray;
     height: 100vh;
+=======
+  
+>>>>>>> b5287fccee49110dbb3b3cb3275ecafbf6a86e03
 }
+
+
+
 footer{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-content: center;
-    height: 50px;
+  
+
 } 
-#coracao{
-    width: 12px;
-    height: 12px;
+
+body{
+    display: grid;
+    grid-template-rows: 60px 1fr 60px;
+    grid-template-columns: 1fr;
+}
+
+main{
+   display:flex;
+   height: max-content;
+
 }
