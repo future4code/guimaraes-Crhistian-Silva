@@ -99,7 +99,12 @@ sidebar .sidebar-menu{
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding-left: 10px;
+<<<<<<< HEAD
+    box-shadow:  darkgray;
+    height: 100vh;
+=======
   
+>>>>>>> b5287fccee49110dbb3b3cb3275ecafbf6a86e03
 }
 
 
