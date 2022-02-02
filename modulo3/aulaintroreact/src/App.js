@@ -5,7 +5,7 @@ import logof4 from "./img/f4life.png"
 function App() {
   return (
     <div>
-      <h1> Aprenda React com a Labenu</h1>
+      <h1> React com a Labenu</h1>
 <img src={logof4} alt="logo"/>
     </div>  
   )
