@@ -5,7 +5,6 @@ const ImageButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 4px ;
     position: relative;
     background-color: white;
     border-radius: 5vh;
@@ -21,7 +20,7 @@ const ImageButtonContainer = styled.div`
         background: linear-gradient(to bottom right, #6889FF 0%, #C668FF 100%);
         
         z-index: -1;
-        margin: -4px;
+     
         border-radius: 8px;
     }
     
