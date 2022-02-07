@@ -56,9 +56,6 @@ const MessageSent = styled.div`
     align-content: flex-end;
     height: inherit;
     position: relative;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  
 `
 /*--------------------------------------------------------------------------------*/
 
@@ -75,7 +72,8 @@ const UserMessageContainer = styled.div`
         background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
         width: 100%;
         padding-top: 15px;
-        border: 1px 0 solid;
+        padding-left: 10px;
+        border-radius: 2vh 2vh;
         caret-color: red;
         display: block;
     }
