@@ -65,9 +65,8 @@ const UserMessageContainer = styled.div`
     justify-content: space-between;
     border: 1px solid black;
     width: auto;
-
+    
     input{
-       
         background-color: #FFDEE9;
         background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
         width: 100%;
@@ -83,9 +82,63 @@ const UserMessageContainer = styled.div`
         height: 5vh;
         align-self: flex-start;
     }
-    .bodyUser{
-        width: 10vw;
+    @media(max-width: 800px) {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat( 3, 1fr)
+        background-color: red;
+    input{
+        display: flex;
+        width: 30vw;
+       border-radius: 2vh 2vh;
+       caret-color: red;
+       display: inline;
+       grid-column: 2/ 3;
     }
+    .Select1{
+        display: flex;
+        align-self: flex-start;
+        height: 100%;
+        width: 15vw;
+        grid-row: 1/ 1
+    }
+    .Select2{
+        display: flex;
+        align-self: flex-start;
+        height: 100%;
+        width: 15vw;
+        grid-row: 2/ 2
+
+    }
+    .Button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20vw;
+        border-radius: 15px 5px;
+        background: linear-gradient(to right, #c02425, #f0cb35);
+        text-align: center;
+        color: white;
+        grid-column: 2/ 3;
+        
+:hover{
+    transform: translateX(0) scale(1.1)
+}
+::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10vw;
+    height: 100%; 
+    background: linear-gradient(to bottom right, #6889FF 0%, #C668FF 100%); 
+    z-index: -1;
+    border-radius: 2vh 1vh; 
+    grid-column: 2/ 3
+}
+:active{
+    transform: translateY(1px)}
+}}}
 `
 /*--------------------------------------------------------------------------------*/
 
