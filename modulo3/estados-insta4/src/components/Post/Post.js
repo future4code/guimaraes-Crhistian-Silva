@@ -78,6 +78,9 @@ class Post extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+
+    
     let iconeCurtida
 
     if(this.state.curtido) {
@@ -95,11 +98,12 @@ class Post extends React.Component {
 
     return <PostContainer>
       <PostHeader>
-        <UserPhoto src={this.props.fotoUsuario} alt={'Imagem do usuario'}/>
+        <UserPhoto src={this.props.fotoUsuario} alt={'bla bla bla'}/>
         <p>{this.props.nomeUsuario}</p>
       </PostHeader>
+      
 
-      <PostPhoto src={this.props.fotoPost} alt={'Imagem do post'}/>
+      <PostPhoto src={this.props.fotoPost} alt={'testando'}/>
 
       <PostFooter>
         <IconeComContador
