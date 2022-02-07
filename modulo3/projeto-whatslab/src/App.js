@@ -1,47 +1,83 @@
 import './App.css';
 import React from "react";
 import styled from "styled-components";
-import avatar from './img/boy.png';
+
+/*-----------------ESTILIZAÇÃO DO BODY DO PROJETO-----------------------*/
 
 const BodyWatsLabContainer = styled.div`
 display: flex;
 flex-direction: column;
 width: 50vw;
 height: 70vh;
-margin: 50px;
+margin: 2em auto;
 `
-const MessageSent = styled.div`
-  display: flex;
-  flex-direction: column;
-    background-color: yellow;
-    border: 1px solid black;
-    height: 60vh;
-    justify-content: flex-end;
- 
-`
-const StyleMap = styled.div`
-display: flex;
+/*---------------------------------------------------------------------*/
 
+/*--------------ESTILIZAÇÃO DO MAP -------------------*/
+const StyleMap = styled.div`
+    display: flex;
+    height: 20px;
+    background-color: #85FFBD;
+    background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    border-radius: 20px;
+    height:  4vh;
+    width: max-content;
+    align-items: center;
+    font-family: cursive;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    color: black;
+    padding-left: 5px;
 p{
-      display:flex;
-      height: 20px;
-      background-color: blue;
-      color: white;
-      padding-left: 5px;
-    }
+    display:flex;
+    height: 20px;
+    padding-left: 5px;
+    border-radius: 15px 20px
+    height: 20vh;
+    font-size: 16px;
+}
+.NameUser{
+    text-transform: uppercase;
+}
 `
+/*---------------------------------------------------------*/
+
+/*--------------ESTILIZAÇÃO DO CONTAINER QUE RECEBE RETORNO DO MAP -------------------*/
+
+const MessageSent = styled.div`
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    justify-content: flex-end;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    overflow-x: auto;
+    overflow-x: auto;
+    align-items: flex-start;
+    align-content: flex-end;
+    height: inherit;
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+`
+/*--------------------------------------------------------------------------------*/
+
+/*---------------------ESTILIZAÇÃO DO CONTAINER DOS ELEMENTOS DO INPUT E BUTTON------------------*/
 const UserMessageContainer = styled.div`
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
-    
-    
+    width: auto;
+
     input{
-        background-color:cyan;
+       
+        background-color: #FFDEE9;
+        background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
         width: 100%;
         padding-top: 15px;
         border: 1px 0 solid;
-        
+        caret-color: red;
+        display: block;
     }
     img{
         display:flex;
@@ -53,11 +89,15 @@ const UserMessageContainer = styled.div`
         width: 10vw;
     }
 `
+/*--------------------------------------------------------------------------------*/
+
+/*---------------------ESTILIZAÇÃO DO BUTTON------------------*/
 const SendButton = styled.div`
    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    width: auto;
     border-radius: 50vh 5vh;
     background: linear-gradient(to right, #c02425, #f0cb35);
     text-align: center;
@@ -77,61 +117,85 @@ const SendButton = styled.div`
     border-radius: 2vh 1vh; 
 }
 :active{
-    transform: translateY(1px)
-}
+    transform: translateY(1px)}
 }
 `
+/*--------------------------------------------------------------------------------*/
+
 class App extends React.Component{
     state = {
         bodyMessage :[],
         inputUser: '',
-        inputMessage: ''   
-      }
+        inputMessage: '',
     
-  onChangeUser = (event) => {
+      }
+
+onChangeUser = (event) => {
         this.setState({inputUser: event.target.value})
         console.log(this.state)
     }
 
-    onChangeMessage = (event) =>{
+onChangeMessage = (event) =>{
         this.setState({inputMessage: event.target.value})
-        console.log(this.state)
     }
-
-    onClickMessage = () =>{
-        const bodyMessages = {
-            id: Math.random(),
-            user: this.state.inputUser,
-            message: this.state.inputMessage,
-           
-        }
-        const newBodyMessages = [...this.state.bodyMessage, bodyMessages]
-        this.setState({bodyMessage: newBodyMessages})
-        this.setState({inputUser: '', inputMessage: ''})
-        console.log('mensagem enviada', this.state)
+onChangeEmotion =(onclick) =>{
+    this.setState({emotion: onclick.target.value})
+}
+    
+onClickMessage = () => {
+    const bodyMessages = {
+        id: Math.random(),
+        user: this.state.inputUser,
+        message: this.state.inputMessage,
+        emotion: this.state.emotion
     }
+    const newBodyMessages = [...this.state.bodyMessage, bodyMessages]
+    this.setState({bodyMessage: newBodyMessages})
+    this.setState({inputUser: '', inputMessage: '', emotion: ''})
+}
     render() {
         const bodyMessageComponente = this.state.bodyMessage.map((message,index)=>{
-            return( <StyleMap><p key={index.id}> <b>{message.user}: </b> </p> <p> {message.message}</p></StyleMap>);
-          }
-          );
+            return( 
+                       <StyleMap><p className='NameUser' key={index.id}> <i><b>{message.user}:</b></i></p> <p> {message.message} {message.emotion}</p></StyleMap>  
+            );
+        });
      
         return(
                 
                 <BodyWatsLabContainer>
                     <MessageSent>
-                     {bodyMessageComponente}
+                        {bodyMessageComponente}
                     </MessageSent>
+
                     <UserMessageContainer>
-                      <img src={avatar}/>
-                      <input className="bodyUser"placeholder="USUÁRIO" value={this.state.inputUser} onChange={this.onChangeUser}/>
-                      <input className="bodyMessage" placeholder='DIGITE AQUI' value={this.state.inputMessage} onChange={this.onChangeMessage}/>
-                      <SendButton onClick={this.onClickMessage}>ENVIAR</SendButton>
+                        <select>
+                            <option></option>
+                            <option>&#128102;Boy</option>
+                            <option>&#128103;Girl</option>
+                        </select>
+                        <input className="bodyUser"placeholder="USUÁRIO" value={this.state.inputUser} onChange={this.onChangeUser}/>
+                        <input className="bodyMessage" placeholder='DIGITE SUA MENSAGEM' value={this.state.inputMessage} onChange={this.onChangeMessage} />
+                        <select value={this.emotion} onChange={this.onChangeEmotion}>
+                            <option></option>
+                            <option>&#128526;</option>
+                            <option>&#128521;</option> 
+                            <option>&#128524;</option>
+                            <option>&#128523;</option>
+                            <option>&#128512;</option>
+                            <option>&#128575;</option>
+                            <option>&#128515;</option>
+                            <option>😏</option>
+                            <option>👻</option>
+                            <option>😅</option>
+                            <option>🙊</option>
+                            <option>😭</option>
+                        </select>
+                        <SendButton onClick={this.onClickMessage}>ENVIAR</SendButton>
                     </UserMessageContainer>
                     
                 </BodyWatsLabContainer>
         )
     }
-  }
+}
 
 export default App;
