@@ -1,0 +1,13 @@
+*{
+  margin:0;
+  padding: 0;
+}
+
+.BodyWatsLabContainer{
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  margin: 10vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
