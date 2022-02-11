@@ -32,14 +32,16 @@ p{
     display:flex;
     height: 20px;
     padding-left: 5px;
-    border-radius: 15px 20px
+    border-radius: 15px 20px;
     height: 20vh;
     font-size: 16px;
-}
+
 .NameUser{
     text-transform: uppercase;
+    }
 }
 `
+
 /*---------------------------------------------------------*/
 
 /*--------------ESTILIZAÇÃO DO CONTAINER QUE RECEBE RETORNO DO MAP -------------------*/
@@ -85,7 +87,7 @@ const UserMessageContainer = styled.div`
     @media(max-width: 800px) {
         display:grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat( 3, 1fr)
+        grid-template-rows: repeat( 3, 1fr);
         background-color: red;
     input{
         display: flex;
@@ -138,7 +140,7 @@ const UserMessageContainer = styled.div`
 }
 :active{
     transform: translateY(1px)}
-}}}
+}}
 `
 /*--------------------------------------------------------------------------------*/
 
@@ -168,7 +170,7 @@ const SendButton = styled.div`
     border-radius: 2vh 1vh; 
 }
 :active{
-    transform: translateY(1px)}
+    transform: translateY(1px)
 }
 `
 /*--------------------------------------------------------------------------------*/
