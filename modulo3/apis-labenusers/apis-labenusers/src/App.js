@@ -1,115 +1,126 @@
-import React from 'react'
-import './App.css'
-import Cadastros from './components/cadastros'
-import ListaCadastros from './components/listaCadastros'
-import axios from 'axios'
+import React from "react";
+import "./App.css";
+import Cadastros from "./components/cadastros";
+import ListaCadastros from "./components/listaCadastros";
+import axios from "axios";
+import { Route, Routes } from 'react-router-dom';
 
-
-
-const urlUsers = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
+const urlUsers =
+  "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users";
 
 const headers = {
-    headers: {
-        Authorization: "crhistian-felipe-guimaraes"
+  headers: {
+    Authorization: "crhistian-felipe-guimaraes",
+  },
+};
 
-    }
-}
 
-class App extends React.Component{
+class App extends React.Component {
   state = {
     usuario: [],
     inputNome: "",
-    inputEmail: ""
-}
+    inputEmail: "",
+  };
 
-onChangeNome = (event) => {
-    this.setState({ inputNome: event.target.value })
+  onChangeNome = (event) => {
+    this.setState({ inputNome: event.target.value });
+  };
 
-}
+  onChangeEmail = (event) => {
+    this.setState({ inputEmail: event.target.value });
+  };
 
-onChangeEmail = (event) => {
-    this.setState({ inputEmail: event.target.value })
-}
-
-
-createUserApi = () => {
+  createUserApi = () => {
     const body = {
-        name: this.state.inputNome,
-        email: this.state.inputEmail,
-    }
+      name: this.state.inputNome,
+      email: this.state.inputEmail,
+    };
 
     axios
-        .post(urlUsers, body, headers)
-        .then((response) => {
-            console.log(response.data)
-            alert(`O usuário ${this.state.inputNome} foi criado com sucesso`)
-            this.setState({ inputNome: "" })
-            this.setState({ inputEmail: "" })
-        })
-        .catch((error) => {
-            console.log(error.response.data.message)
-        })
-}
-
-getUserApi = () => {
-  axios
-      .get(urlUsers, headers)
+      .post(urlUsers, body, headers)
       .then((response) => {
-          this.setState({ usuario: response.data})
-          console.log(response.data)
+        console.log(response.data);
+        this.setState({ inputNome: "" });
+        this.setState({ inputEmail: "" });
+        alert(`O usuário ${this.state.inputNome} foi criado com sucesso`);
       })
       .catch((error) => {
-          console.log(error)
+        console.log(error.response.data.message);
+      });
+  };
+
+  getUserApi = () => {
+    axios
+      .get(urlUsers, headers)
+      .then((response) => {
+        this.setState({ usuario: response.data });
+        console.log(response.data);
       })
-}
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-onClickDelUser = (idUser) => {
-  axios
-  .delete(`https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${idUser}`, headers)
-  .then((response)=>{
-      this.getUserApi()
-      console.log(response)
-  })
-  .catch((error)=>{
-      console.log(error.response)
-  })
+  onClickDelUser = (idUser) => {
+    axios
+      .delete(
+        `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${idUser}`,
+        headers
+      )
+      .then((response) => {
+        this.getUserApi();
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
 
-}
+  componentDidMount() {
+    this.getUserApi();
+  }
 
-componentDidMount() {
- this.getUserApi()
-}
+  render() {
+ 
 
-
-  render(){
     const usuarioComponente = this.state.usuario.map((user) => {
       return (
-      <>
-        <li key={user.id}> {user.name}
-        <button onClick={() => this.onClickDelUser(user.id)}> DEL USER</button></li>
-      </>
-    
-      )
-        
-  });
+        <>
+          <li key={user.id}>
+            {" "}
+            {user.name}
+            <button onClick={() => this.onClickDelUser(user.id)}>
+              {" "}
+              DEL USER
+            </button>
+          </li>
+        </>
+      );
+    });
 
-    return(
+    return (
       <>
+        <Routes>
 
-   <Cadastros 
-   valorInputNome={this.state.inputNome}
-   valorInputEmail={this.state.inputEmail}
-   valorOnchageNome={this.onChangeNome}
-   valorOnchageEmail={this.onChangeEmail}
-   valorBotao={this.createUserApi}
-   />
-  <ListaCadastros
-  saudacao={'Aqui vai o retorno do map'}
-  componenteRendeizado={usuarioComponente}
-  />
+          <Route path="/" element={  
+          <Cadastros
+            valorInputNome={this.state.inputNome}
+            valorInputEmail={this.state.inputEmail}
+            valorOnchageNome={this.onChangeNome}
+            valorOnchageEmail={this.onChangeEmail}
+            valorBotao={this.createUserApi}
+          />}
+          />
+        <Route path="/listaCadastros" element={
+          <ListaCadastros
+          componenteRenderizado={usuarioComponente}
+        />
+        }
+        />   
+        </Routes>
       </>
-    )
+    );
   }
 }
 
-export default App
+export default App;

@@ -24,7 +24,6 @@ width: 20em;
 .botaoNavilink #botao{
     border-radius: 10px;
     border: solid 1px; 
-    color: #fff;
     padding: 0.2rem;
     margin-bottom: 0.2rem;
     background-color: #C877E7;
@@ -32,8 +31,7 @@ width: 20em;
 `
 
 class ListaCadastros extends React.Component {
- 
-   
+
     render() {
 
         return (
@@ -41,7 +39,7 @@ class ListaCadastros extends React.Component {
                 <div class="botaoNavilink">
                 <NavLink id='botao' to="/">Troca</NavLink>
                 </div>
-                {this.props.componenteRenderizado}
+              {this.props.componenteRenderizado}
             </ListaEstilizada>
         )
     }

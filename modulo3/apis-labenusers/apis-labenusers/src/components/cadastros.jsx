@@ -7,7 +7,7 @@ display: flex;
 flex-direction: column;
 font-weight: bold;
 color:  #fff;
-width: 30vw;
+width: 50vw;
 height: 40vh;
 margin-left: 20vw;
 margin-top: 2rem;
