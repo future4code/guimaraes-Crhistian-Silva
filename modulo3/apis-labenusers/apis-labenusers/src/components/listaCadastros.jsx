@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
+
 
 const ListaEstilizada = styled.div`
 display: flex;
@@ -20,54 +20,16 @@ button{
 }
 `
 
-const urlUsers = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
-
-const headers = {
-    headers: {
-        Authorization: "crhistian-felipe-guimaraes"
-
-    }
-}
-
 class ListaCadastros extends React.Component {
-    state = {
-        usuario: []
-    }
-
-    getUserApi = () => {
-        axios
-            .get(urlUsers, headers)
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ usuario: response.data })
-                console.log(this.state.usuario)
-            })
-            .catch((error) => {
-                console.log(error.data.result.list)
-            })
-    }
-
-    onClickDelUser = () => {
  
-    }
-
-    componentDidMount() {
-       this.getUserApi()
-    }
-
+   
     render() {
 
-       
-        const usuarioComponente = this.state.usuario.map((user) => {
-            return <li key={user.id}> {user.name}
-              <button onClick={() => this.onClickDelUser(user.id)}> DEL USER</button></li>
-              
-        });
-
         return (
-            <ListaEstilizada >
-                aqui vai a lista
-                {usuarioComponente}
+            <ListaEstilizada  >
+                {this.props.saudacao}
+                {this.props.componenteRendeizado}
+                {this.props.valorRenderizacao}
               
             </ListaEstilizada>
         )

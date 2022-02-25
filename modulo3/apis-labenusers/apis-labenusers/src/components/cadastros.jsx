@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components'
-import axios from 'axios'
 
 const CadastrosEstilizados = styled.div`
 display: flex;
@@ -63,51 +62,9 @@ font-family: 'Roboto', sans-serif;
     transform: translateY(0)5px;
 }  
 `
-const urlUsers = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
 
-const headers = {
-    headers: {
-        Authorization: "crhistian-felipe-guimaraes"
-
-    }
-}
 
 class Cadastros extends React.Component {
-    state = {
-        usuario: [],
-        inputNome: "",
-        inputEmail: ""
-    }
-
-    onChangeNome = (event) => {
-        this.setState({ inputNome: event.target.value })
-
-    }
-
-    onChangeEmail = (event) => {
-        this.setState({ inputEmail: event.target.value })
-    }
-
-
-    createUserApi = () => {
-        const body = {
-            name: this.state.inputNome,
-            email: this.state.inputEmail,
-        }
-
-        axios
-            .post(urlUsers, body, headers)
-            .then((response) => {
-                console.log(response.data)
-                alert(`O usuário ${this.state.inputNome} foi criado com sucesso`)
-                this.setState({ inputNome: "" })
-                this.setState({ inputEmail: "" })
-               
-            })
-            .catch((error) => {
-                console.log(error.response.data.message)
-            })
-    }
 
     render() {
 
@@ -117,22 +74,22 @@ class Cadastros extends React.Component {
                 <form>
                     <div>
                         <label>Nome</label>
-                        <input value={this.state.inputNome}
+                        <input value={this.props.valorInputNome}
+                        onChange={this.props.valorOnchageNome}
                             type="text" class="form-control"
-                            id="" placeholder="Digite seu nome"
-                            onChange={this.onChangeNome}
+                            id=""
                         />
                     </div>
                     <div>
                         <label>Email</label>
-                        <input value={this.state.inputEmail}
+                        <input value={this.props.valorInputEmail}
+                            onChange={this.props.valorOnchageEmail}
                             type="email" class="form-control2"
                             id="" placeholder="nome@exemplo.com"
-                            onChange={this.onChangeEmail}
                         />
                     </div>
                     <div>
-                        <StyleButton onClick={this.createUserApi}>Enviar</StyleButton>
+                        <button onClick={this.props.valorBotao}>Enviar</button>
                     </div>
                 </form>
             </CadastrosEstilizados>
