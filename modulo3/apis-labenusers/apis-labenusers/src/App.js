@@ -1,23 +1,18 @@
-import "./App.css";
-import React from "react";
-import Cadastros from "./components/cadastros";
-import ListaCadastros from "./components/listaCadastros";
-import styled from "styled-components";
+import React from 'react'
+import './App.css'
+import Cadastros from './components/cadastros'
+import ListaCadastros from './components/listaCadastros'
 
-const EstiloApp = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
-class App extends React.Component {
-  render() {
-    return (
-      <EstiloApp>
-        <Cadastros />
-        <ListaCadastros />
-      </EstiloApp>
-    );
+class App extends React.Component{
+  render(){
+    return(
+      <>
+      <Cadastros/>
+      <ListaCadastros/>
+      </>
+    )
   }
 }
 
-export default App;
+export default App

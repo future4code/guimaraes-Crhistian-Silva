@@ -15,7 +15,11 @@ color: black;
 margin-top: 2rem;
 height: 20em;
 width: 20em;
+button{
+    margin: 1em;
+}
 `
+
 const urlUsers = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
 
 const headers = {
@@ -35,30 +39,36 @@ class ListaCadastros extends React.Component {
             .get(urlUsers, headers)
             .then((response) => {
                 console.log(response.data)
-
+                this.setState({ usuario: response.data })
+                console.log(this.state.usuario)
             })
             .catch((error) => {
                 console.log(error.data.result.list)
-
             })
+    }
 
+    onClickDelUser = () => {
+ 
     }
 
     componentDidMount() {
-        this.getUserApi()
+       this.getUserApi()
     }
 
     render() {
 
+       
         const usuarioComponente = this.state.usuario.map((user) => {
-            return <li key={user.id}> {user.name}  <button>Del User</button></li>
+            return <li key={user.id}> {user.name}
+              <button onClick={() => this.onClickDelUser(user.id)}> DEL USER</button></li>
+              
         });
 
         return (
             <ListaEstilizada >
                 aqui vai a lista
                 {usuarioComponente}
-
+              
             </ListaEstilizada>
         )
     }
