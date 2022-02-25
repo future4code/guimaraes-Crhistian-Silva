@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 
 const ListaEstilizada = styled.div`
@@ -9,15 +10,25 @@ font-weight: bold;
 width: 50vw;
 margin-left: 20vw;
 height: 30vh;
-justify-content: center;
 background-color: pink;
 color: black;
 margin-top: 2rem;
 height: 20em;
 width: 20em;
-button{
-    margin: 1em;
+
+.botaoNavilink{
+    margin-top:5px;
+    margin-bottom: 2rem;
 }
+
+.botaoNavilink #botao{
+    border-radius: 10px;
+    border: solid 1px; 
+    color: #fff;
+    padding: 0.2rem;
+    margin-bottom: 0.2rem;
+    background-color: #C877E7;
+} 
 `
 
 class ListaCadastros extends React.Component {
@@ -27,10 +38,10 @@ class ListaCadastros extends React.Component {
 
         return (
             <ListaEstilizada  >
-                {this.props.saudacao}
-                {this.props.componenteRendeizado}
-                {this.props.valorRenderizacao}
-              
+                <div class="botaoNavilink">
+                <NavLink id='botao' to="/">Troca</NavLink>
+                </div>
+                {this.props.componenteRenderizado}
             </ListaEstilizada>
         )
     }
