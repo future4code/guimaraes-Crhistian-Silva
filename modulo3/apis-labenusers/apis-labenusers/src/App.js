@@ -43,6 +43,7 @@ class App extends React.Component {
         this.setState({ inputNome: "" });
         this.setState({ inputEmail: "" });
         alert(`O usuário ${this.state.inputNome} foi criado com sucesso`);
+        this.getUserApi()
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -86,7 +87,7 @@ class App extends React.Component {
     const usuarioComponente = this.state.usuario.map((user) => {
       return (
         <>
-          <li key={user.id}>
+          <li class="listarenderizada" key={user.id}>
             {" "}
             {user.name}
             <button onClick={() => this.onClickDelUser(user.id)}>
