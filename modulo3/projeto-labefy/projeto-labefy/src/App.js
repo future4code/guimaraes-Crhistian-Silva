@@ -1,48 +1,39 @@
-import "./App.css";
-import React from "react";
-import Playlists from "./components/playlists";
-import TelaInicial from "./components/telainicial";
-import CriarPlaylists from "./components/criarplaylists";
+import React, { Component } from 'react';
+import TelaInicial from "./component/telainicial";
+import Playlists from "./component/playlists";
 
-class AllPlaylists extends React.Component {
+
+
+class App extends React.Component {
   state = {
-    tela: "TelaInicial",
-    name: [],
+    telaAtual: "Tela Inicial",
   };
 
-  escolheTela = () => {
-    switch (this.state.tela) {
-      case "TelaInicial":
-        return (
-          <TelaInicial
-            IrParaPlaylists={this.IrParaPlaylists}
-            IrParaCriarPlaylists={this.IrParaCriarPlaylists}
-          />
-        );
-      case "Playlists":
-        return <Playlists IrParaTelaInicial={this.IrParaTelaInicial} />;
-      case "CriarPlaylists":
-        return <CriarPlaylists IrParaTelaInicial={this.IrParaTelaInicial} />;
+  escolherTela = () => {
+    switch (this.state.telaAtual) {
+      case "Tela Inicial":
+        return <TelaInicial valorFuncaoMudaTela={this.mudaTela}/>;
+/*       case "Playlists":
+        return <Playlists valorFuncaoMudaTela={this.mudaTela} />; */
       default:
-        return <p>Tela Não Selecionada</p>;
+        return <TelaInicial />;
     }
   };
 
-  IrParaTelaInicial = () => {
-    this.setState({ tela: "TelaInicial" });
+  mudaTela = (nomeTela) => {
+    this.setState({ telaAtual: nomeTela });
   };
 
-  IrParaPlaylists = () => {
-    this.setState({ tela: "Playlists" });
-  };
-
-  IrParaCriarPlaylists = () => {
-    this.setState({ tela: "CriarPlaylists" });
-  };
 
   render() {
-    return <div className="App">{this.escolheTela()}</div>;
+
+
+    return (
+      <div>
+        {this.escolherTela()}
+      </div>
+    );
   }
 }
 
-export default AllPlaylists;
+export default App
