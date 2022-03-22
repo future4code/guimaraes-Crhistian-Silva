@@ -35,8 +35,7 @@ function TelaInicial(props) {
       .post(`${urlAstro}/choose-person`, body)
       .then((response) => getProfile())
       .catch((error) => console.log(error));
-    console.log(perfil);
-  };
+};
 
   const unLike = () => {
     const body = {
@@ -50,11 +49,14 @@ function TelaInicial(props) {
   };
 
   const clearAll = () => {
-    axios
+    if(window.alert("Deseja Resetar sua Lista de Matches ?")){
+      axios
       .put(`${urlAstro}/clear`)
-      .then((response) => setPerfil(""), getProfile())
+      .then((response) => setPerfil([]), getProfile())
       .catch((error) => console.log(error));
   };
+}
+    
 
   return (
     <div id="root">
