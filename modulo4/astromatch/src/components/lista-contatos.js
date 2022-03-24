@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import Astromatch from "./astromatch.png";
 import TelaInicial from "./telaInicial";
 
@@ -19,6 +20,7 @@ function ListaContatos(props) {
     getMatches();
   }, []);
 
+ 
   const getMatches = () => {
     axios
       .get(`${urlAstro}/matches`)
@@ -26,6 +28,14 @@ function ListaContatos(props) {
       .catch((error) => console.log(error));
   };
 
+  const clearAll = () => {
+    if(window.confirm("Deseja Resetar sua Lista de Matches ?")){
+      axios
+      .put(`${urlAstro}/clear`)
+      .then((response) => console.log(response), setNovoEstadoPerfil([]))
+      .catch((error) => console.log(error));
+    }
+  };
   console.log(novoEstadoPerfil);
 
   const RetornoPerfil = () => {
@@ -33,14 +43,12 @@ function ListaContatos(props) {
       <>
         {novoEstadoPerfil.map((user) => {
           return (
-            <div key={user.id}>
-              <ul className="ul-contatos">
+              <ul key={user.id} className="ul-contatos">
                 <li className="lista-contatos">
                   <img className="div-imagem-lista" src={user.photo}></img>
                   <p className="p-lista-contatos">{user.name}</p>
                 </li>
               </ul>
-            </div>
           );
         })}
       </>
@@ -63,7 +71,7 @@ function ListaContatos(props) {
           <RetornoPerfil />
         </div>
       </div>
-      <button className="botao-limpar" onClick={props.limparTudo}>
+      <button className="botao-limpar" onClick={clearAll}>
         Limpar tudo
       </button>
       {!novoEstadoTela && <TelaInicial />}

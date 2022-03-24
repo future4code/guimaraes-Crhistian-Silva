@@ -6,7 +6,7 @@ import ListaContatos from "./lista-contatos";
 const urlAstro =
   "https://us-central1-missao-newton.cloudfunctions.net/astroMatch/crhistian";
 
-function TelaInicial(props) {
+function TelaInicial() {
   const [perfil, setPerfil] = useState([]);
   const [tela, setTela] = useState(false);
 
@@ -35,7 +35,8 @@ function TelaInicial(props) {
       .post(`${urlAstro}/choose-person`, body)
       .then((response) => getProfile())
       .catch((error) => console.log(error));
-};
+    console.log(perfil);
+  };
 
   const unLike = () => {
     const body = {
@@ -49,14 +50,13 @@ function TelaInicial(props) {
   };
 
   const clearAll = () => {
-    if(window.alert("Deseja Resetar sua Lista de Matches ?")){
+    if(window.confirm("Deseja Resetar sua Lista de Matches ?")){
       axios
       .put(`${urlAstro}/clear`)
-      .then((response) => setPerfil([]), getProfile())
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
+    }
   };
-}
-    
 
   return (
     <div id="root">
@@ -97,7 +97,7 @@ function TelaInicial(props) {
       <button onClick={clearAll} className="botao-limpar">
         Limpar tudo
       </button>
-      {tela && <ListaContatos estadoTela={tela} limparTudo={clearAll} />}
+      {tela && <ListaContatos estadoTela={tela} /* limparTudo={clearAll} */ />}
     </div>
   );
 }

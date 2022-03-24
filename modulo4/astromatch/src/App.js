@@ -2,6 +2,7 @@ import "./App.css";
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import TelaInicial from './components/telaInicial';
+/* import ListaContatos from "./components/lista-contatos"; */
 
 
 function App() {

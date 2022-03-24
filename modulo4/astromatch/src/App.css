@@ -161,6 +161,7 @@ svg:not(:root){
     box-shadow: rgb(205 205 205 / 73%) 0px 0px 15px 0px;
     overflow: hidden;
     margin-right:50px;
+    cursor: pointer;
 }
 
 .botao-footer-x:hover{
@@ -180,9 +181,11 @@ svg:not(:root){
     position: relative;
     box-shadow: rgb(205 205 205 / 73%) 0px 0px 15px 0px;
     overflow: hidden;
+    cursor: pointer;
 }
-.botao-footer-l:hover {background-color: green;
-color: #fff;
+.botao-footer-l:hover {
+  background-color: green;
+  color: #fff;
 }
 
 .svg-titulo-lista{
