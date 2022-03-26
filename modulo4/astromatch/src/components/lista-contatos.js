@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import Astromatch from "./astromatch.png";
 import TelaInicial from "./telaInicial";
 
 const urlAstro =
-  "https://us-central1-missao-newton.cloudfunctions.net/astroMatch/crhistian";
+  "https://us-central1-missao-newton.cloudfunctions.net/astroMatch/crhistian-felipe-guimaraes";
 
 function ListaContatos(props) {
   const [novoEstadoTela, setNovoEstadotela] = useState(props.estadoTela);
@@ -13,7 +12,6 @@ function ListaContatos(props) {
 
   const mudaTela = () => {
     setNovoEstadotela(!novoEstadoTela);
-    console.log(novoEstadoTela);
   };
 
   useEffect(() => {
@@ -29,15 +27,14 @@ function ListaContatos(props) {
   };
 
   const clearAll = () => {
-    if(window.confirm("Deseja Resetar sua Lista de Matches ?")){
+    if(window.confirm("Deseja Resetar Sua Lista de Matches ?")){
       axios
       .put(`${urlAstro}/clear`)
-      .then((response) => console.log(response), setNovoEstadoPerfil([]))
+      .then((response) => setNovoEstadoPerfil([]))
       .catch((error) => console.log(error));
     }
   };
-  console.log(novoEstadoPerfil);
-
+  
   const RetornoPerfil = () => {
     return (
       <>
@@ -70,9 +67,10 @@ function ListaContatos(props) {
           </div>
           <RetornoPerfil />
         </div>
+        
       </div>
       <button className="botao-limpar" onClick={clearAll}>
-        Limpar tudo
+        Limpar
       </button>
       {!novoEstadoTela && <TelaInicial />}
     </div>

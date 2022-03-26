@@ -4,7 +4,7 @@ import axios from "axios";
 import ListaContatos from "./lista-contatos";
 
 const urlAstro =
-  "https://us-central1-missao-newton.cloudfunctions.net/astroMatch/crhistian";
+  "https://us-central1-missao-newton.cloudfunctions.net/astroMatch/crhistian-felipe-guimaraes";
 
 function TelaInicial() {
   const [perfil, setPerfil] = useState([]);
@@ -18,7 +18,15 @@ function TelaInicial() {
   const getProfile = () => {
     axios
       .get(`${urlAstro}/person`)
-      .then((response) => setPerfil(response.data.profile))
+      .then((response) => {
+        if (response.data.profile === null) {
+          window.alert(
+            "Seus Likes Acabaram, Clique no botão Limpar Para Começar a Dar Likes Novamente"
+          );
+        } else {
+          setPerfil(response.data.profile);
+        }
+      })
       .catch((error) => console.log(error));
   };
 
@@ -34,8 +42,9 @@ function TelaInicial() {
     axios
       .post(`${urlAstro}/choose-person`, body)
       .then((response) => getProfile())
-      .catch((error) => console.log(error));
-    console.log(perfil);
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const unLike = () => {
@@ -50,11 +59,14 @@ function TelaInicial() {
   };
 
   const clearAll = () => {
-    if(window.confirm("Deseja Resetar sua Lista de Matches ?")){
+    if (window.confirm("Deseja Limpar Sua Lista de Matches ?")) {
       axios
-      .put(`${urlAstro}/clear`)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+        .put(`${urlAstro}/clear`)
+        .then((response) => {
+          console.log(response);
+          getProfile();
+        })
+        .catch((error) => console.log(error));
     }
   };
 
@@ -95,9 +107,9 @@ function TelaInicial() {
         </div>
       </div>
       <button onClick={clearAll} className="botao-limpar">
-        Limpar tudo
+        Limpar
       </button>
-      {tela && <ListaContatos estadoTela={tela} /* limparTudo={clearAll} */ />}
+      {tela && <ListaContatos estadoTela={tela} />}
     </div>
   );
 }
