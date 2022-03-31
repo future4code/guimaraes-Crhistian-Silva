@@ -1,0 +1,242 @@
+*body{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box; 
+}
+div{
+  display: block;
+}
+
+#root{
+  box-sizing: border-box; 
+}
+.botao-limpar{
+  position: fixed;
+  bottom:5px;
+  right:5px;
+}
+
+.App{
+  width: 400px;
+    height: 600px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 6%) 0px 0px 5px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.divbody1{
+  height: 50px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    padding: 0px 10px;
+    flex-shrink: 0;
+}
+.divbody2{
+    padding: 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.body1-titulo{
+  cursor: pointer;
+  transition: all 0.2s ease 0s;
+}
+.body1-img{
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.svg-titulo{
+  width: 2.25rem;
+  height: 2.25rem;
+  display: block;
+  fill: rgb(117, 49, 146);
+}
+svg:not(:root){
+  overflow: hidden;
+}
+.divbody2{
+  padding: 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.div-imagem-body2{
+  box-shadow: rgb(117 117 117 / 77%) 0px 2px 10px 0px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.5s ease 0s;
+    height: 430px;
+    animation: 0.5s ease 0s 1 normal forwards running none;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.imgbody{
+  width: 100%;
+    display: block;
+    z-index: 1;
+
+}
+.infos-user{
+  height: 30%;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  padding: 15px;
+  z-index: 2;
+}
+.bloco-infos{
+  display: flex;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+}
+.titulo-info{
+  font-weight: bold;
+    font-size: 24px;
+    display: inline;
+}
+.idade-info{
+   margin-left: 10px;
+    font-size: 20px;
+}
+.infos-p{
+  margin-top: 5px;
+  display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.div-footer-body2{
+  display: flex;
+    justify-content: space-evenly;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.botao-footer-x{
+  border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: 1px solid red;
+    color: red;
+    font-size: 50px;
+    transform: scale(0.7);
+    transition: all 0.2s ease 0s;
+    position: relative;
+    box-shadow: rgb(205 205 205 / 73%) 0px 0px 15px 0px;
+    overflow: hidden;
+    margin-right:50px;
+    cursor: pointer;
+}
+
+.botao-footer-x:hover{
+  background-color: red;
+  color: #fff;
+}
+
+.botao-footer-l{
+  border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: 1px solid green;
+    color: green;
+    font-size: 50px;
+    transform: scale(0.7);
+    transition: all 0.2s ease 0s;
+    position: relative;
+    box-shadow: rgb(205 205 205 / 73%) 0px 0px 15px 0px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.botao-footer-l:hover {
+  background-color: green;
+  color: #fff;
+}
+
+.svg-titulo-lista{
+  width: 2.25rem;
+  height: 2.25rem;
+  display: block;
+  fill: rgb(74, 163, 151);
+}
+svg:not(:root){
+  overflow: hidden;
+}
+.ul-contatos{
+  padding: 0px 10px;
+}
+
+ul{
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.lista-contatos{
+  position: relative;
+    height: 70px;
+    padding: 10px;
+    display: flex;
+    list-style: none;
+    width: 100%;
+    transition: all 0.2s ease 0s;
+    cursor: pointer;
+}
+.div-imagem-lista{
+  height: 100%;
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: url(https://i.pinimg.com/550x/33/f0/da/33f0da7….jpg) center center / 100% no-repeat;
+}
+
+.p-lista-contatos{
+  user-select: none;
+
+}
+.lista-contatos-p{
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
