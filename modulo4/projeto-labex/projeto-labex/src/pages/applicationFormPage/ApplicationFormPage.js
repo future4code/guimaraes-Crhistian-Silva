@@ -1,14 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
+import { Button } from "../../components/button/Button";
 import "./style.css";
+import { goToHome } from "../../routes/Coordinator";
 
-export default function ApplicationFormPage() {
+export const ApplicationFormPage = () => {
   const navigate = useNavigate();
-
-  const goToHomePage = () => {
-    navigate("/");
-  };
 
   return (
     <div className="body">
@@ -27,7 +24,7 @@ export default function ApplicationFormPage() {
       <input placeholder="profissão"></input>
       <input type="lista de países" placeholder="Aqui vao os paises"></input>
       <div className="container-buttons">
-        <div class="button" onClick={goToHomePage}>
+        <div class="button" onClick={() => goToHome(navigate)}>
           <div class="container">
             <div class="tick">Voltar ao Início</div>
           </div>

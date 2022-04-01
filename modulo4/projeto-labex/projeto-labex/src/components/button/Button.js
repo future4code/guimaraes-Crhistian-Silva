@@ -1,7 +1,8 @@
 import React from "react";
-import "../components/styleButton.css";
+import "./styleButton.css"
 
-export default function Button() {
+
+export const Button = () => {
   return (
     <div class="button">
       <div class="container">

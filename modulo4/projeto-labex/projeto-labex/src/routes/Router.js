@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "../pages/homePage/HomePage";
-import LoginPage from "../pages/loginPage/LoginPage";
-import ListTripsPage from "../pages/listTripsPage/ListTripsPage";
-import TripDetailsPage from "../pages/tripDetailsPage/TripDetailsPage";
-import AdminHomePage from "../pages/adminHomePage/AdminHomePage";
-import ApplicationFormPage from "../pages/applicationFormPage/ApplicationFormPage.js";
-import CreateTripPage from "../pages/createTripPage/CreateTripPage";
+import {HomePage} from "../pages/homePage/HomePage";
+import {LoginPage} from "../pages/loginPage/LoginPage";
+import {ListTripsPage} from "../pages/listTripsPage/ListTripsPage";
+import {TripDetailsPage} from "../pages/tripDetailsPage/TripDetailsPage";
+import {AdminHomePage} from "../pages/adminHomePage/AdminHomePage";
+import {ApplicationFormPage} from "../pages/applicationFormPage/ApplicationFormPage.js";
+import {CreateTripPage} from "../pages/createTripPage/CreateTripPage";
 
 const Router = () =>{
 

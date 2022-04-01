@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
+import { Button } from "../../components/button/Button";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import { goToHome } from "../../routes/Coordinator";
+import { goToAdminTripsList } from "../../routes/Coordinator";
 
-export default function LoginPage() {
+export const LoginPage = () => {
+
   const navigate = useNavigate();
 
-  const goToHome = () => {
-    navigate("/");
-  };
-
-  const goToTripsList = () =>{
-    navigate("/admin/trips/list")
-  }
   return (
     <div className="body">
       <main>
@@ -41,7 +37,7 @@ export default function LoginPage() {
               placeholder="Senha"
             />
           </div>
-          <div class="button" onClick={goToTripsList}>
+          <div class="button" onClick={() =>  goToAdminTripsList(navigate)}>
             <div class="container">
               <div class="tick">Entrar</div>
             </div>
@@ -49,7 +45,7 @@ export default function LoginPage() {
         </form>
       </main>
       <div className="container-buttons">
-        <div class="button" onClick={goToHome}>
+        <div class="button" onClick={() => goToHome(navigate)}>
           <div class="container">
             <div class="tick">Voltar ao Inicio</div>
           </div>

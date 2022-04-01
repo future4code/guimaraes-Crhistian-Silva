@@ -11,9 +11,7 @@ body{
     align-items: center;
     background-image: url("/src/img/viagem3.jpg");
 }
-div{
-    display: block;
-}
+
 
 .container-lista{
     display: flex;

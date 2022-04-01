@@ -1,55 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import "./style.css";
+import { goToHome } from "../../routes/Coordinator";
+import { goToTripApplication } from "../../routes/Coordinator";
+import { useRequestData } from "../../components/hooks/Hooks";
+import { StyledListTripsPage } from "./styleListTrip";
 
-
-export default function ListTripsPage() {
-  
+export const ListTripsPage = () => {
   const navigate = useNavigate();
+  const trips = useRequestData("");
 
-  const goToTripApplication = () => {
-    navigate("/trips/application");
-  };
-
-  const goToHomePage = () => {
-    navigate("/")
-  }
-  
   return (
-
-    <div className="body">
-      <header>
-      <div className="container-buttons">
-        <div class="button" onClick={goToHomePage} >
-          <div class="container">
-            <div class="tick">
-              Voltar
-            </div>
-          </div>
-        </div>
-        <div class="button" onClick={goToTripApplication}>
-          <div class="container">
-            <div class="tick">
-             Inscrever-se
-            </div>
-          </div>
-        </div>
+    <StyledListTripsPage>
+      <div>
+        <button onClick={() => goToHome(navigate)}>Voltar</button>
+        <button onClick={() => goToTripApplication(navigate)}>Inscrever-se</button>
       </div>
-      </header>
-      <main>
-      <h2>Tela Lista de Viagens</h2>
-      <ul>
-        <li>
-          <p>Nome:</p>
-          <p>Descrição:</p>
-          <p>Planeta: </p>
-          <p>Duração:</p>
-          <p> Data: </p>
-        </li>
-      </ul>
-
-      </main>
-    </div>
-  )
-}
+      <h1>Lista de Viagens</h1>
+      <div class="container-lista">
+        <ul>
+          <li>Nome:</li>
+          <li>Descrição:</li>
+          <li>Planeta:</li>
+          <li>Duração:</li>
+          <li>Data:</li>
+        </ul>
+      </div>
+      
+         
+      
+    </StyledListTripsPage>
+  );
+};

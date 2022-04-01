@@ -1,17 +1,16 @@
 import React from "react";
-import Button from "../../components/Button";
+import { Button } from "../../components/button/Button";
 import "./style.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { goBack } from "../../routes/Coordinator";
 
 
-export default function TripDetailsPage() {
+export const TripDetailsPage = () => {
+
   const navigate = useNavigate();
   const param = useParams()
   console.log(param)
 
-  const goBack = () => {
-    navigate(-1);
-  };
   return (
     <div className="body">
       <header>
@@ -25,7 +24,7 @@ export default function TripDetailsPage() {
               <p> Data: </p>
             </li>
           </ul>
-          <div class="button" onClick={goBack}>
+          <div class="button" onClick={() => goBack (navigate)}>
             <div class="container">
               <div class="tick">Voltar</div>
             </div>

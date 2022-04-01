@@ -1,14 +1,12 @@
 import React from "react";
-import Button from "../../components/Button";
+import { Button } from "../../components/button/Button";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import { goToHome } from "../../routes/Coordinator";
 
-export default function CreateTripPage() {
+export const CreateTripPage = () => {
   const navigate = useNavigate();
 
-  const goToHome = () => {
-    navigate("/");
-  };
 
   return (
     <div className="body">
@@ -33,7 +31,7 @@ export default function CreateTripPage() {
 
       </form>
       <div className="container-buttons">
-        <div class="button" onClick={goToHome}>
+        <div class="button" onClick={() => goToHome(navigate)}>
           <div class="container">
             <div class="tick">
             Voltar ao Inicio
