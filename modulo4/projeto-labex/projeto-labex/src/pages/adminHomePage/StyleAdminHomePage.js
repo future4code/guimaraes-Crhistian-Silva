@@ -1,16 +1,18 @@
+import styled from "styled-components";
+
+export const StyleAdminHomePage = styled.div`
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-body{
+
     padding: 0px;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
     background-image: url("/src/img/viagem3.jpg");
-}
 
 
 .container-lista{
@@ -19,7 +21,7 @@ body{
     -webkit-box-pack: center;
     justify-content: center;
     width: 500px;
-    height: 100vh;
+    height: 80vh;
     background-color:#fff;
 }
 
@@ -71,7 +73,6 @@ p{
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-
 }
 
 .icone{
@@ -88,3 +89,5 @@ p{
 .icone :hover{
     background-color: red;
 }
+
+`

@@ -2,3 +2,8 @@
   text-align: center;
   background-image: url("../src/img/viagem3.jpg");
 }
+
+*body{
+  margin: 0;
+  padding: 0;
+}

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/Button";
-import "./style.css";
+import "./StyleLogin.js";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToAdminTripsList } from "../../routes/Coordinator";
-
+import { StyleLogin } from "./StyleLogin.js";
 export const LoginPage = () => {
 
   const navigate = useNavigate();
 
   return (
-    <div className="body">
+    <StyleLogin>
       <main>
+      <h2>Login</h2>
         <form>
-          <h2>Login</h2>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">
               Email
@@ -37,11 +37,9 @@ export const LoginPage = () => {
               placeholder="Senha"
             />
           </div>
-          <div class="button" onClick={() =>  goToAdminTripsList(navigate)}>
-            <div class="container">
-              <div class="tick">Entrar</div>
-            </div>
-          </div>
+          <div className="container-buttons-application-page">
+        <button onClick={() => goToAdminTripsList (navigate)}> Entrar</button>
+      </div>
         </form>
       </main>
       <div className="container-buttons">
@@ -51,6 +49,6 @@ export const LoginPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </StyleLogin>
   );
 }

@@ -1,37 +1,36 @@
 import styled from "styled-components";
 
-export const StyledListTripsPage = styled.div`
+export const StyleTripDetailsPage = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300&family=Lobster&display=swap");
+
+  margin-left: 10vw;
+  margin-right: 10vw;
   display: flex;
   flex-direction: column;
   padding: 0px;
   margin: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("/src/img/viagem3.jpg");
+  color: #fff;
   width: 100vw;
+  height: 100vh;
+  background-image: url("/src/img/viagem3.jpg");
+  align-items: center;
 
-  margin-right: 10vw;
-
-  li {
-    list-style-type: none;
-  }
-  .container-lista-trip-page {
+  .container-lista-tripdetails-page , .container-trip-details {
     display: flex;
     text-align: start;
     background-color: #fff;
     border: solid;
     border-radius: 10px 5px;
-    width: 60vw;
     font-size: 1.1rem;
+    color: black;
+    width: 50vw;
+    height: 15rem;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 1.5rem;
+    
   }
-h1{
-  width: 22rem;
-  color: #fff;
-  background: dodgerblue;
-  border-radius: 24px 12px;
-}
 
   .container-lista-trip-page li {
     font-family: "Kalam", cursive;
@@ -43,31 +42,23 @@ h1{
         justify-content: space-around;
   }
   button{
-        margin-bottom: 15px;
         height: 3rem;
-        padding: 0px 20px;
         border: none;
         color: white;
         border-radius: 6px;
-        font-size: 20px;
-        min-width: 100px;
+        font-size:2rem;
+        width:10rem;
         background: dodgerblue;
         font-family: "Lobster", cursive;
         :hover{
           cursor: pointer;
         }
     }
-    ::-webkit-scrollbar{
-      width: 20px;
-    }
-    ::-webkit-scrollbar-track{
-      background: #ff0043;
-      border-radius: 30px;
-    }
-    ::-webkit-scrollbar-thumb{
-      background: #000000;
-      border-radius: 30px;
-    }
+
+    li {
+    list-style-type: none;
+  }
+  
     @media screen and (min-device-width : 376px) and (max-device-width : 480px) {
       display: flex;
   flex-direction: column;

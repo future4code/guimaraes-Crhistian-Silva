@@ -2,32 +2,50 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToTripApplication } from "../../routes/Coordinator";
-import { useRequestData } from "../../components/hooks/Hooks";
-import { StyledListTripsPage } from "./styleListTrip";
+import { UseRequestData } from "../../components/hooks/UseRequestData";
+import { StyledListTripsPage } from "./StyleListTrip";
 
 export const ListTripsPage = () => {
   const navigate = useNavigate();
-  const trips = useRequestData("");
+
+  const trips = UseRequestData(
+    "https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trips",
+    []
+  );
 
   return (
     <StyledListTripsPage>
-      <div>
-        <button onClick={() => goToHome(navigate)}>Voltar</button>
-        <button onClick={() => goToTripApplication(navigate)}>Inscrever-se</button>
-      </div>
+     <div className="container-buttons-trip-page">
+     <button onClick={() => goToHome (navigate)}> Voltar ao Inicio</button>
+       <button onClick={()=>{goToTripApplication(navigate)}}> Inscrever-se </button>
+          </div>
       <h1>Lista de Viagens</h1>
-      <div class="container-lista">
-        <ul>
-          <li>Nome:</li>
-          <li>Descrição:</li>
-          <li>Planeta:</li>
-          <li>Duração:</li>
-          <li>Data:</li>
-        </ul>
-      </div>
-      
-         
-      
+      {trips.map((trip) => {
+        return (
+          <div class="container-lista-trip-page" key={trip.id}>
+            <ul>
+              <li>
+                <b>Nome: </b>
+                {trip.name}
+              </li>
+              <li>
+                <b>Descrição: </b> {trip.description}
+              </li>
+              <li>
+                <b>Planeta: </b> {trip.planet}
+              </li>
+              <li>
+                <b>Duração: </b>
+                {trip.durationInDays}
+              </li>
+              <li>
+                <b>Data: </b>
+                {trip.date}
+              </li>
+            </ul>
+          </div>
+        );
+      })}
     </StyledListTripsPage>
   );
 };
