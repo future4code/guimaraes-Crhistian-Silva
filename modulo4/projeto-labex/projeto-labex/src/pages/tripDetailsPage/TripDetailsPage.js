@@ -19,7 +19,7 @@ export const TripDetailsPage = () => {
             <p>Descrição:</p>
             <p>Planeta: </p>
             <p>Duração:</p>
-            <p> Data: </p>
+            <p>Data: </p>
           </li>
         </ul>
       </div>

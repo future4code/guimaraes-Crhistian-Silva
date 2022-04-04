@@ -19,12 +19,13 @@ display: flex;
     margin-right: 10vw;
     
 }
-.home-page select, input{
+.home-page, select, input{
     width: 50vh;
     height: 40px;
     margin-bottom: 5px;
     border-radius: 6px;
 }
+
 
  h3{
     font-family: 'Lobster', cursive;
@@ -37,8 +38,8 @@ display: flex;
     display: flex;    
     width: 30rem;
     display: flex;
-justify-content: space-around;
-margin-top: 9rem;
+    justify-content: space-around;
+    margin-top: 15rem;
 } 
 button{
         margin-bottom: 15px;

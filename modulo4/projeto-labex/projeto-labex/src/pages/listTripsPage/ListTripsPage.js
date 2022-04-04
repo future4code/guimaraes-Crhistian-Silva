@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToTripApplication } from "../../routes/Coordinator";
-import { UseRequestData } from "../../components/hooks/UseRequestData";
+import { UseRequestData } from "../../components/hooks/Hooks";
 import { StyledListTripsPage } from "./StyleListTrip";
 
 export const ListTripsPage = () => {

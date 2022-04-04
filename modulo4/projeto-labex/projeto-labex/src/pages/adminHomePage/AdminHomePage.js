@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 /* import { Button } from "../../components/button/Button"; */
 import "./StyleAdminHomePage.js";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +6,29 @@ import { goToHome } from "../../routes/Coordinator";
 import { goToCreateTrip } from "../../routes/Coordinator";
 import { goToTripDetails } from "../../routes/Coordinator";
 import { StyleAdminHomePage } from "./StyleAdminHomePage.js";
+import axios from 'axios'
+
+
 
 export const AdminHomePage = () => {
+  const [trip, setTrip] = useState([])
   const navigate = useNavigate();
 
+
+  /* const travelerList = async (id) => {
+   
+      try {
+        const response = await axios.delete(
+          `https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trip/${id}`);
+        setTrip(response.data.trip)
+      } catch (error) {
+        console.log(error.response);
+      }
+      
+  } */
+
+
+  console.log(trip)
 
   return (
     <StyleAdminHomePage>

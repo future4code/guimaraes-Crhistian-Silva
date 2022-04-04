@@ -4,15 +4,16 @@ export const StyleHomePage = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
   display: flex;
   flex-direction: column;
-  color: #fff;
   padding: 0px;
   margin: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url("/src/img/viagem3.jpg");
+  display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 5rem;
+  background-image: url("/src/img/viagem3.jpg");
+  width: 100vw;
+  height:100vh;
+  color: #fff;
+  font-size: 3rem;
 
   .container-buttons-trip-page {
     display: flex;

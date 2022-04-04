@@ -12,8 +12,6 @@ export const StyledListTripsPage = styled.div`
   background-image: url("/src/img/viagem3.jpg");
   width: 100vw;
 
-  margin-right: 10vw;
-
   li {
     list-style-type: none;
   }
