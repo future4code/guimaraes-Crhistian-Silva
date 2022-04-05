@@ -13,12 +13,13 @@ export const LoginPage = () => {
     <StyleLogin>
       <main>
       <h2>Login</h2>
+      <button onClick={() => goToAdminTripsList (navigate)}> Criar Usuário</button>
         <form>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">
               Email
             </label>
-            <input
+            <input 
               type="email"
               class="form-control"
               id="exampleInputEmail1"
@@ -39,6 +40,7 @@ export const LoginPage = () => {
           </div>
           <div className="container-buttons-application-page">
         <button onClick={() => goToAdminTripsList (navigate)}> Entrar</button>
+      
       </div>
         </form>
       </main>

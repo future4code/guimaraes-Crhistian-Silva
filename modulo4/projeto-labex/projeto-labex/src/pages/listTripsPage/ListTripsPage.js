@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToTripApplication } from "../../routes/Coordinator";
-import { UseRequestData } from "../../components/hooks/Hooks";
-import { StyledListTripsPage } from "./StyleListTrip";
+import { UseRequestData } from "../../components/hooks/useRequestData";
+import { StyledListTripsPage } from "./styleListTrip";
 
 export const ListTripsPage = () => {
   const navigate = useNavigate();

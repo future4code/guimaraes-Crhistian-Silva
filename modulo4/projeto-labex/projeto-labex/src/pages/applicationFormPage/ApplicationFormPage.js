@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { goToHome } from "../../routes/Coordinator";
 import { StyleApplicationForm } from "./StyleApplicationForm.js";
-import { UseRequestData } from "../../components/hooks/Hooks";
+import { UseRequestData } from "../../components/hooks/useRequestData";
+import axios from "axios"
 
 export const ApplicationFormPage = () => {
+
   const navigate = useNavigate();
 
   const trips = UseRequestData(
@@ -13,12 +15,78 @@ export const ApplicationFormPage = () => {
     []
   );
 
+  const [tripId, setTripId] = useState("")
+  const [name, setName] = useState("")
+  const [age, setAge] = useState("")
+  const [text, setText] = useState("")
+  const [career, setCareer] = useState("")
+  const [country, setCountry] = useState("")
+
+  useEffect(()=>{
+    trips.map((trip) => {
+      return setTripId(trip.id)
+    })
+  },[tripId])
+
+  const onChangeTrip= (ev) =>{
+    setTripId(ev.target.value)
+  }
+
+  const onChangeName = (ev) =>{
+    setName(ev.target.value)
+  }
+  
+  const onChangeAge = (ev) =>{
+    setAge(ev.target.value)
+  }
+  
+  const onChangeText = (ev) =>{
+    setText(ev.target.value)
+  }
+  
+  const onChangeCareer= (ev) =>{
+    setCareer(ev.target.value)
+  }
+  
+  const onChangeCountry = (ev) =>{
+    setCountry(ev.target.value)
+  }
+
+  const sentForm = (tripId) =>{
+    
+    const body = {
+      name: name,
+      age: age,
+      applicationText: text,
+      profession: career,
+      country: country,
+    }
+
+    axios
+    .post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trips/${tripId}/apply`, body)
+    .then((res=>{
+      window.alert("envio bem sucedido")
+      setTripId("")
+      setName("")
+      setAge("")
+      setText("")
+      setCareer("")
+      setCountry("")
+
+    }))
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  console.log(tripId)
+
   return (
     <StyleApplicationForm className="body">
       <h3 class="input-group-text" for="inputGroupSelect01">
         Escolha uma Viagem
       </h3>
-      <select class="form-select" id="inputGroupSelect01">
+      <select class="form-select" id="inputGroupSelect01" onChange={onChangeTrip}>
         <option value disabled selected>
           Escolha uma Viagem...
         </option>
@@ -28,12 +96,12 @@ export const ApplicationFormPage = () => {
       </select>
 
       <div className="home-page">
-        <input placeholder="Nome"></input>
-        <input type="number" placeholder="idade"></input>
-        <input placeholder="texto de candidatura"></input>
-        <input placeholder="profissão"></input>
-        <select name="paises" id="paises">
-          <option name="" selected="no-selected">Escolha um País </option>
+        <input placeholder="Nome" value={name} onChange={onChangeName}></input>
+        <input type="text" placeholder="idade"value={age} onChange={onChangeAge}></input>
+        <input placeholder="texto de candidatura"  value={text} onChange={onChangeText}></input>
+        <input placeholder="profissão" value={career} onChange={onChangeCareer}></input>
+        <select name="paises" id="paises" value={country} onChange={onChangeCountry}>
+          <option name="" selected="no-selected" >Escolha um País </option>
           <option value="Brasil" selected="selected">
             Brasil
           </option>
@@ -316,7 +384,7 @@ export const ApplicationFormPage = () => {
       </div>
       <div className="container-buttons-application-page">
         <button onClick={() => goToHome(navigate)}> Voltar ao Inicio</button>
-        <button> Enviar</button>
+        <button onClick={sentForm}> Enviar</button>
       </div>
     </StyleApplicationForm>
   );

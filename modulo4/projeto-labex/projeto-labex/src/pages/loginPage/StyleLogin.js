@@ -11,10 +11,22 @@ font-size: 2rem;
     height: 100vh; 
     justify-content: center;
 
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#exampleInputEmail1{
+    margin-left: 3.5rem;
+}
  h2{
     font-family: 'Lobster', cursive;
     font-size:6rem ;
-    margin-top: 10rem;
+    margin-top: 6rem;
     color: #fff;
 }
 
@@ -35,16 +47,17 @@ button, .button{
 input{
     height: 1.4rem;
     margin-left: 5px;
-    width: 50%;
+    width: 40vw;
     border-radius: 30px;
     caret-color: #C93C3C;
 }
 .mb-3{
     display: flex;
     align-items: center;
-    align-content: center;
-    justify-content: center;
+    align-content: start;
+    justify-content: start;
 
 }
+
 `
 
