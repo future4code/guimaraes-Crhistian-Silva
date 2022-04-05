@@ -24,16 +24,17 @@ export const StyleTripDetailsPage = styled.div`
     border-radius: 10px 5px;
     font-size: 1.1rem;
     color: black;
-    width: 50vw;
+    width: 60vw;
     height: 15rem;
     margin-left: 10vw;
     margin-right: 10vw;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     
   }
 
   .container-lista-trip-page li {
-    font-family: "Kalam", cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   .container-buttons-trip-page{
     margin-top: 30rem;
@@ -42,6 +43,7 @@ export const StyleTripDetailsPage = styled.div`
         justify-content: space-around;
   }
   button{
+    margin-top: 1rem;
         height: 3rem;
         border: none;
         color: white;

@@ -2,10 +2,15 @@ import React from "react";
 import { Button } from "../../components/button/Button";
 import "./StyleCreatePage.js";
 import { useNavigate } from "react-router-dom";
-import { goToHome } from "../../routes/Coordinator";
+import { goBack } from "../../routes/Coordinator";
 import { StyleCreatePage } from "./StyleCreatePage.js";
+import { UseProtectedPage } from "../../components/hooks/useProtectedpage";
+
 
 export const CreateTripPage = () => {
+
+  UseProtectedPage()
+
   const navigate = useNavigate();
 
   return (
@@ -13,7 +18,7 @@ export const CreateTripPage = () => {
       <h2>Criar Viagem</h2>
       <div className="container-form-create"></div>
 
-        <input placeholder="Nome"></input>
+        <input placeholder="Nome Completo"></input>
         <select class="form-select" aria-label="Default select example">
           <option selected>Escolha o Planeta</option>
           <option value="1">Mercúrio</option>
@@ -27,10 +32,10 @@ export const CreateTripPage = () => {
           <option value="9">Plutão</option>
         </select>
         <input type="date"></input>
-        <input placeholder="descricao"></input>
-        <input placeholder="duracao em dias"></input>
+        <input placeholder="Descrição"></input>
+        <input placeholder="Duração em dias"></input>
       <div className="container-buttons-create-page">
-        <button onClick={() => goToHome(navigate)}> Voltar ao Inicio</button>
+        <button onClick={() => goBack(navigate)}> Voltar ao Painel</button>
         <button> Criar Viagem</button>
       </div>
     </StyleCreatePage>

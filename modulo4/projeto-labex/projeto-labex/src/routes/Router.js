@@ -7,6 +7,7 @@ import {TripDetailsPage} from "../pages/tripDetailsPage/TripDetailsPage";
 import {AdminHomePage} from "../pages/adminHomePage/AdminHomePage";
 import {ApplicationFormPage} from "../pages/applicationFormPage/ApplicationFormPage.js";
 import {CreateTripPage} from "../pages/createTripPage/CreateTripPage";
+import { ErrorPage } from "../pages/errorPage/ErrorPage";
 
 const Router = () =>{
 
@@ -20,6 +21,7 @@ const Router = () =>{
             <Route path="/admin/trips/list" element={<AdminHomePage/>}/>
             <Route path="/admin/trips/create" element={<CreateTripPage/>}/>
             <Route path="/admin/trips/:id" element={<TripDetailsPage/>}/>
+            <Route path="*" element={<ErrorPage/>}/>
         </Routes>
         </BrowserRouter>
     )

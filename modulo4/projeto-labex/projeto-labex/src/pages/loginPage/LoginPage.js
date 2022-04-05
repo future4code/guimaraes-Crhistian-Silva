@@ -5,15 +5,49 @@ import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToAdminTripsList } from "../../routes/Coordinator";
 import { StyleLogin } from "./StyleLogin.js";
+import axios from "axios";
+
+
 export const LoginPage = () => {
 
   const navigate = useNavigate();
+  
+  const[email,setEmail] = useState("")
+  const[password,setPassword] = useState("")
+
+  const onChangeEmail = (ev) =>{
+    setEmail(ev.target.value)
+  }
+
+  const onChangePassword = (ev) =>{
+    setPassword(ev.target.value)
+  }
+
+  const login = () =>{
+    const body = {
+    email: email,
+    password: password,
+  }
+
+  axios
+  .post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/login", body)
+  .then((res)=>{
+    localStorage.setItem("token", res.data.token)
+    window.alert("Login Efetuado Com Sucesso")
+    navigate("/admin/trips/list")
+  })
+  .catch((err)=>{
+    window.alert("Dados Incorretos, Digite Seus Dados Corretamente Para Efetuar O Login")
+  })
+}
+
+console.log(email)
+console.log(password)
 
   return (
     <StyleLogin>
       <main>
       <h2>Login</h2>
-      <button onClick={() => goToAdminTripsList (navigate)}> Criar Usuário</button>
         <form>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">
@@ -25,6 +59,8 @@ export const LoginPage = () => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="E-mail"
+              value={email}
+              onChange={onChangeEmail}
             />
           </div>
           <div class="mb-3">
@@ -32,17 +68,17 @@ export const LoginPage = () => {
               Password
             </label>
             <input
-              type="password"
-              class="form-control"
+                          class="form-control"
               id="exampleInputPassword1"
               placeholder="Senha"
+              value={password}
+              onChange={onChangePassword}
             />
           </div>
-          <div className="container-buttons-application-page">
-        <button onClick={() => goToAdminTripsList (navigate)}> Entrar</button>
-      
-      </div>
         </form>
+        <div className="container-buttons-application-page">
+        <button onClick={login}> Entrar</button>
+            </div>
       </main>
       <div className="container-buttons">
         <div class="button" onClick={() => goToHome(navigate)}>

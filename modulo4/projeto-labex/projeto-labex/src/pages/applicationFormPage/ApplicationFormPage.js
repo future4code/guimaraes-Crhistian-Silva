@@ -22,11 +22,11 @@ export const ApplicationFormPage = () => {
   const [career, setCareer] = useState("")
   const [country, setCountry] = useState("")
 
-  useEffect(()=>{
+ /*  useEffect(()=>{
     trips.map((trip) => {
       return setTripId(trip.id)
     })
-  },[tripId])
+  },[tripId]) */
 
   const onChangeTrip= (ev) =>{
     setTripId(ev.target.value)
@@ -79,17 +79,16 @@ export const ApplicationFormPage = () => {
     })
   }
 
-  console.log(tripId)
 
   return (
     <StyleApplicationForm className="body">
       <h3 class="input-group-text" for="inputGroupSelect01">
         Escolha uma Viagem
       </h3>
-      <select class="form-select" id="inputGroupSelect01" onChange={onChangeTrip}>
-        <option value disabled selected>
+      <select class="form-select" id="inputGroupSelect01"   value={tripId} onChange={onChangeTrip}>
+        <option selected="no-selected" >
           Escolha uma Viagem...
-        </option>
+        </option >
         {trips.map((trip) => {
           return <option>{trip.name}</option>;
         })}
