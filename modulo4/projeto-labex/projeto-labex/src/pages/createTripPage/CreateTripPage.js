@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button } from "../../components/button/Button";
 import "./StyleCreatePage.js";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,10 @@ import { UseProtectedPage } from "../../components/hooks/useProtectedpage";
 export const CreateTripPage = () => {
 
   UseProtectedPage()
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token")
+  },[])
 
   const navigate = useNavigate();
 

@@ -14,9 +14,18 @@ export const HomePage = () => {
 
   const navigate = useNavigate();
 
-  const goToLogin =() =>{
+  useEffect(()=>{
+    const token = localStorage.getItem("token")
+    
+  },[])
+  
 
-    {token === "login" ?  navigate("/login") :  navigate("/admin/trips/list") }
+  
+
+  const goToLogin =() =>{
+    
+
+    {token === null ?  navigate("/login") :  navigate("/admin/trips/list") }
 
   }
 

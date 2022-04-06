@@ -4,7 +4,7 @@ import { StyleErrorPage } from './styleErrorPage'
 export const ErrorPage = () => {
   return (
     <StyleErrorPage>
-        Página de erro
+       <h1>Página de erro</h1> 
         </StyleErrorPage>
   )
 }

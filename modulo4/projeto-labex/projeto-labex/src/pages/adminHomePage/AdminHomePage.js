@@ -4,16 +4,12 @@ import "./StyleAdminHomePage.js";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToCreateTrip } from "../../routes/Coordinator";
-/* import { goToTripDetails } from "../../routes/Coordinator"; */
 import { StyleAdminHomePage } from "./StyleAdminHomePage.js";
 import { UseRequestData } from "../../components/hooks/useRequestData";
-import axios from "axios";
 import { UseProtectedPage } from "../../components/hooks/useProtectedpage";
 
-
 export const AdminHomePage = () => {
-  
-  UseProtectedPage()
+  UseProtectedPage();
 
   const navigate = useNavigate();
 
@@ -21,27 +17,28 @@ export const AdminHomePage = () => {
     "https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trips",
     []
   );
-  
-  const delToken = () =>{
-    localStorage.setItem("token", "login")
-    navigate("/login")
-  }
 
+  const delToken = () => {
+    localStorage.setItem("token", "");
+    navigate("/login");
+  };
 
   const returnMapTrip = trips.map((trip) => {
     return (
-      <div className="lista-p" >
-        <p key={trip.id} onClick={() => goToTripDetails(trip.id)}>{trip.name}</p>
+      <div className="lista-p">
+        <p key={trip.id} onClick={() => goToTripDetails(trip.id)}>
+          {trip.name}
+        </p>
         <svg className="icone">
           <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
         </svg>
       </div>
     );
-  })
+  });
 
-  const goToTripDetails =(id) =>{
-    navigate(`/admin/trips/${id}`)
-  }
+  const goToTripDetails = (id) => {
+    navigate(`/admin/trips/${id}`);
+  };
 
   return (
     <StyleAdminHomePage>
@@ -52,7 +49,7 @@ export const AdminHomePage = () => {
           <button onClick={() => goToCreateTrip(navigate)}> Criar</button>
           <button onClick={delToken}> Logout</button>
         </div>
-    {returnMapTrip}
+        {returnMapTrip}
       </div>
     </StyleAdminHomePage>
   );
