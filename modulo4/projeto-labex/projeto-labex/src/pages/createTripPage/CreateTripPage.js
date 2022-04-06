@@ -4,12 +4,12 @@ import "./StyleCreatePage.js";
 import { useNavigate } from "react-router-dom";
 import { goBack } from "../../routes/Coordinator";
 import { StyleCreatePage } from "./StyleCreatePage.js";
-import { UseProtectedPage } from "../../components/hooks/useProtectedpage";
+import { useProtectedPage } from "../../components/hooks/useProtectedpage";
 
 
 export const CreateTripPage = () => {
 
-  UseProtectedPage()
+  useProtectedPage()
 
   useEffect(()=>{
     const token = localStorage.getItem("token")

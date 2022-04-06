@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 
-export const UseRequestData = (url, initialState) => {
+export const useRequestData = (url, initialState) => {
 
     const [data,setData] = useState(initialState)
 

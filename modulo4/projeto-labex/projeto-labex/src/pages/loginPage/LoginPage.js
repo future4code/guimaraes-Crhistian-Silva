@@ -6,6 +6,7 @@ import { goToHome } from "../../routes/Coordinator";
 import { goToAdminTripsList } from "../../routes/Coordinator";
 import { StyleLogin } from "./StyleLogin.js";
 import axios from "axios";
+import { BASE_URL } from "../../components/urls/urlBase.js";
 
 
 export const LoginPage = () => {
@@ -28,9 +29,8 @@ export const LoginPage = () => {
     email: email,
     password: password,
   }
-
   axios
-  .post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/login", body)
+  .post(`${BASE_URL}/login`, body)
   .then((res)=>{
     localStorage.setItem("token", res.data.token)
     window.alert("Login Efetuado Com Sucesso")
@@ -40,9 +40,6 @@ export const LoginPage = () => {
     window.alert("Dados Incorretos, Digite Seus Dados Corretamente Para Efetuar O Login")
   })
 }
-
-console.log(email)
-console.log(password)
 
   return (
     <StyleLogin>

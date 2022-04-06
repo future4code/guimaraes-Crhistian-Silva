@@ -3,17 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { goToHome } from "../../routes/Coordinator";
 import { StyleApplicationForm } from "./StyleApplicationForm.js";
-import { UseRequestData } from "../../components/hooks/useRequestData";
-import axios from "axios"
+import { useRequestData } from "../../components/hooks/useRequestData";
+import axios from "axios";
+import { BASE_URL } from "../../components/urls/urlBase.js";
+
 
 export const ApplicationFormPage = () => {
 
   const navigate = useNavigate();
 
-  const trips = UseRequestData(
-    "https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trips",
-    []
-  );
+  const trips = useRequestData(`${BASE_URL}/trips`,[]);
 
   const [tripId, setTripId] = useState("")
   const [name, setName] = useState("")
@@ -21,12 +20,6 @@ export const ApplicationFormPage = () => {
   const [text, setText] = useState("")
   const [career, setCareer] = useState("")
   const [country, setCountry] = useState("")
-
- /*  useEffect(()=>{
-    trips.map((trip) => {
-      return setTripId(trip.id)
-    })
-  },[tripId]) */
 
   const onChangeTrip= (ev) =>{
     setTripId(ev.target.value)

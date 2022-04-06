@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToTripApplication } from "../../routes/Coordinator";
-import { UseRequestData } from "../../components/hooks/useRequestData";
+import { useRequestData } from "../../components/hooks/useRequestData";
 import { StyledListTripsPage } from "./styleListTrip";
+import { BASE_URL } from "../../components/urls/urlBase.js";
 
 export const ListTripsPage = () => {
   const navigate = useNavigate();
 
-  const trips = UseRequestData(
-    "https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trips",
-    []
-  );
+  const trips = useRequestData(`${BASE_URL}/trips`,[]);
 
   return (
     <StyledListTripsPage>

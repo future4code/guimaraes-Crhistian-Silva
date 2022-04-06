@@ -19,16 +19,11 @@ export const HomePage = () => {
     
   },[])
   
-
-  
-
   const goToLogin =() =>{
     
-
     {token === null ?  navigate("/login") :  navigate("/admin/trips/list") }
 
   }
-
 
   return (
     <StyleHomePage>
