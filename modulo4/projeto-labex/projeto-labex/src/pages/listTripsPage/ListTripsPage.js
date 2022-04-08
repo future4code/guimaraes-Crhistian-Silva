@@ -13,10 +13,6 @@ export const ListTripsPage = () => {
 
   return (
     <StyledListTripsPage>
-     <div className="container-buttons-trip-page">
-     <button onClick={() => goToHome (navigate)}> Voltar ao Inicio</button>
-       <button onClick={()=>{goToTripApplication(navigate)}}> Inscrever-se </button>
-          </div>
       <h1>Lista de Viagens</h1>
       {trips.map((trip) => {
         return (
@@ -44,6 +40,10 @@ export const ListTripsPage = () => {
           </div>
         );
       })}
+       <div className="container-buttons-trip-page">
+     <button onClick={() => goToHome (navigate)}> Voltar ao Inicio</button>
+       <button onClick={()=>{goToTripApplication(navigate)}}> Inscrever-se </button>
+          </div>
     </StyledListTripsPage>
   );
 };

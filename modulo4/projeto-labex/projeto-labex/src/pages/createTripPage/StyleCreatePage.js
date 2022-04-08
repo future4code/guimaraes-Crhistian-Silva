@@ -8,9 +8,16 @@ display: flex;
   margin: 0;
   align-items: center;
   width: 100vw;
-    height: 100vh; 
-    
-select, input{
+  height: 100vh;
+
+.container-buttons-create-page{
+      justify-content: center;
+    height: 20vh;
+    align-items: center;
+    margin-left: 10vw;
+    margin-right: 10vw;
+} 
+.container-buttons-create-page, select, input{
     width: 50vh;
     height: 40px;
     margin-bottom: 5px;
@@ -23,16 +30,7 @@ select, input{
     margin-top: 2rem;
     color: #fff;
 }
-
-.container-buttons-create-page{
-    display: flex;    
-    width: 30rem;
-    display: flex;
-justify-content: space-around;
-margin-top: 9rem;
-} 
 button{
-        margin-bottom: 15px;
         height: 3rem;
         padding: 0px 20px;
         border: none;
@@ -46,6 +44,9 @@ button{
           cursor: pointer;
         }
     }
+ #button-back{
+   margin-top: 1rem;
+ }
 `
 
 

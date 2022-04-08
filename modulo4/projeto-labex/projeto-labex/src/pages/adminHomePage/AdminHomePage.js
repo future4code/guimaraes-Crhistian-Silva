@@ -19,15 +19,13 @@ export const AdminHomePage = () => {
 
   const navigate = useNavigate();
 
-  /* const trips = useRequestData(`${BASE_URL}/trips`,[]); */
-
+  
   const [trips, setTrips] = useState([])
 
   useEffect(()=>{
     getTripList()
 
   },[])
-
 
   const getTripList = () =>{
     axios
@@ -39,7 +37,7 @@ export const AdminHomePage = () => {
         console.log(err)
     })  
   }
-
+     
 
   const returnMapTrip = trips.map((trip) => {
     return (
@@ -47,13 +45,33 @@ export const AdminHomePage = () => {
         <p key={trip.id} onClick={() => goToTripDetails(trip.id)}>
           {trip.name}
         </p>
-        <svg className="icone" onClick={() => delTrip()}>
+        <svg className="icone" onClick={() => delTrip(trip.id)}>
           <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
         </svg>
       </div>
     );
   });
 
+
+  const delTrip =  async (id) =>{
+    const token = localStorage.getItem("token")
+    const headers = {headers: {auth: token}}
+
+    if (window.confirm("Deseja deletar")) {
+      try {
+        const response = await 
+        axios.delete(`${BASE_URL}/trips/${id}`, headers);
+        getTripList()
+        window.alert(" Viagem deletada com sucesso" 
+        );
+      }
+      catch (error) {
+        console.log(error.response);
+      }
+  }
+}
+
+  
   const delToken = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -63,32 +81,7 @@ export const AdminHomePage = () => {
     navigate(`/admin/trips/${id}`);
   };
 
-
-    const delTrip = () =>{
-
-      const token = localStorage.getItem('token')
-
-     if(window.confirm("Deseja Deletar A Viagem Selecionada?")){
-       axios
-       .delete(`${BASE_URL}/trips/${params.id}`,  {
-        headers: {
-          auth: token
-        }
-      })
-       .then((res)=>{
-         setTrips(res.data.trips)
-         getTripList()
-        console.log("deu certo")
-
-       })
-       .catch((err)=>{ console.log(" não deu certo", err.success)})
-
-     }
-    }
-
-
-
-
+  
 
   return (
     <StyleAdminHomePage>

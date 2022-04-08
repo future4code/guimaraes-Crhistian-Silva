@@ -10,129 +10,37 @@ import { useRequestData } from "../../components/hooks/useRequestData";
 
 export const TripDetailsPage = () => {
   useProtectedPage();
-
-  const [tripDetails, setTripDetails] = useState([]);
-  const [candidates, setCandidates] = useState([]);
-  const [tripId, setTripId] = useState([]);
-  const [candidateId, setCandidateId] = useState([]);
-
   const navigate = useNavigate();
-
   const params = useParams();
 
-  const trips = useRequestData(`${BASE_URL}`);
+  const [tripDetails,setTripDetails] = useState([])
+  const [candidates, setCandidates] = useState([]);
+  const [approveds, setApproveds] = useState([])
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const headers = { headers: { auth: token }};
 
     axios
 
       .get(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trip/${params.id}`,
-        {
-          headers: {
-            auth: token,
-          },
-        }
-      )
+        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trip/${params.id}`, headers)
       .then((res) => {
         setTripDetails(res.data.trip);
+        setCandidates(res.data.trip.candidates) 
+        setApproveds(res.data.trip.approved)       
       })
       .catch((err) => {
         console.log(err);
       });
-  }, {});
+  }, []);
+ /*  console.log(tripDetails) */
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    axios
-
-      .get(`${BASE_URL}/trip/${params.id}`, {
-        headers: {
-          auth: token,
-        },
-      })
-      .then((res) => {
-        setCandidates(res.data.trip.candidates);
-        setTripId(res.data.trip.id);
-        setCandidateId(res.data.trip.candidates.id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, {});
-
-  const approveCandidate = () => {
-    const token = localStorage.getItem("token");
-    const body = { approve: true };
-    axios
-      .put(`${BASE_URL}/trips/${tripId}/candidates/${params.id}/decide`, {
-        headers: { auth: token } 
-      }, body)
-      .then((res) => {
-        console.log("deu certo");
-      })
-      .catch((err) => {
-        console.log("deu errado");
-      });
-  };
-
-  const reproveCandidate = () => {
-    const token = localStorage.getItem("token");
-    const body = { approve: false };
-    axios
-      .put(`${BASE_URL}/trips/${tripId}/candidates/${params.id}/decide`, {
-        headers: { auth: token },
-      }, body)
-      .then((res) => {
-        console.log("deu certo");
-      })
-      .catch((err) => {
-        console.log("deu errado");
-      });
-  };
-
-  console.log(tripId);
-  console.log(candidateId)
-
-  const tripCandidates = candidates.map((candidate) => {
-    return (
-      <div class="container-trip-details">
-        <ul>
-          <li>
-            <b>Nome: </b>
-            {candidate.name}
-          </li>
-          <li>
-            <b>Descrição: </b> {candidate.profession}
-          </li>
-          <li>
-            <b>Planeta: </b> {candidate.age}
-          </li>
-          <li>
-            <b>Duração: </b>
-            {candidate.country}
-          </li>
-          <li>
-            <b>Data: </b>
-            {candidate.applicationText}
-          </li>
-
-          <button id="btn-candidates" onClick={approveCandidate}>
-            Aprovar
-          </button>
-          <button id="btn-candidates" onClick={reproveCandidate}>
-            Reprovar
-          </button>
-        </ul>
-      </div>
-    );
-  });
-
-  const returnListTrip = () =>{
-    return (
-      <div class="container-trip-details">
+ console.log(approveds)
+  const returnListTrips = () =>{
+    return(
+      <div className="container-trip-details">
       <ul>
         <li>
           <b>Nome: </b>
@@ -157,23 +65,35 @@ export const TripDetailsPage = () => {
     )
   }
 
-
-  return (
-    <StyleTripDetailsPage>
-      {returnListTrip()}
-     
-      <button onClick={() => goBack(navigate)}> Voltar</button>
-      <h1> Candidatos Pendentes</h1>
-      {tripCandidates}
-      <h1> Candidatos Aprovados</h1>
-      <div>
+  const returnListApproveds = approveds.map((candidate) =>{
+    return(
+ 
+       
         <ul>
-          <li>Aqui vai a lista de Candidatos Aprovados</li>
-        </ul>
-        {returnListTrip()}
-      </div>
+          <li>
+            <b>Nome:   </b>
+            {candidate.name}
+          </li>
+          </ul>
 
-         
-    </StyleTripDetailsPage>
-  );
-};
+    )
+        
+  })
+
+
+  return(
+    < StyleTripDetailsPage>
+
+    <h1> TESTE</h1>
+    {returnListTrips()}
+   <h1>Lista de Candidatos Aprovados</h1>
+    
+  
+    <div className="container-candidate-approved">
+    {returnListApproveds}
+    </div>
+    <button onClick={() => goBack(navigate)}> Voltar</button>
+    </ StyleTripDetailsPage>
+  )
+  
+}

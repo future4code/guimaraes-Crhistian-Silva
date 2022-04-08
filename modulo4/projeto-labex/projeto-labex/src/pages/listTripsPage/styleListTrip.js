@@ -9,7 +9,6 @@ export const StyledListTripsPage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/src/img/viagem3.jpg");
   width: 100vw;
 
   li {
@@ -25,17 +24,15 @@ export const StyledListTripsPage = styled.div`
     font-size: 1.1rem;
   }
 h1{
-  width: 22rem;
-  color: #fff;
-  background: dodgerblue;
-  border-radius: 24px 12px;
+color: #fff;
+margin-top: 2rem;
 }
 
   .container-lista-trip-page li {
     font-family: "Kalam", cursive;
   }
   .container-buttons-trip-page{
-    margin-top: 30rem;
+    margin-top: 2rem;
     width: 30rem;
     display: flex;
         justify-content: space-around;

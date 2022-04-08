@@ -8,7 +8,7 @@ display: flex;
   margin: 0;
   align-items: center;
   width: 100vw;
-    height: 100vh; 
+  height: 100vh;
 
 .home-page{
     display: grid;
@@ -26,7 +26,6 @@ display: flex;
     border-radius: 6px;
 }
 
-
  h3{
     font-family: 'Lobster', cursive;
     font-size:4rem ;
@@ -34,15 +33,12 @@ display: flex;
     color: #fff;
 }
 
-.container-buttons-application-page{
-    display: flex;    
+.container-buttons-application-page{   
     width: 30rem;
-    display: flex;
     justify-content: space-around;
-    margin-top: 15rem;
+    margin-top: 0.5rem;
 } 
 button{
-        margin-bottom: 15px;
         height: 3rem;
         padding: 0px 20px;
         border: none;

@@ -7,45 +7,39 @@ import { goToAdminTripsList } from "../../routes/Coordinator";
 import { StyleLogin } from "./StyleLogin.js";
 import axios from "axios";
 import { BASE_URL } from "../../components/urls/urlBase.js";
+import { useForm } from "../../components/hooks/useForm";
 
 
 export const LoginPage = () => {
 
+  const [form, onChange] = useForm({email:"", password: ""})
+
+  const onSubmitFormLogin = (ev) =>{
+    ev.preventDefault()
+    const body = {
+      email: form.email,
+      password: form.password,
+    }
+    axios
+    .post(`${BASE_URL}/login`, body)
+    .then((res)=>{
+      localStorage.setItem("token", res.data.token)
+      window.alert("Login Efetuado Com Sucesso")
+      navigate("/admin/trips/list")
+    })
+    .catch((err)=>{
+      window.alert("Dados Incorretos, Digite Seus Dados Corretamente Para Efetuar O Login")
+    })
+    console.log("BODY", form)
+  }
+
   const navigate = useNavigate();
   
-  const[email,setEmail] = useState("")
-  const[password,setPassword] = useState("")
-
-  const onChangeEmail = (ev) =>{
-    setEmail(ev.target.value)
-  }
-
-  const onChangePassword = (ev) =>{
-    setPassword(ev.target.value)
-  }
-
-  const login = () =>{
-    const body = {
-    email: email,
-    password: password,
-  }
-  axios
-  .post(`${BASE_URL}/login`, body)
-  .then((res)=>{
-    localStorage.setItem("token", res.data.token)
-    window.alert("Login Efetuado Com Sucesso")
-    navigate("/admin/trips/list")
-  })
-  .catch((err)=>{
-    window.alert("Dados Incorretos, Digite Seus Dados Corretamente Para Efetuar O Login")
-  })
-}
-
   return (
     <StyleLogin>
       <main>
       <h2>Login</h2>
-        <form>
+        <form onSubmit={onSubmitFormLogin}>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">
               Email
@@ -56,8 +50,9 @@ export const LoginPage = () => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="E-mail"
-              value={email}
-              onChange={onChangeEmail}
+              value={form.email}
+              onChange={onChange}
+              name="email"
             />
           </div>
           <div class="mb-3">
@@ -65,16 +60,18 @@ export const LoginPage = () => {
               Password
             </label>
             <input
-                          class="form-control"
+              class="form-control"
               id="exampleInputPassword1"
               placeholder="Senha"
-              value={password}
-              onChange={onChangePassword}
+              value={form.password}
+              onChange={onChange}
+              name="password"
             />
           </div>
+          <button> Entrar</button>
         </form>
         <div className="container-buttons-application-page">
-        <button onClick={login}> Entrar</button>
+      
             </div>
       </main>
       <div className="container-buttons">

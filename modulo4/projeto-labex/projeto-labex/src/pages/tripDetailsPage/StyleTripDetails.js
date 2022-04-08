@@ -10,14 +10,8 @@ export const StyleTripDetailsPage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/src/img/viagem3.jpg");
-  width: 100vw;
-  margin-top: 35rem;
 
-  li {
-    list-style-type: none;
-  }
- .container-trip-details{
+  .container-trip-details{
   display: flex;
     text-align: start;
     background-color: #fff;
@@ -25,7 +19,59 @@ export const StyleTripDetailsPage = styled.div`
     border-radius: 10px 5px;
     width: 60vw;
     font-size: 1.1rem;
-
  }
+
+.container-candidate-trip-details{
+  display: flex;
+    text-align: start;
+    background-color: #fff;
+    border: solid;
+    border-radius: 10px 5px;
+    width: 50vw;
+    font-size: 1.1re;
+    margin-top: 1rem;
+}
+
+li{
+    list-style-type: none;
+}
+
+ h1{
+   color: #fff;
+ }
+ button{
+        height: 40px;
+        padding: 0px 20px;
+        border-radius: 20px;
+        border: none;
+        color: white;
+        font-size: 16px;
+        min-width: 100px;
+        background: dodgerblue;
+        margin-top: 1rem;
+    }
+
+    button:hover {
+        cursor: pointer;
+      }
+.container-buttons{
+  display: flex;
+  justify-content: space-evenly;
+width: 30vw;
+}
+.container-candidate-approved , .container-candidate-pending{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  color: black;
+  background-color: #fff;
+  width: 40vw;
+  justify-content: start;
+  align-items: start;
+  padding-left: 2rem;
+  border-radius: 20px;
+  min-height:3rem;
+}
+
 
    `
