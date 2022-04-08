@@ -8,12 +8,8 @@ export const useRequestData = (url, initialState) => {
     useEffect(()=>{
         axios
         .get(url)
-        .then((res)=>{
-            setData(res.data.trips)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })  
+        .then((res)=> setData(res.data.trips))
+        .catch((err)=>console.log(err))  
     }, [])
 
     return data;

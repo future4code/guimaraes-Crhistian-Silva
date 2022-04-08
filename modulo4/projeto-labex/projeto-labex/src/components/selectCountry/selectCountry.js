@@ -2,15 +2,13 @@ import React from "react";
 
 export const SelectCountry = (props) => {
 
-
   return (
     <div>
       <select
         id="paises"
         value={props.valueForm}
         onChange={props.functionOnChangeCountry}
-        name={props.valueName}
-      >
+        name={props.valueName}>
         <option selected="no-selected">
           Escolha um País
         </option>

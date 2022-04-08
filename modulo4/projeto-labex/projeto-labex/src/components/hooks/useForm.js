@@ -10,5 +10,6 @@ export const useForm = (initialState) => {
             [name]:value   
         })
     }
-  return [form, onChange]
+
+  return [form, onChange, setForm]
 }

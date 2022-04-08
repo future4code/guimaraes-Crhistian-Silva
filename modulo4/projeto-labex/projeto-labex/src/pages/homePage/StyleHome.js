@@ -11,9 +11,10 @@ export const StyleHomePage = styled.div`
   align-items: center;
   background-image: url("/src/img/viagem3.jpg");
   width: 100vw;
-  height:100vh;
+  height: 100vh;
   color: #fff;
   font-size: 3rem;
+  font-family: "Lobster", cursive;
 
   .container-buttons-trip-page {
     display: flex;
@@ -38,13 +39,11 @@ export const StyleHomePage = styled.div`
   button:hover {
     cursor: pointer;
   }
-  @media screen and (min-device-width : 320px) and (max-device-width:1300px) {
-    
+  @media screen and (min-device-width: 320px) and (max-device-width: 1300px) {
     .container-buttons-trip-page {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
   }
-
-}
 `;

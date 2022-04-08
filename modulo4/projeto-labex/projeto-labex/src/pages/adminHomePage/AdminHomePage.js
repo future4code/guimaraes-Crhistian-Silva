@@ -1,43 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-/* import { Button } from "../../components/button/Button"; */
 import "./StyleAdminHomePage.js";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 import { goToCreateTrip } from "../../routes/Coordinator";
 import { StyleAdminHomePage } from "./StyleAdminHomePage.js";
-import { useRequestData } from "../../components/hooks/useRequestData";
 import { useProtectedPage } from "../../components/hooks/useProtectedpage";
 import { BASE_URL } from "../../components/urls/urlBase.js";
 import axios from "axios";
 
 export const AdminHomePage = () => {
-
   useProtectedPage();
-
-  const params = useParams();
 
   const navigate = useNavigate();
 
-  
-  const [trips, setTrips] = useState([])
+  const [trips, setTrips] = useState([]);
 
-  useEffect(()=>{
-    getTripList()
+  useEffect(() => {
+    getTripList();
+  }, []);
 
-  },[])
-
-  const getTripList = () =>{
+  const getTripList = () => {
     axios
-    .get(`${BASE_URL}/trips`)
-    .then((res)=>{
-        setTrips(res.data.trips)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })  
-  }
-     
+      .get(`${BASE_URL}/trips`)
+      .then((res) => {
+        setTrips(res.data.trips);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const returnMapTrip = trips.map((trip) => {
     return (
@@ -52,26 +43,18 @@ export const AdminHomePage = () => {
     );
   });
 
+  const delTrip = async (id) => {
+    const token = localStorage.getItem("token");
+    const headers = { headers: { auth: token } };
 
-  const delTrip =  async (id) =>{
-    const token = localStorage.getItem("token")
-    const headers = {headers: {auth: token}}
-
-    if (window.confirm("Deseja deletar")) {
+    if (window.confirm("Deseja Deletar A Viagem Selecionada ?")) {
       try {
-        const response = await 
-        axios.delete(`${BASE_URL}/trips/${id}`, headers);
-        getTripList()
-        window.alert(" Viagem deletada com sucesso" 
-        );
-      }
-      catch (error) {
-        console.log(error.response);
-      }
-  }
-}
-
-  
+        const response = await axios.delete(`${BASE_URL}/trips/${id}`, headers);
+        getTripList();
+        window.alert(" Viagem Deletada Com Sucesso");
+      } catch (err) {}
+    }
+  };
   const delToken = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -80,8 +63,6 @@ export const AdminHomePage = () => {
   const goToTripDetails = (id) => {
     navigate(`/admin/trips/${id}`);
   };
-
-  
 
   return (
     <StyleAdminHomePage>
