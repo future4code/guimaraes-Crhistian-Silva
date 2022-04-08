@@ -59,19 +59,25 @@ li{
   justify-content: space-evenly;
 width: 30vw;
 }
-.container-candidate-approved , .container-candidate-pending{
+.container-candidate-approved {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   color: black;
   background-color: #fff;
   width: 40vw;
-  justify-content: start;
-  align-items: start;
-  padding-left: 2rem;
+  text-align: start;
   border-radius: 20px;
   min-height:3rem;
 }
-
-
-   `
+ .container-candidate-pending{
+   display: flex;
+  border: 1px solid black;
+  color: black;
+  background-color: #fff;
+  width: 60vw;
+  border-radius: 20px;
+  min-height:3rem;
+  text-align: start;
+}
+`

@@ -11,6 +11,8 @@ import { useForm } from "../../components/hooks/useForm";
 
 export const ApplicationFormPage = () => {
 
+  const [candidates, setCandidates] = useState([])
+
   const params = useParams()
 
   const navigate = useNavigate();
@@ -44,12 +46,16 @@ const onSubmitFormTrip = (ev) =>{
       window.alert("envio bem sucedido")
       console.log("BODY", form)
       console.log(res.data.message)
+      setCandidates(res)
+
+      
     }))
     .catch((err)=>{
       console.log("Erro ao se candidatar", err)
     })
   } 
 
+  console.log(trips)
 
   return (
     <StyleApplicationForm className="body">

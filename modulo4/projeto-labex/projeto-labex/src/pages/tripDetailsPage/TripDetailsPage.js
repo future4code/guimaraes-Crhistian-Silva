@@ -23,7 +23,6 @@ export const TripDetailsPage = () => {
     const headers = { headers: { auth: token }};
 
     axios
-
       .get(
         `https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trip/${params.id}`, headers)
       .then((res) => {
@@ -35,10 +34,40 @@ export const TripDetailsPage = () => {
         console.log(err);
       });
   }, []);
- /*  console.log(tripDetails) */
 
- console.log(approveds)
+  
+ const returnListPendingCandidates = candidates.map((candidate) =>{
+  return(
+       <ul>
+        <li>
+          <b>Nome:   </b>
+          {candidate.name}
+        </li>
+        <li>
+          <b>Profissão:   </b>
+          {candidate.profession}
+        </li>
+        <li>
+          <b>Idade:   </b>
+          {candidate.age}
+        </li>
+        <li>
+          <b>País:   </b>
+          {candidate.country}
+        </li>
+        <li>
+          <b>Texto de Candidatura:   </b>
+          {candidate.applicationText}
+        </li>
+        <button>Aprovar</button>
+        <button>Reprovar</button>
+        </ul>       
+  )    
+})
+
+
   const returnListTrips = () =>{
+
     return(
       <div className="container-trip-details">
       <ul>
@@ -67,32 +96,30 @@ export const TripDetailsPage = () => {
 
   const returnListApproveds = approveds.map((candidate) =>{
     return(
- 
-       
-        <ul>
+         <ul>
           <li>
             <b>Nome:   </b>
             {candidate.name}
           </li>
-          </ul>
-
-    )
-        
+          </ul>       
+    )    
   })
 
-
+ 
   return(
     < StyleTripDetailsPage>
 
-    <h1> TESTE</h1>
+    <h1> Lista de Viagens</h1>
     {returnListTrips()}
-   <h1>Lista de Candidatos Aprovados</h1>
-    
-  
-    <div className="container-candidate-approved">
-    {returnListApproveds}
+    <h1>Lista de Candidatos Pendentes</h1>
+    <div className="container-candidate-pending">
+     {returnListPendingCandidates}
     </div>
-    <button onClick={() => goBack(navigate)}> Voltar</button>
+   <h1>Lista de Candidatos Aprovados</h1>
+    <div className="container-candidate-approved">
+     {returnListApproveds}
+    </div>
+    <button onClick={() => goBack(navigate)}> Voltar ao Painel</button>
     </ StyleTripDetailsPage>
   )
   

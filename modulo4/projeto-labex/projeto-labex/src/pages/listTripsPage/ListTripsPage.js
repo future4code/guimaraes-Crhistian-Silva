@@ -14,6 +14,10 @@ export const ListTripsPage = () => {
   return (
     <StyledListTripsPage>
       <h1>Lista de Viagens</h1>
+      <div className="container-buttons-trip-page">
+     <button onClick={() => goToHome (navigate)}> Voltar ao Inicio</button>
+       <button onClick={()=>{goToTripApplication(navigate)}}> Inscrever-se </button>
+          </div>
       {trips.map((trip) => {
         return (
           <div class="container-lista-trip-page" key={trip.id}>
@@ -40,10 +44,7 @@ export const ListTripsPage = () => {
           </div>
         );
       })}
-       <div className="container-buttons-trip-page">
-     <button onClick={() => goToHome (navigate)}> Voltar ao Inicio</button>
-       <button onClick={()=>{goToTripApplication(navigate)}}> Inscrever-se </button>
-          </div>
+  
     </StyledListTripsPage>
   );
 };
