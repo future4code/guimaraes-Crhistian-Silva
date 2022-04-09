@@ -5,6 +5,7 @@ import { goBack } from "../../routes/Coordinator";
 import axios from "axios";
 import { useProtectedPage } from "../../components/hooks/useProtectedpage";
 import { BASE_URL } from "../../components/urls/urlBase.js";
+import { SpinnerJs } from "../../components/spinner/spinner";
 
 export const TripDetailsPage = () => {
   useProtectedPage();
@@ -15,30 +16,36 @@ export const TripDetailsPage = () => {
   const [candidates, setCandidates] = useState([]);
   const [approveds, setApproveds] = useState([]);
   const [tripId, setTripId] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const headers = { headers: { auth: token } };
 
-    axios
-      .get(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/crhistian-felipe-guimaraes/trip/${params.id}`,
-        headers
-      )
-      .then((res) => {
-        setTripDetails(res.data.trip);
-        setCandidates(res.data.trip.candidates);
-        setApproveds(res.data.trip.approved);
-        setTripId(res.data.trip.id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fetch = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `${BASE_URL}/trip/${params.id}`,
+          headers
+        );
+        setTripDetails(data.trip);
+        setCandidates(data.trip.candidates);
+        setApproveds(data.trip.approved);
+        setTripId(data.trip.id);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch();
   }, [candidates]);
 
-  const returnListTrips = () => {
+  const tripsListDetails = () => {
     return (
-      <div className="container-trip-details">
+      <>
         <ul>
           <li>
             <b>Nome: </b>
@@ -59,7 +66,7 @@ export const TripDetailsPage = () => {
             {tripDetails.date}
           </li>
         </ul>
-      </div>
+      </>
     );
   };
 
@@ -146,17 +153,28 @@ export const TripDetailsPage = () => {
       }
     }
   };
+
   return (
     <StyleTripDetailsPage>
       <h1> Lista de Viagens</h1>
-      {returnListTrips()}
+      <div className="container-trip-details">
+        {loading && <SpinnerJs />}
+        {!loading && error && <h2>Ocorreu Um Erro na Requisição</h2>}
+        {!loading && tripDetails && tripsListDetails()}
+        {!loading && tripDetails && tripDetails === 0 && (
+          <h2> Não há Nenhuma Viagem</h2>
+        )}
+      </div>
+
       <h2>Lista de Candidatos Pendentes</h2>
       <div className="container-candidate-pending">
+        {loading && <SpinnerJs />}
+        {!loading && error && <h2>Ocorreu Um Erro na Requisição</h2>}
         {returnListPendingCandidates}
       </div>
       <h2>Lista de Candidatos Aprovados</h2>
       <div className="container-candidate-approved">{returnListApproveds}</div>
-      <button onClick={() => goBack(navigate)}> Voltar ao Painel</button>
+      <button onClick={() => goBack(navigate)}>Voltar ao Painel</button>
     </StyleTripDetailsPage>
   );
 };

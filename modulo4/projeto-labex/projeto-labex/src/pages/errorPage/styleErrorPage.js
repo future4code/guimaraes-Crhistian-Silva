@@ -14,4 +14,22 @@ export const StyleErrorPage = styled.div`
   height:100vh;
   color: #fff;
   font-size: 3rem;
+  font-family: "Lobster", cursive;
+  button {
+    margin-bottom: 15px;
+    height: 40px;
+    padding: 0px 20px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 15rem;
+    height: 5rem;
+    background: dodgerblue;
+    font-family: "Lobster", cursive;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
 `

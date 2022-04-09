@@ -7,7 +7,6 @@ export const StyledListTripsPage = styled.div`
   padding: 0px;
   margin: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100vw;
   font-family: "Lobster", cursive;
@@ -17,6 +16,7 @@ export const StyledListTripsPage = styled.div`
   }
   .container-lista-trip-page {
     display: flex;
+    flex-direction: column;
     text-align: start;
     background-color: #fff;
     border: solid;
@@ -24,10 +24,10 @@ export const StyledListTripsPage = styled.div`
     width: 60vw;
     font-size: 1.1rem;
     font-family: "Lobster", cursive;
-  }
+    margin-top: 0.5rem;
+      }
   h1 {
     color: #fff;
-    margin-top: 2rem;
     font-size: 4rem;
   }
 
@@ -55,30 +55,5 @@ export const StyledListTripsPage = styled.div`
       cursor: pointer;
     }
   }
-  ::-webkit-scrollbar {
-    width: 20px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #ff0043;
-    border-radius: 30px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #000000;
-    border-radius: 30px;
-  }
-  @media screen and (min-device-width: 376px) and (max-device-width: 480px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .container-buttons-trip-page {
-      width: 20rem;
-      display: flex;
-      justify-content: space-around;
-    }
-  }
 `;

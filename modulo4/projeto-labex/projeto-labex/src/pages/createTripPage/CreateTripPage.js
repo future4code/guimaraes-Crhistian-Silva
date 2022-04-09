@@ -16,12 +16,12 @@ export const CreateTripPage = () => {
     const token = localStorage.getItem("token");
   }, []);
 
-  const [form, onChange] = useForm({
+  const [form, onChange, setForm] = useForm({
     name: "",
     planet: "",
     date: "",
     description: "",
-    durationInDays: 0,
+    durationInDays: "",
   });
 
   const onSubmitFormCreateTrip = (ev) => {
@@ -40,7 +40,13 @@ export const CreateTripPage = () => {
       .post(`${BASE_URL}/trips`, body, headers)
       .then((res) => {
         window.alert("Viagem Criada Com Sucesso");
-        navigate("/admin/trips/list");
+        setForm({
+          name: "",
+          planet: "",
+          date: "",
+          description: "",
+          durationInDays: "",
+        });
       })
       .catch((err) => {
         window.alert("Digite Os Dados Corretamente");
@@ -59,12 +65,14 @@ export const CreateTripPage = () => {
             required
             title="Seu Nome Deve Conter Minímo de 5 letras"
             pattern=".{5,}"
+            value={form.name}
           ></input>
           <select
             name="planet"
             class="form-select"
             aria-label="Default select example"
             onChange={onChange}
+            value={form.planet}
           >
             <option selected>Escolha o Planeta</option>
             <option value="Mercúrio<">Mercúrio</option>
@@ -84,6 +92,7 @@ export const CreateTripPage = () => {
             required
             title="A Viagem Deve Começar em Uma Data Futura"
             min="2022-06-05"
+            value={form.date}
           ></input>
           <input
             name="description"
@@ -92,6 +101,7 @@ export const CreateTripPage = () => {
             onChange={onChange}
             required
             pattern=".{30,}"
+            value={form.description}
           ></input>
           <input
             name="durationInDays"
@@ -100,6 +110,7 @@ export const CreateTripPage = () => {
             required
             min="50"
             onChange={onChange}
+            value={form.durationInDays}
           ></input>
           <button> Criar Viagem</button>
         </form>

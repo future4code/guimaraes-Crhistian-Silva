@@ -16,10 +16,15 @@ export const StyleHomePage = styled.div`
   font-size: 3rem;
   font-family: "Lobster", cursive;
 
-  .container-buttons-trip-page {
+  .container-buttons-home-page {
     display: flex;
-    justify-content: space-between;
-    width: 50%;
+    justify-content: space-around;
+    width: 30rem;
+     }
+  h1 {
+    color: #fff;
+    font-size: 4rem;
+    margin-bottom: 5rem;
   }
 
   button {
@@ -30,7 +35,6 @@ export const StyleHomePage = styled.div`
     border: none;
     color: white;
     font-size: 2rem;
-    width: 15rem;
     height: 5rem;
     background: dodgerblue;
     font-family: "Lobster", cursive;
@@ -39,11 +43,5 @@ export const StyleHomePage = styled.div`
   button:hover {
     cursor: pointer;
   }
-  @media screen and (min-device-width: 320px) and (max-device-width: 1300px) {
-    .container-buttons-trip-page {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-  }
+
 `;

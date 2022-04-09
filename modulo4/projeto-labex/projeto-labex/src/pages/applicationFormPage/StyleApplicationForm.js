@@ -9,17 +9,20 @@ export const StyleApplicationForm = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-
-  .home-page {
-    display: grid;
-    justify-content: center;
-    height: 20vh;
-    align-items: center;
-    margin-left: 10vw;
-    margin-right: 10vw;
+  color: #fff;
+  justify-content: center;
+  h1{
+    margin-top: 2rem;
+    font-size: 4rem;
+    font-family: "Lobster", cursive;
   }
-  .home-page,
-  select,
+
+.form-application-page{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+select,
   input {
     width: 50vh;
     height: 40px;
@@ -27,19 +30,7 @@ export const StyleApplicationForm = styled.div`
     border-radius: 6px;
   }
 
-  h3 {
-    font-family: "Lobster", cursive;
-    font-size: 4rem;
-    margin-top: 2rem;
-    color: #fff;
-  }
-
-  .container-buttons-application-page {
-    width: 30rem;
-    justify-content: space-around;
-    margin-top: 0.5rem;
-  }
-  button {
+button {
     height: 3rem;
     padding: 0px 20px;
     border: none;
@@ -49,6 +40,7 @@ export const StyleApplicationForm = styled.div`
     min-width: 100px;
     background: dodgerblue;
     font-family: "Lobster", cursive;
+    margin-top: 1.5rem;
     :hover {
       cursor: pointer;
     }

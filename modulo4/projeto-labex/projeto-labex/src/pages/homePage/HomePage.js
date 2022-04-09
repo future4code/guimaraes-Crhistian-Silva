@@ -22,7 +22,7 @@ export const HomePage = () => {
   return (
     <StyleHomePage>
       <h1>Tela Inicial</h1>
-      <div className="container-buttons-trip-page">
+      <div className="container-buttons-home-page">
         <button onClick={() => goToTripsList(navigate)}> Ver Viagens</button>
         <button onClick={() => goToLogin(navigate)}> Área Admin</button>
       </div>

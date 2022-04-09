@@ -84,14 +84,28 @@ export const StyleTripDetailsPage = styled.div`
     border: 1px solid black;
     color: black;
     background-color: #fff;
-    width: 40vw;
+    width: 50vw;
     border-radius: 20px;
     min-height: 3rem;
     text-align: start;
+    height: 30rem;
+    overflow: scroll;
+    ::-webkit-scrollbar{
+    width: 10px;
+      }
+  ::-webkit-scrollbar-track{
+    background: #ff0043;
+    border-radius: 30px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background: #000000;
+    border-radius: 30px;
+  }
+
     button{
       justify-content: space-between;
       margin-left: 10%;
       margin-right: 10%;
     }
-  }
+
 `;
