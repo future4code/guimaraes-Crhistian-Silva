@@ -16,13 +16,13 @@ export const ListTripsPage = () => {
     trips &&
     trips.map((trip) => {
       return (
-        <div class="container-lista-trip-page" key={trip.id}>
-          <div class="card-header">{trip.name}</div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b>Descrição: </b>{trip.description}</li>
-            <li class="list-group-item"><b>Planeta: </b>{trip.planet}</li>
-            <li class="list-group-item"><b>Duração: </b>{trip.durationInDays}</li>
-            <li class="list-group-item"><b>Data: </b>{trip.date}</li>
+        <div className="container-lista-trip-page" key={trip.id}>
+          <div className="card-header">{trip.name}</div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item"><b>Descrição: </b>{trip.description}</li>
+            <li className="list-group-item"><b>Planeta: </b>{trip.planet}</li>
+            <li className="list-group-item"><b>Duração: </b>{trip.durationInDays}</li>
+            <li className="list-group-item"><b>Data: </b>{trip.date}</li>
           </ul>
         </div>
       );

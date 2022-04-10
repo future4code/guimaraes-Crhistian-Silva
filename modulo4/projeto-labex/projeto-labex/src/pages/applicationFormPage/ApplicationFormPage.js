@@ -61,14 +61,14 @@ export const ApplicationFormPage = () => {
 
  
   return (
-    <StyleApplicationForm className="container-application-page">
+    <StyleApplicationForm classNameName="container-application-page">
       <h1>
         Escolha uma Viagem
       </h1>
       <div >
         <form onSubmit={onSubmitFormTrip} className="form-application-page" >
           <select
-            class="form-select"
+            className="form-select"
             id="inputGroupSelect01"
             name="trip"
             onChange={onChange}

@@ -37,13 +37,13 @@ export const LoginPage = () => {
       <main>
         <h2>Login</h2>
         <form onSubmit={onSubmitFormLogin}>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">
+          <div className="mb-3">
+            <label  className="form-label">
               Email
             </label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="E-mail"
@@ -52,12 +52,12 @@ export const LoginPage = () => {
               name="email"
             />
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">
+          <div className="mb-3">
+            <label className="form-label">
               Password
             </label>
             <input
-              class="form-control"
+              className="form-control"
               id="exampleInputPassword1"
               placeholder="Senha"
               value={form.password}
@@ -70,9 +70,9 @@ export const LoginPage = () => {
         <div className="container-buttons-application-page"></div>
       </main>
       <div className="container-buttons">
-        <div class="button" onClick={() => goToHome(navigate)}>
-          <div class="container">
-            <div class="tick">Voltar ao Inicio</div>
+        <div className="button" onClick={() => goToHome(navigate)}>
+          <div className="container">
+            <div className="tick">Voltar ao Inicio</div>
           </div>
         </div>
       </div>

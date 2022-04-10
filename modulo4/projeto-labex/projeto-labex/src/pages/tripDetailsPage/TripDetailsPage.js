@@ -41,7 +41,7 @@ export const TripDetailsPage = () => {
       }
     };
     fetch();
-  }, []);
+  }, [candidates]);
 
   const tripsListDetails =
     tripDetails &&
@@ -76,7 +76,7 @@ export const TripDetailsPage = () => {
     candidates &&
     candidates.map((candidate) => {
       return (
-        <ul>
+        <ul key={candidate.id}>
           <li>
             <b>Nome: </b>
             {candidate.name}
@@ -113,7 +113,7 @@ export const TripDetailsPage = () => {
     approveds &&
     approveds.map((candidate) => {
       return (
-        <ul>
+        <ul key={candidate.id}>
           <li>
             <b>Nome: </b>
             {candidate.name}
