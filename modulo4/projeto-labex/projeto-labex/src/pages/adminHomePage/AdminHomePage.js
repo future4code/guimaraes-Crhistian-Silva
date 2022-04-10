@@ -7,6 +7,8 @@ import { StyleAdminHomePage } from "./StyleAdminHomePage.js";
 import { useProtectedPage } from "../../components/hooks/useProtectedpage";
 import { BASE_URL } from "../../components/urls/urlBase.js";
 import axios from "axios";
+import { SpinnerJs } from "../../components/spinner/spinner.js";
+
 
 export const AdminHomePage = () => {
   useProtectedPage();
@@ -14,23 +16,29 @@ export const AdminHomePage = () => {
   const navigate = useNavigate();
 
   const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState()
 
   useEffect(() => {
     getTripList();
   }, []);
 
-  const getTripList = () => {
-    axios
-      .get(`${BASE_URL}/trips`)
-      .then((res) => {
-        setTrips(res.data.trips);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getTripList =  async () => {
+    setLoading(true)
+    try {
+      const { data } = await 
+      axios.get(`${BASE_URL}/trips`);
+      setTrips(data.trips);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const returnMapTrip = trips.map((trip) => {
+
+  const returnTrips =
+  trips && trips.map((trip) => {
     return (
       <div className="lista-p">
         <p key={trip.id} onClick={() => goToTripDetails(trip.id)}>
@@ -73,7 +81,12 @@ export const AdminHomePage = () => {
           <button onClick={() => goToCreateTrip(navigate)}> Criar</button>
           <button onClick={delToken}> Logout</button>
         </div>
-        {returnMapTrip}
+                {loading && <SpinnerJs />}
+        {!loading && error && <h2>Ocorreu Um Erro na Requisição</h2>}
+        {!loading && trips && trips.length > 0 && returnTrips}
+        {!loading && trips && trips.length === 0 && (
+          <h2> Não há Nenhuma Viagem</h2>
+        )}
       </div>
     </StyleAdminHomePage>
   );

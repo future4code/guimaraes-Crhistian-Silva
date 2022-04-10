@@ -60,10 +60,10 @@ export const CreateTripPage = () => {
         <form onSubmit={onSubmitFormCreateTrip}>
           <input
             name="name"
-            placeholder="Nome Completo"
+            placeholder="Nome da Viagem"
             onChange={onChange}
             required
-            title="Seu Nome Deve Conter Minímo de 5 letras"
+            title="Nome da Viagem Deve Conter Minímo de 5 letras"
             pattern=".{5,}"
             value={form.name}
           ></input>
@@ -73,6 +73,7 @@ export const CreateTripPage = () => {
             aria-label="Default select example"
             onChange={onChange}
             value={form.planet}
+            required
           >
             <option selected>Escolha o Planeta</option>
             <option value="Mercúrio<">Mercúrio</option>

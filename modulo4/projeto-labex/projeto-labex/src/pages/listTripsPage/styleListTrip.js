@@ -24,7 +24,7 @@ export const StyledListTripsPage = styled.div`
     width: 60vw;
     font-size: 1.1rem;
     font-family: "Lobster", cursive;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
       }
   h1 {
     color: #fff;

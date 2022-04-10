@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyleTripDetailsPage = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300&family=Lobster&display=swap");
-
+  background-size: cover;
   display: flex;
   flex-direction: column;
   padding: 0px;
@@ -67,17 +67,7 @@ export const StyleTripDetailsPage = styled.div`
     justify-content: space-evenly;
     width: 30vw;
   }
-  .container-candidate-approved {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    color: black;
-    background-color: #fff;
-    width: 40vw;
-    text-align: start;
-    border-radius: 20px;
-    min-height: 3rem;
-  }
+
   .container-candidate-pending {
     display: flex;
     flex-direction: column;
@@ -88,6 +78,20 @@ export const StyleTripDetailsPage = styled.div`
     border-radius: 20px;
     min-height: 3rem;
     text-align: start;
+    overflow: auto;
+    resize: both;
+  }
+
+  .container-candidate-approved {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    color: black;
+    background-color: #fff;
+    width: 40vw;
+    text-align: start;
+    border-radius: 20px;
+    min-height: 3rem;
   }
 
   button {

@@ -20,29 +20,29 @@ export const TripDetailsPage = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
+    getTripDetails();
+  }, []);
+
+  const getTripDetails = async () => {
     const token = localStorage.getItem("token");
     const headers = { headers: { auth: token } };
 
-    const fetch = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axios.get(
-          `${BASE_URL}/trip/${params.id}`,
-          headers
-        );
-        setTripDetails([data.trip]);
-        setCandidates(data.trip.candidates);
-        setApproveds(data.trip.approved);
-        setTripId(data.trip.id);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
-  }, [candidates]);
-
+    setLoading(true);
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/trip/${params.id}`,
+        headers
+      );
+      setTripDetails([data.trip]);
+      setCandidates(data.trip.candidates);
+      setApproveds(data.trip.approved);
+      setTripId(data.trip.id);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const tripsListDetails =
     tripDetails &&
     tripDetails.map((trip) => {
@@ -134,6 +134,7 @@ export const TripDetailsPage = () => {
           body,
           headers
         );
+        getTripDetails()
         window.alert("Candidato Aprovado Com Sucesso");
       } catch (err) {
         window.alert("Candidato Não Aprovado");
@@ -153,6 +154,7 @@ export const TripDetailsPage = () => {
           body,
           headers
         );
+        getTripDetails()
         window.alert(" Candidato Reprovado Com Sucesso");
       } catch (err) {
         window.alert("Candidato Não Reprovado");
