@@ -39,7 +39,7 @@ export const StyleTripDetailsPage = styled.div`
   h1 {
     color: #fff;
     font-size: 4rem;
-    margin-top: 5rem;
+    margin-top: 2rem;
   }
   h2 {
     color: #fff;
@@ -88,24 +88,11 @@ export const StyleTripDetailsPage = styled.div`
     border-radius: 20px;
     min-height: 3rem;
     text-align: start;
-    height: 30rem;
-    overflow: scroll;
-    ::-webkit-scrollbar{
-    width: 10px;
-      }
-  ::-webkit-scrollbar-track{
-    background: #ff0043;
-    border-radius: 30px;
-  }
-  ::-webkit-scrollbar-thumb{
-    background: #000000;
-    border-radius: 30px;
   }
 
-    button{
-      justify-content: space-between;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-
+  button {
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 `;

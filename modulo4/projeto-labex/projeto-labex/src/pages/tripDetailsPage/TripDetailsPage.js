@@ -30,7 +30,7 @@ export const TripDetailsPage = () => {
           `${BASE_URL}/trip/${params.id}`,
           headers
         );
-        setTripDetails(data.trip);
+        setTripDetails([data.trip]);
         setCandidates(data.trip.candidates);
         setApproveds(data.trip.approved);
         setTripId(data.trip.id);
@@ -41,80 +41,86 @@ export const TripDetailsPage = () => {
       }
     };
     fetch();
-  }, [candidates]);
+  }, []);
 
-  const tripsListDetails = () => {
-    return (
-      <>
+  const tripsListDetails =
+    tripDetails &&
+    tripDetails.map((trip) => {
+      return (
+        <>
+          <ul key={trip.id}>
+            <li>
+              <b>Nome: </b>
+              {trip.name}
+            </li>
+            <li>
+              <b>Descrição: </b> {trip.description}
+            </li>
+            <li>
+              <b>Planeta: </b> {trip.planet}
+            </li>
+            <li>
+              <b>Duração: </b>
+              {trip.durationInDays}
+            </li>
+            <li>
+              <b>Data: </b>
+              {trip.date}
+            </li>
+          </ul>
+        </>
+      );
+    });
+
+  const returnListPendingCandidates =
+    candidates &&
+    candidates.map((candidate) => {
+      return (
         <ul>
           <li>
             <b>Nome: </b>
-            {tripDetails.name}
+            {candidate.name}
           </li>
           <li>
-            <b>Descrição: </b> {tripDetails.description}
+            <b>Profissão: </b>
+            {candidate.profession}
           </li>
           <li>
-            <b>Planeta: </b> {tripDetails.planet}
+            <b>Idade: </b>
+            {candidate.age}
           </li>
           <li>
-            <b>Duração: </b>
-            {tripDetails.durationInDays}
+            <b>País: </b>
+            {candidate.country}
           </li>
           <li>
-            <b>Data: </b>
-            {tripDetails.date}
+            <b>Texto de Candidatura: </b>
+            {candidate.applicationText}
+          </li>
+          <div className="buttons-container-pending">
+            <button onClick={() => approveCandidate(candidate.id)}>
+              Aprovar
+            </button>
+            <button onClick={() => reproveCandidate(candidate.id)}>
+              Reprovar
+            </button>
+          </div>
+        </ul>
+      );
+    });
+
+  const returnListApproveds =
+    approveds &&
+    approveds.map((candidate) => {
+      return (
+        <ul>
+          <li>
+            <b>Nome: </b>
+            {candidate.name}
           </li>
         </ul>
-      </>
-    );
-  };
-
-  const returnListPendingCandidates = candidates.map((candidate) => {
-    return (
-      <ul>
-        <li>
-          <b>Nome: </b>
-          {candidate.name}
-        </li>
-        <li>
-          <b>Profissão: </b>
-          {candidate.profession}
-        </li>
-        <li>
-          <b>Idade: </b>
-          {candidate.age}
-        </li>
-        <li>
-          <b>País: </b>
-          {candidate.country}
-        </li>
-        <li>
-          <b>Texto de Candidatura: </b>
-          {candidate.applicationText}
-        </li>
-        <div className="buttons-container-pending">
-          <button onClick={() => approveCandidate(candidate.id)}>
-            Aprovar
-          </button>
-          <button onClick={() => reproveCandidate(candidate.id)}>
-            Reprovar
-          </button>
-        </div>
-      </ul>
-    );
-  });
-
-  const returnListApproveds = approveds.map((candidate) => {
-    return (
-      <ul>
-        <li>
-          <b>Nome: </b>
-          {candidate.name}
-        </li>
-      </ul>
-    );
-  });
+      );
+    });
 
   const approveCandidate = async (id) => {
     const token = localStorage.getItem("token");
@@ -159,21 +165,33 @@ export const TripDetailsPage = () => {
       <h1> Lista de Viagens</h1>
       <div className="container-trip-details">
         {loading && <SpinnerJs />}
-        {!loading && error && <h2>Ocorreu Um Erro na Requisição</h2>}
-        {!loading && tripDetails && tripsListDetails()}
-        {!loading && tripDetails && tripDetails === 0 && (
+        {!loading && error && <h4>Ocorreu Um Erro na Requisição</h4>}
+        {!loading && tripDetails && tripDetails.length > 0 && tripsListDetails}
+        {!loading && tripDetails && tripDetails.length === 0 && (
           <h2> Não há Nenhuma Viagem</h2>
         )}
       </div>
-
       <h2>Lista de Candidatos Pendentes</h2>
       <div className="container-candidate-pending">
         {loading && <SpinnerJs />}
-        {!loading && error && <h2>Ocorreu Um Erro na Requisição</h2>}
-        {returnListPendingCandidates}
+        {!loading && error && <h4>Ocorreu Um Erro na Requisição</h4>}
+        {!loading &&
+          candidates &&
+          candidates.length > 0 &&
+          returnListPendingCandidates}
+        {!loading && candidates && candidates.length === 0 && (
+          <h4> Não há Nenhum Candidato</h4>
+        )}
       </div>
       <h2>Lista de Candidatos Aprovados</h2>
-      <div className="container-candidate-approved">{returnListApproveds}</div>
+      <div className="container-candidate-approved">
+        {loading && <SpinnerJs />}
+        {!loading && error && <h4>Ocorreu Um Erro na Requisição</h4>}
+        {!loading && approveds && approveds.length > 0 && returnListApproveds}
+        {!loading && approveds && approveds.length === 0 && (
+          <h4> Não há Nenhum Candidato</h4>
+        )}
+      </div>
       <button onClick={() => goBack(navigate)}>Voltar ao Painel</button>
     </StyleTripDetailsPage>
   );
