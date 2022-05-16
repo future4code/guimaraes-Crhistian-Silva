@@ -13,7 +13,7 @@ export const ListTripsPage = () => {
   const [trips, loading, error] = useRequestData(`${BASE_URL}/trips`, []);
 
   useEffect(()=>{},[trips])
-  
+
   const tripsList =
     trips &&
     trips.map((trip) => {
