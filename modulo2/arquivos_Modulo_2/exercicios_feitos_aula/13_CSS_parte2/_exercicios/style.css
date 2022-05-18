@@ -1,0 +1,58 @@
+/* EXERCICIO 01 */
+h1, h2, h3, h4, h5 , h6, p {
+   color: orange;
+}
+
+#outra-cor {
+   color: green;
+}
+
+.texto-com-bg {
+   background-color: yellow;
+}
+
+/* EXERCICIO 02 */
+
+#ex-dois button:active {
+   transform: scale(2);
+}
+
+#ex-dois button:hover {
+   color: white;
+   background-color: red;
+}
+
+#ex-dois {
+   text-align: center;
+}
+
+
+/* EXERCICIO 03 */
+
+header, footer {
+   border: black 1px solid;
+}
+
+main {
+   height: 1000px;
+}
+
+header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+}
+
+
+
+
+/* GLOBAL */
+span, footer > h2 {
+   background-color: orange;
+   color: white;
+}
+
+header, footer {
+   text-align: center;
+}

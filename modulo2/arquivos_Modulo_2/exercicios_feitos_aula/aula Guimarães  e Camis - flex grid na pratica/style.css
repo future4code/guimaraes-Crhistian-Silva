@@ -1,0 +1,117 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    display: grid;
+    grid-template-rows: 100px 1fr 60px  ;
+    grid-template-columns: 1fr ;
+    height: 100vh;
+}
+
+header{
+    background-color: mediumvioletred;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header > div{
+    display: flex;
+    align-items: center;
+
+}
+
+header img {
+    width: 20px;
+ padding:0 10px;
+}
+
+header  > button{
+    margin-right: 10px;
+    padding:0 10px;
+    border-radius: 0px;
+}
+
+main{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 400px 1fr ;
+}
+
+
+.pagina{
+    display: grid;
+    grid-template-columns: repeat(4 , 1fr);
+    grid-template-rows: repeat(2 , 1fr);
+    gap:10px;
+    padding: 20px ;
+}
+
+footer{
+    background-color: mediumvioletred;
+    ;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    align-items: center;
+}
+
+nav {
+    background-color: #f2d0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+    width: 380px;
+    /* flex-wrap: wrap; */
+
+}
+
+nav .botao{
+    display: flex;
+    justify-content: space-between;
+}
+
+nav img {
+    width: 20px;
+margin-right:10px ;
+}
+
+nav > div >  p {
+    padding-right: 100px;
+}
+
+.botao img{
+    height: 20px;
+}
+
+.icone-texto{
+    display: flex;
+    padding: 10px 0 ;
+}
+
+.card{
+    border: 1px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 2px 2px 5px darkgray;
+}
+
+.card h2{
+    padding: 20px 0;
+}
+
+.card  p{
+    padding: 0 70px 20px 70px;
+
+}
+
+
+.card img{
+    width: 100%;
+}
+

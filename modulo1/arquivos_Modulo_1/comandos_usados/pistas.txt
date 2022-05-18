@@ -1,0 +1,103 @@
+PISTAS > PESSOAS > ENTREVISTAS > RUAS > AUTOMOVEIS > RUAS > ENTREVISTAS> SUSPEITOS >
+"PISTAS"
+
+PISTA: A filmagem do caixa eletrônico está embaçada, 
+mas mostra que o suspeito é um homem alto, pelo menos 1,83m de altura.
+
+PISTA: Encontramos uma carteira que provavelmente pertence ao assassino. 
+Nenhum documento de identidade, apenas alguns trocados e 
+carteirinhas dos grupos AAA, Delta SkyMiles, biblioteca e
+ do Museu de História do Bash. Impossível rastrear as carteirinhas, 
+e nenhuma delas possui nome, por algum motivo.
+hea
+PISTA: Interrogamos o garçom da cafeteria próxima à cena. 
+Ele disse que uma mulher saiu da cafeteria logo antes de ouvirem os tiros. 
+O nome dela era Annabel, tinha cabelo loiro curto e um sotaque da Nova Zelândia.
+
+***************
+Para ir até a rua em que uma pessoa mora, utilize o arquivo com o nome da
+rua, localizado no subdiretório "ruas".
+
+Para bater na porta da pessoa e investigar, leia o número da linha retirado
+deste arquivo.
+
+Se o conteúdo de uma linha não fizer nenhum sentido, você está na linha errada.
+
+***************
+
+"PESSOAS"
+Annabel Sun     F       26      Vila Hart, linha 40
+LEIA A ENTREVISTA #47246024 - TESTEMUNHA DESCARTADA
+
+Oluwasegun Annabel      M       37      Rua Mattapan, linha 173
+LEIA A ENTREVISTA #9437737 - TESTEMUNHA DESCARTADA
+
+Annabel Church  F       38      Vila Buckingham, linha 179
+LEIA A ENTREVISTA #699607
+Entrevistamos a Srta. Church às 14:04. 
+A testemunha afirmou que não viu ninguém com as características do atirador
+ e que saiu correndo assim que os tiros foram disparados.
+No entanto, ela reportou que viu um carro fugindo da cena do crime.
+ Descreveu como um Honda azul, com placa que começa com "L337" e termina com "9".
+
+Annabel Fuglsang        M       40      Rua Haley, linha 176
+LEIA A ENTREVISTA #871877 - TESTEMUNHA DESCARTADA
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Placa L337DV9
+Marca: Honda
+Cor: Azul
+Proprietário: Joe Germuska
+Altura: 1,88 m
+Peso: 74,4 kg
+pessoas:Joe Germuska    M       65      Rua Plainfield, linha 275
+LEIA A ENTREVISTA #29741223
+Não deve ser considerado suspeito, pois não é associado ao SkyMiles
+ e nunca foi membro do Museu de História do Bash.
+
+--
+
+Placa L3375A9
+Marca: Honda
+Cor: Azul
+Proprietário: Jeremy Bowers
+Altura: 1,86 m
+Peso: 92,5 kg
+Jeremy Bowers   M       34      Travessa Dunstable, linha 284
+LEIA A ENTREVISTA #9620713
+$ cat entrevista-9620713
+A casa parece estar vazia. Não houve resposta quando batemos na porta.
+
+Após questionar os vizinhos, parece que o morador viajou recentemente.
+
+Será considerado um suspeito até que se prove o contrário, mas teríamos que eliminar outros suspeitos para ter certeza.
+
+Pertence ao AAA, à Delta SkyMiles, também a biblioteca da cidade, e também ao Museu de História de Bash
+--
+
+Placa L337WR9
+Marca: Honda
+Cor: Azul
+Proprietário: Jacqui Maher
+Altura: 1,88 m
+Peso: 59,0 kg
+Jacqui Maher    F       40      Travessa Andover, linha 224
+LEIA A ENTREVISTA #904020
+Maher is not considered a suspect. 
+ Video evidence confirms that she was away at a professional 
+soccer game on the morning in question, even though it was a workday.
+
+************************************************************
+
+Principal Suspeito: 
+Placa L3375A9
+Marca: Honda
+Cor: Azul
+Proprietário: Jeremy Bowers
+Altura: 1,86 m
+Peso: 92,5 kg
+bate com a descrição do suspeito, possui veículo da mesma Marca, Cor e Placa,
+ relatada pela testemunha, também é associado a todas as carteirinhas
+encontradas dentro de uma catira no local do crime,
+ não foi encontrado pela Policia para prestar esclarecimentos
