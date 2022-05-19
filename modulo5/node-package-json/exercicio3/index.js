@@ -1,4 +1,3 @@
-
 //Exercício 3//
 const taskList = [" acordar", "levantar da cama", "tomar banho"]
 const newTask = process.argv[2]

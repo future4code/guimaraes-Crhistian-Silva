@@ -31,4 +31,3 @@ console.log("multiplica", multiplies)
     return op
 }
 console.log(operacao()) */
-
