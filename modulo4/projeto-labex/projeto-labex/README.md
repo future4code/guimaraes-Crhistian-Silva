@@ -1,8 +1,8 @@
 ### Projeto Criado com React, utilizando bibliotecas como Axios, Bootstrap, Styled-components 
 
 ## Dados para acesso Área Administrativa
-E-mail:projeto-labex-crhis@hotmail.com
-Senha: 254589
+!E-mail:projeto-labex-crhis@hotmail.com
+!Senha: 254589
 
 
 Acesse o Projeto Clicando Aqui => <a href="https://abundant-middle.surge.sh">Labex</a>
