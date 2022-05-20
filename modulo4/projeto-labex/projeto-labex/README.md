@@ -11,4 +11,4 @@ Escolhendo a área administrativa, é direcionado a uma tela de Login onde a pes
 
 ## Meta
 
-[https://github.com/yourname/github-link](https://github.com/crhisfoz/crhisfoz/) – crhisnokia@live.com
+[https://github.com/yourname/github-link](https://github.com/crhisfoz/) – crhisnokia@live.com
