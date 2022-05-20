@@ -1,7 +1,7 @@
 ### Projeto Criado com React, utilizando bibliotecas como Axios, Bootstrap, Styled-components 
 
 
-Acesse o Projeto Clicando Aqui => <a href="https://abundant-middle.surge.sh">Labex/a>
+Acesse o Projeto Clicando Aqui => <a href="https://abundant-middle.surge.sh">Labex</a>
 
 # Telas
   ![tela inicial](https://user-images.githubusercontent.com/89948060/169596302-ec3520c9-6ac0-4755-b850-39b6ec6003ec.png)
