@@ -24,7 +24,7 @@ export const ApplicationFormPage = () => {
 
   const onSubmitFormTrip = (ev) => {
     ev.preventDefault();
-
+    
     const body = {
       name: form.name,
       age: form.age,
@@ -32,11 +32,12 @@ export const ApplicationFormPage = () => {
       profession: form.profession,
       country: form.country,
     };
-
+   
     axios
       .post(`${BASE_URL}/trips/${form.trip}/apply`, body)
       .then((res) => {
         window.alert("Cadastro Efetuado com Sucesso");
+        console.log('clicou na funcao', body)
         setForm({
           name: "",
           age: "",
@@ -59,7 +60,6 @@ export const ApplicationFormPage = () => {
     );
   })
 
- 
   return (
     <StyleApplicationForm classNameName="container-application-page">
       <h1>

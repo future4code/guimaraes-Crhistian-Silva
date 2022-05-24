@@ -1,0 +1,14 @@
+{
+  "name": "aula_inicial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "countries.js",
+  "type": "module",
+  "scripts": {
+    "start": "clear && node index.js",
+    "search":"clear && node index.js" 
+  },
+  "keywords": ["Aula", "Node"],
+  "author": "Crhistian",
+  "license": "ISC"
+}
