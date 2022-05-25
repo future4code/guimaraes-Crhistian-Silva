@@ -116,6 +116,7 @@ printNumbers(10, 15)
 //Exercício 7
 console.log('Ainda não fiz o exercício 7')
 
+
 //Exercício 8
 
 function reverseString (str:string):string {
