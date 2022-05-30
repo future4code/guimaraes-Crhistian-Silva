@@ -1,0 +1,19 @@
+{
+  "name": "aprofundamento-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^4.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "tsc && node ./build/index.js",
+    "exe1": "tsc && node ./build/exe1.js",
+    "exe2": "tsc && node ./build/exe2.js",
+    "exe3": "tsc && node ./build/exe3.js",
+    "exercicio-4": "tsc && node ./build/exercicio-4.js"
+  },
+  "author": "Crhistian Silva",
+  "license": "ISC"
+}
