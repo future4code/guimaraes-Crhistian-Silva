@@ -1,0 +1,26 @@
+{
+  "name": "lista-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ./build/index.js",
+    "exe1": "tsc && node ./build/exe1.js",
+    "exe2": "tsc && node ./build/exe2.js",
+    "exe3": "tsc && node ./build/exe3.js",
+    "exe4": "tsc && node ./build/exe4.js",
+    "exe5": "tsc && node ./build/exe5.js",
+    "exe6": "tsc && node ./build/exe6.js",
+    "exe7": "tsc && node ./build/exe7.js",
+    "exe8": "tsc && node ./build/exe8.js",
+    "exe9": "tsc && node ./build/exe9.js",
+    "exe10": "tsc && node ./build/exe10.js",
+    "exe11": "tsc && node ./build/exe11.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.7.2"
+  }
+}
