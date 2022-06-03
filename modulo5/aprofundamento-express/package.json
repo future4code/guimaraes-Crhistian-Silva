@@ -6,11 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/index.ts",
     "start": "tsc && node ./build/index.js",
-    "build": "tsc",
-    "exe1":  "tsc && node ./build/exe1.js",
-    "exe2":  "tsc && node ./build/exe2.js",
-    "exe4":  "tsc && node ./build/exe4.js",
-    "exe5":  "tsc && node ./build/exe5.js"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
