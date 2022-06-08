@@ -1,6 +1,7 @@
 
 export const errors: { [key: string]: { status: number, message: string } } = {
-    AUTHORIZATION_NOT_FOUND: { status: 401, message: "Por favor envie headers authorization." },
+    AUTHORIZATION_NOT_FOUND: { status: 401, message: "Por favor verifique o Id do Usuário enviado no headers authorization." },
+    NOT_ALLOWED:{status: 403, message: "Por Favor Verfique o Id do Produto enviado e tente novamente"},
     PRODUCT_NOT_FOUND: { status: 404, message: "Produto não encontrado" },
     PRODUCT_EXISTS: { status: 409, message: "Este Produto já existe" },
     MISSING_PARAMETERS: { status: 422, message: "Informação faltando ou Incorreta. Consulte a documentação e preecha corretamente o Body da sua Requisição" },
