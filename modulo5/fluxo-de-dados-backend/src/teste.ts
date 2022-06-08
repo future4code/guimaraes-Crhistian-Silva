@@ -22,9 +22,12 @@ const arrayProducts = products;
 
 app.post("/product/create", (req: Request, res: Response) => {
   try {
-// como se trata da criação de um produto não previso verificar o id...apenas o nome pra ver se o produto já existe 
-
+    const idProduct = req.headers.authorization;
     const { name, price } = req.body;
+
+    if (!idProduct) {
+      throw new Error(errors.AUTHORIZATION_NOT_FOUND.message);
+    }
 
     if (!name || !price) {
       throw new Error(errors.MISSING_PARAMETERS.message);
@@ -94,7 +97,7 @@ app.put("/product/edit/:id", ( req: Request, res: Response)=>{
       throw new Error(errors.AUTHORIZATION_NOT_FOUND.message);
     }
 
-    if (!price || price <= 0) {
+    if (!price) {
       throw new Error(errors.MISSING_PARAMETERS.message);
     }
 
@@ -139,88 +142,20 @@ app.delete('/product/:id', (req: Request, res: Response) => {
 
     const idProduct = req.params.id
 
-    if (!idProduct) {
-      throw new Error(errors.AUTHORIZATION_NOT_FOUND.message);
-    }
-
-    const product = products.find(prod=> prod.id === idProduct)
-
-    if (!product) {
-      throw new Error(errors.AUTHORIZATION_NOT_FOUND.message)
-      }
-
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === idProduct) {
-        products.splice(i, 1);
-      }
-    }
-
-/*     products.forEach((prod, i)=>{
-      if(prod.id === idProduct){
-        products.splice(i, 1)
-      }
-    }) */
-    
+products.forEach((product)=>{
+  product.map((prod:any)=>{
+    if()
+  })
+})
       res.status(200).send(products)
 
-    }catch (error: any) {
-      switch (error.message) {
-        case errors.AUTHORIZATION_NOT_FOUND.message:
-          res
-            .status(errors.AUTHORIZATION_NOT_FOUND.status)
-            .send(errors.AUTHORIZATION_NOT_FOUND.message);
-          break;
-        default:
-        res.status(errors.SOME_ERROR.status).send(errors.SOME_ERROR.message)
-      }
-    }
-  })
+  }
+  catch (error) {
+      res.status(400).end("Playlist não encontrada, por favor verifique o id")
+  }
+})
 
-  //Exercicio 7
 
-  app.post("/product/createRefactored", (req: Request, res: Response) => {
-    try {
-  // como se trata da criação de um produto não previso verificar o id...apenas o nome pra ver se o produto já existe 
-   const {name, price} = req.body
-
-      if (!name || !price || price <= 0 ) {
-        throw new Error(errors.MISSING_PARAMETERS.message);
-      } 
-
-      const productName = products.find((prod) => {
-        if (prod.name === name) {
-          throw new Error(errors.PRODUCT_EXISTS.message);
-        }
-      });
-  
-      if (productName) {
-        throw new Error(errors.PRODUCT_EXISTS.message);
-      }
-      products.push({
-        id: generateId(),
-        name,
-        price,
-      });
-      res.status(successMessages.created.status).send(successMessages.created.message);
-    } catch (error: any) {
-      switch (error.message) {
-        case errors.MISSING_PARAMETERS.message:
-          res
-            .status(errors.MISSING_PARAMETERS.status)
-            .send(errors.MISSING_PARAMETERS.message);
-          break;
-        case errors.PRODUCT_EXISTS.message:
-          res
-            .status(errors.PRODUCT_EXISTS.status)
-            .send(errors.PRODUCT_EXISTS.message);
-          break;
-        default:
-        res.status(errors.SOME_ERROR.status).send(errors.SOME_ERROR.message)
-      }
-    }
-  });
-  
-  
 
 
 
