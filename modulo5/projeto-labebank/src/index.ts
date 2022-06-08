@@ -102,12 +102,7 @@ app.post("/users/create", (req: Request, res: Response)=>{
    }
  });
 
-
-
-
-
-
-
+ console.log(birthVerify('31/12/1970'));
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
