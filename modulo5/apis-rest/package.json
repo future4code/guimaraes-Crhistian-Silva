@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts"
+    "start": "clear && ts-node-dev ./src/index.ts"
   },
   "keywords": [],
   "author": "",

@@ -20,6 +20,20 @@ const authorization = "AUTHORIZED";
 //a) GET
 //c)"/users"
 
+enum UserType {
+    ADMIN = "ADMIN",
+    NORMAL = "NORMAL"
+}
+
+type user = {
+    id: number,
+    name: string,
+    email: string,
+    type: UserType,
+    age: number
+}
+
+
 app.get("/users", (req: Request, res: Response) => {
   try {
     const userAuthorization = req.headers.authorization as string;
@@ -55,27 +69,32 @@ app.get("/users", (req: Request, res: Response) => {
 });
 
 //Exercício 2
+//a) via Params porque não é uma informação sensivel
+//b) colocar na documentação quais os types e a forma a serem enviados
 
-app.get("/user", (req: Request, res: Response) => {
+app.get("/user/:type", (req: Request, res: Response) => {
   try {
     const userAuthorization = req.headers.authorization as string;
-    const typeUser = req.query.type as string;
+    const typeUser = req.params.type as string;
 
-    console.log("typeuser", typeUser);
-
-    if (!userAuthorization || userAuthorization.toUpperCase() !== authorization) {
-        throw new Error(messages.AUTHORIZATION_NOT_FOUND.message);
+    if (
+      !userAuthorization ||
+      userAuthorization.toUpperCase() !== authorization
+    ) {
+      throw new Error(messages.AUTHORIZATION_NOT_FOUND.message);
     }
     if (!typeUser) {
       throw new Error(messages.MISSING_PARAMETERS.message);
-    } 
+    }
     if (users.length < 0) {
-        throw new Error(messages.USERS_NOT_FOUND.message);
+      throw new Error(messages.USERS_NOT_FOUND.message);
     }
 
     const user = users.find((user) => user.type === typeUser.toUpperCase());
 
-  if (!user){throw new Error(messages.USERS_NOT_FOUND.message)}
+    if (!user) {
+      throw new Error(messages.USERS_NOT_FOUND.message);
+    }
 
     const userFIlter = users.filter((user) => {
       if (user.type === typeUser.toUpperCase()) {
@@ -109,16 +128,130 @@ app.get("/user", (req: Request, res: Response) => {
   }
 });
 
+//Exercício 3
+//a) QUERY
+//b) sempre deixo pronto já
 
+app.get("/user/", (req: Request, res: Response) => {
+  try {
+    const userAuthorization = req.headers.authorization as string;
+    const nameUser = req.query.name as string;
 
+    if (
+      !userAuthorization ||
+      userAuthorization.toUpperCase() !== authorization
+    ) {
+      throw new Error(messages.AUTHORIZATION_NOT_FOUND.message);
+    }
+    if (!nameUser) {
+      throw new Error(messages.MISSING_PARAMETERS.message);
+    }
+    if (users.length < 0) {
+      throw new Error(messages.USERS_NOT_FOUND.message);
+    }
 
+    const user = users.find(
+      (user) => user.name.toUpperCase() === nameUser.toUpperCase()
+    );
 
+    if (!user) {
+      throw new Error(messages.USERS_NOT_FOUND.message);
+    }
+
+    res.status(messages.SUCCESS.status).send(user);
+  } catch (error: any) {
+    switch (error.message) {
+      case messages.AUTHORIZATION_NOT_FOUND.message:
+        res
+          .status(messages.AUTHORIZATION_NOT_FOUND.status)
+          .send(messages.AUTHORIZATION_NOT_FOUND.message);
+        break;
+      case messages.USERS_NOT_FOUND.message:
+        res
+          .status(messages.USERS_NOT_FOUND.status)
+          .send(messages.USERS_NOT_FOUND.message);
+        break;
+      case messages.MISSING_PARAMETERS.message:
+        res
+          .status(messages.MISSING_PARAMETERS.status)
+          .send(messages.MISSING_PARAMETERS.message);
+        break;
+      default:
+        res
+          .status(messages.SOME_ERROR.status)
+          .send(messages.SOME_ERROR.message);
+    }
+  }
+});
+
+//Exercício 4
+//a) nada, funcionou da mesma forma
+//b) acho que não, pois put da a entender modificação de algo que já existe 
+
+app.post("/user/create", (req: Request, res: Response) => {
+  try {
+    const userAuthorization = req.headers.authorization as string;
+    const { name, email, type, age } = req.body;
+
+    if (
+      !userAuthorization ||
+      userAuthorization.toUpperCase() !== authorization
+    ) {
+      throw new Error(messages.AUTHORIZATION_NOT_FOUND.message);
+    }
+
+    if (!name || !email || !type || !age || type.toUpperCase()!== UserType.ADMIN && type.toUpperCase() !== UserType.NORMAL )
+      throw new Error(messages.MISSING_PARAMETERS.message);
+
+    const user2 = users.find(
+      (user) => user.name.toUpperCase() === name.toUpperCase()
+    );
+
+    if (user2) {
+      throw new Error(messages.USER_EXISTS.message);
+    }
+
+    const newUser = {
+      id: Math.random(),
+      name,
+      email,
+      type,
+      age,
+    };
+    users.push(newUser);
+
+    res.status(messages.CREATED.status).send(newUser);
+  } catch (error: any) {
+    switch (error.message) {
+      case messages.AUTHORIZATION_NOT_FOUND.message:
+        res
+          .status(messages.AUTHORIZATION_NOT_FOUND.status)
+          .send(messages.AUTHORIZATION_NOT_FOUND.message);
+        break;
+      case messages.MISSING_PARAMETERS.message:
+        res
+          .status(messages.MISSING_PARAMETERS.status)
+          .send(messages.MISSING_PARAMETERS.message);
+        break;
+      case messages.USER_EXISTS.message:
+        res
+          .status(messages.USER_EXISTS.status)
+          .send(messages.USER_EXISTS.message);
+        break;
+
+      default:
+        res
+          .status(messages.SOME_ERROR.status)
+          .send(messages.SOME_ERROR.message);
+    }
+  }
+});
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
     const address = server.address() as AddressInfo;
     console.log(
-      `Server is running in Exercicios APIS REST FG in http://localhost:${address.port}`
+      `Server is running in Exercicios APIS REST in http://localhost:${address.port}`
     );
   } else {
     console.error(`Failure upon starting server.`);
