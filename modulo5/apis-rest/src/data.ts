@@ -1,9 +1,9 @@
-enum UserType {
+export enum UserType {
     ADMIN = "ADMIN",
     NORMAL = "NORMAL"
 }
 
-type user = {
+export type user = {
     id: number,
     name: string,
     email: string,
