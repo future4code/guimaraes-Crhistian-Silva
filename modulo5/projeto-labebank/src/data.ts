@@ -2,45 +2,116 @@ import { AccountInfo } from "."
 import { v4 as generateId } from 'uuid';
 
 
+export enum TRANSACTIONS {
+  DEBIT = "PAYMENT",
+  CREDIT = "DEPOSIT"
+}
+
 export const usersLabebank: AccountInfo[]= [
     {
         userId: generateId(),
         name: "crhistian silva",
         cpf: "007.797.249-09",
         birthdate: "19/06/1983",
-        balance: 0,
-        extract: []
-      },
+        balance: 10000.00,
+        extract:[
+          {
+          value: 180,
+          date: "02/05/2022",
+          description: TRANSACTIONS.DEBIT
+        },{
+          value: 200,
+          date: "02/03/2022",
+          description: TRANSACTIONS.CREDIT
+        },{
+          
+        value: 1000,
+        date: "15/03/2022",
+        description: TRANSACTIONS.CREDIT,
+      },        
+    ]
+    },
       {
         userId: generateId(),
         name: "maria silva",
         cpf: "007.797.249-10",
         birthdate: "19/06/1984",
-        balance: 0,
-        extract: []
+        balance: 2000,
+        extract:[
+          {
+          value: 110,
+          date: "15/01/2021",
+          description: TRANSACTIONS.DEBIT
+        },{
+          value: 5000,
+          date: "02/05/2022",
+          description: TRANSACTIONS.CREDIT
+        },{      
+        value: 180,
+        date: "02/06/2022",
+        description: TRANSACTIONS.CREDIT,
+      },        
+    ]
       },
       {
         userId: generateId(),
         name: "paulo silva",
         cpf: "007.797.249-11",
         birthdate: "19/06/1985",
-        balance: 0,
-        extract: []
+        balance: - 1500,
+        extract:[
+          {
+          value: 180,
+          date: "19/02/2022",
+          description: TRANSACTIONS.DEBIT
+        },{
+          value: 200,
+          date: "07/05/2022",
+          description: TRANSACTIONS.DEBIT
+        },{
+          
+        value: 3780,
+        date: "14/04/2022",
+        description: TRANSACTIONS.DEBIT,
+      },        
+    ]
       },
       {
         userId: generateId(),
         name: "joao silva",
         cpf: "007.797.249-12",
         birthdate: "19/06/1986",
-        balance: 0,
-        extract: []
+        balance: 300,
+        extract: [
+          {
+            value: 110,
+            date: "07/05/2022",
+            description: TRANSACTIONS.DEBIT
+          },{
+            
+          value: 222,
+          date: "14/03/2022",
+          description: TRANSACTIONS.DEBIT,
+        }, 
+        ]
       },
       {
         userId: generateId(),
         name: "patricia silva",
         cpf: "007.797.249-13",
         birthdate: "19/06/1987",
-        balance: 0,
-        extract: []
+        balance: 1,
+        extract: [
+          {
+            value: 179,
+            date: "07/05/2022",
+            description: TRANSACTIONS.CREDIT
+          },{
+            
+          value: 178,
+          date: "08/05/2022",
+          description: TRANSACTIONS.DEBIT,
+        }, 
+        ]
       },
 ]
