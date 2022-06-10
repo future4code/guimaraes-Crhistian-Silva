@@ -270,7 +270,7 @@ app.put("/user/:id", (req: Request, res: Response) => {
     }
   )
 
-    res.status(messages.CREATED.status).end()
+    res.status(messages.SUCCESS.status).end()
   } catch (error: any) {
     switch (error.message) {
       case messages.AUTHORIZATION_NOT_FOUND.message:
@@ -337,7 +337,7 @@ app.patch("/user/:id", (req: Request, res: Response) => {
     }
   )
 
-    res.status(messages.CREATED.status).end()
+    res.status(messages.SUCCESS.status).end()
   } catch (error: any) {
     switch (error.message) {
       case messages.AUTHORIZATION_NOT_FOUND.message:
@@ -370,10 +370,9 @@ app.patch("/user/:id", (req: Request, res: Response) => {
 });
 
 //Exercicio 7 
-app.patch("/user/:id", (req: Request, res: Response) => {
+app.delete("/user/delete/:id", (req: Request, res: Response) => {
   try {
     const userAuthorization = req.headers.authorization as string;
-    const  nameUser  = req.body.name as string
     const idUser = Number(req.params.id)
 
     if ( !userAuthorization || userAuthorization.toUpperCase() !== authorization)
@@ -381,7 +380,7 @@ app.patch("/user/:id", (req: Request, res: Response) => {
       throw new Error(messages.AUTHORIZATION_NOT_FOUND.message);
     }
 
-    if (!nameUser || !idUser)
+    if (!idUser)
     {
       throw new Error(messages.MISSING_PARAMETERS.message);
     }
@@ -392,18 +391,13 @@ app.patch("/user/:id", (req: Request, res: Response) => {
       throw new Error(messages.USERS_NOT_FOUND.message);
     }
 
-    users.forEach((user)=>{
-      if(user.name === nameUser){
-        throw new Error(messages.USER_EXISTS.message)
-      }
+    users.forEach((user ,i)=>{
       if(user.id === idUser){
-        user.name = nameUser
+        return users.splice(i, 1)
       }
-      return user
     }
   )
-
-    res.status(messages.CREATED.status).end()
+    res.status(messages.SUCCESS.status).send(messages.SUCCESS.message)
   } catch (error: any) {
     switch (error.message) {
       case messages.AUTHORIZATION_NOT_FOUND.message:
