@@ -67,6 +67,8 @@ export type typeToDo ={
     "id": 6,
     "title": "quo adipisci enim quam ut ab",
     "completed": true
+
+
   },
   {
     "userId": 2,
@@ -85,6 +87,7 @@ export type typeToDo ={
     "id": 3,
     "title": "quo adipisci enim quam ut ab",
     "completed": true
+
   }
 ]
 
@@ -174,6 +177,7 @@ app.put("/tasks/modify", (request: Request, response: Response) => {
 });
 
 //Exercicio 7
+
 app.delete('/tasks/:id',(request: Request, response:Response) => {
   try{
      // pega o nome do usuario e busca ele nos usuarios
