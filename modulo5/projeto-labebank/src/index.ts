@@ -26,7 +26,7 @@ type Transactions = {
 };
 
 type Account = {
-  userId: string;
+  id: string;
   balance: string | number;
   extract: Transactions[];
 };
@@ -66,7 +66,7 @@ app.post("/user/create", (req: Request, res: Response) => {
       throw new Error(messageStatus.USER_EXISTS.message);
     }
     const newUser: AccountInfo = {
-      userId: generateId(),
+      id: generateId(),
       name: userData.name,
       cpf: userData.cpf,
       birthdate: userData.birthdate,
@@ -226,7 +226,7 @@ app.patch("/user/balance/credit/:name", (req:Request, res:Response) =>{
 const date = new Date();
 const  newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
 usersLabebank.forEach((user:any)=>{
-  if(user.userId === userFind.userId ){
+  if(user.id === userFind.id ){
     user.balance = user.balance + userData.value
     user.extract = [... user.extract, {value: userData.value,
     date: newDate,
@@ -262,7 +262,7 @@ res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
   }
 });
 
-app.put("/user/balance/debit/:name", (req:Request, res:Response) =>{
+app.put("/user/balance/payment/:name", (req:Request, res:Response) =>{
 
   try {
 
@@ -295,7 +295,7 @@ app.put("/user/balance/debit/:name", (req:Request, res:Response) =>{
         const date = new Date();
         const  newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
         usersLabebank.forEach((user:any)=>{
-          if(user.userId === userFind.userId ){
+          if(user.id === userFind.id ){
             user.balance = user.balance - userData.value
             user.extract = [... user.extract, {value: userData.value,
             date: newDate,
@@ -341,8 +341,89 @@ res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
   }
 });
 
+app.put("/user/balance/transfer/:name", (req:Request, res:Response) =>{
 
+  try {
 
+    const userAuthorization = req.headers.authorization as string
+    const userDataTransfer = req.body.userTransfer
+    const userDataReceiver = req.body.userReceiver
+
+    let newDescription = userDataTransfer.description.toUpperCase()
+
+    if (!userAuthorization || userAuthorization.toUpperCase() !== authorization.toUpperCase() ) 
+    {
+      throw new Error(messageStatus.FORBIDDEN.message);
+    }
+    //verificação se falta algum enviado nos Parâmetros
+    if (!userDataTransfer.name || !userDataTransfer.cpf || !userDataTransfer.value || ! userDataTransfer.description || newDescription !== TRANSACTIONS.TRANSFER || !userDataReceiver.name ||!userDataReceiver.cpf) 
+    {
+      throw new Error(messageStatus.MISSING_PARAMETERS.message);
+    }
+    
+    const userTransfer = usersLabebank.find((user)=> user.name.toUpperCase() === userDataTransfer.name.toUpperCase() && user.cpf === userDataTransfer.cpf)
+
+    const userReceiver = usersLabebank.find((user)=> user.name.toUpperCase() === userDataReceiver.name.toUpperCase() && user.cpf === userDataReceiver.cpf)
+
+    if (!userTransfer || !userReceiver) 
+    {
+      throw new Error(messageStatus.NOT_FOUND.message);
+    }
+
+    if(userTransfer){
+      if((Number(userTransfer.balance)- Number(userDataTransfer.value)) < 0){
+         throw new Error(messageStatus.NO_CONTENT.message);
+      }else{
+        const date = new Date();
+        const  newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
+        usersLabebank.forEach((user:any)=>{
+          if(user.id === userTransfer.id){
+            user.balance = user.balance - userDataTransfer.value
+            user.extract = [... user.extract, {value: userDataTransfer.value,
+            date: newDate, description: newDescription} ]
+            userReceiver.balance =  userReceiver.balance + userDataTransfer.value
+            userReceiver.extract = [... userReceiver.extract, {value: userDataTransfer.value,
+            date: newDate,
+            description: newDescription} ]       
+        }
+          return user
+        })        
+        res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
+        return
+      }
+    } 
+
+res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
+    
+  } catch (error: any) {
+    switch (error.message) {
+      case messageStatus.FORBIDDEN.message:
+        res
+          .status(messageStatus.FORBIDDEN.status)
+          .send(messageStatus.FORBIDDEN.message);
+        break;
+        case messageStatus.MISSING_PARAMETERS.message:
+          res
+            .status(messageStatus.MISSING_PARAMETERS.status)
+            .send(messageStatus.MISSING_PARAMETERS.message);
+          break;
+      case messageStatus.NOT_FOUND.message:
+        res
+          .status(messageStatus.NOT_FOUND.status)
+          .send(messageStatus.NOT_FOUND.message);
+        break;
+      case messageStatus.NO_CONTENT.message:
+          res
+            .status(messageStatus.NO_CONTENT.status)
+            .send(messageStatus.NO_CONTENT.message);
+          break;
+      default:
+        res
+          .status(messageStatus.SOME_ERROR.status)
+          .send(messageStatus.SOME_ERROR.message);
+    }
+  }
+});
 
 
 const server = app.listen(process.env.PORT || 3003, () => {
