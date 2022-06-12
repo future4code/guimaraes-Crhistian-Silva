@@ -4,7 +4,7 @@ import { v4 as generateId } from 'uuid';
 
 export enum TRANSACTIONS {
   DEBIT = "PAYMENT",
-  CREDIT = "DEPOSIT",
+  CREDIT = "DEPOSIT MONEY",
   TRANSFER ="TRANSFER"
 }
 

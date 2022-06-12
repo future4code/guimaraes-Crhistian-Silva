@@ -1,4 +1,4 @@
-export const birthVerify = (date: any)=> {
+export const dateVerify = (date: any)=> {
   const dataAtual = new Date();
   const anoAtual = dataAtual.getFullYear();
   const anoNascParts = date.split("/");

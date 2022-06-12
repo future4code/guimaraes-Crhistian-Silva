@@ -4,7 +4,11 @@ import { AddressInfo } from "net";
 import { v4 as generateId } from "uuid";
 import { usersLabebank, TRANSACTIONS } from "./data";
 import { messageStatus } from "./messages";
-import { birthVerify } from "./birthVerify";
+import { dateVerify } from "./functions/dateVerify";
+import { verify } from "crypto";
+const moment = require('moment');
+
+
 
 const app = express();
 app.use(express.json());
@@ -49,9 +53,11 @@ app.post("/user/create", (req: Request, res: Response) => {
     if (!userData.name || !userData.cpf || !userData.birthdate) {
       throw new Error(messageStatus.MISSING_PARAMETERS.message);
     }
+
+    
     //Verificação de Maioridade para criar conta
     if (userData.birthdate) {
-      const age = birthVerify(userData.birthdate);
+      const age = dateVerify(userData.birthdate);
       if (age < 18) {
         throw new Error(messageStatus.NOT_ALLOWED.message);
       }
@@ -268,6 +274,8 @@ app.put("/user/balance/payment/:name", (req:Request, res:Response) =>{
 
     const userAuthorization = req.headers.authorization as string
     const userData = req.body
+    let datePayment: any;
+
     let newDescription = userData.description.toUpperCase()
 
     if (!userAuthorization || userAuthorization.toUpperCase() !== authorization.toUpperCase() ) 
@@ -279,7 +287,24 @@ app.put("/user/balance/payment/:name", (req:Request, res:Response) =>{
     {
       throw new Error(messageStatus.MISSING_PARAMETERS.message);
     }
-    
+ 
+    const verifyDatePayment = (userDate:any):any => {
+      if (userDate) {
+        const date = new Date();
+        const newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear()
+        const newDateTrasnform = newDate.split("/")
+        const datePayment = userDate.split("/")
+         if(datePayment[1] < newDateTrasnform[1] || datePayment[2] < newDateTrasnform[2]){
+          throw new Error(messageStatus.NOT_MODIFIED.message);
+        }
+        return userDate 
+      }
+    }
+
+    if(userData.date){
+      datePayment = verifyDatePayment(userData.date)
+    }
+
     const userFind = usersLabebank.find((user)=> user.name.toUpperCase() === userData.name.toUpperCase() && user.cpf === userData.cpf)
 
     if (!userFind) 
@@ -289,17 +314,14 @@ app.put("/user/balance/payment/:name", (req:Request, res:Response) =>{
 
     if(userFind){
       if((Number(userFind.balance)- Number(userData.value)) < 0){
-
          throw new Error(messageStatus.NO_CONTENT.message);
       }else{
-        const date = new Date();
-        const  newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
         usersLabebank.forEach((user:any)=>{
           if(user.id === userFind.id ){
             user.balance = user.balance - userData.value
             user.extract = [... user.extract, {value: userData.value,
-            date: newDate,
-          description: newDescription} ]
+            date:datePayment,
+            description: newDescription} ]
           }
           return user
         })        
@@ -308,7 +330,6 @@ app.put("/user/balance/payment/:name", (req:Request, res:Response) =>{
       }
     } 
 
- 
 res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
     
   } catch (error: any) {
@@ -323,6 +344,11 @@ res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
             .status(messageStatus.MISSING_PARAMETERS.status)
             .send(messageStatus.MISSING_PARAMETERS.message);
           break;
+          case messageStatus.NOT_MODIFIED.message:
+            res
+              .status(messageStatus.NOT_MODIFIED.status)
+              .send(messageStatus.NOT_MODIFIED.message);
+            break;
       case messageStatus.NOT_FOUND.message:
         res
           .status(messageStatus.NOT_FOUND.status)
@@ -349,16 +375,25 @@ app.put("/user/balance/transfer/:name", (req:Request, res:Response) =>{
     const userDataTransfer = req.body.userTransfer
     const userDataReceiver = req.body.userReceiver
 
-    let newDescription = userDataTransfer.description.toUpperCase()
+    const newDescription = userDataTransfer.description.toUpperCase()
+
+    const dateTransfer = req.body.userTransfer.date
 
     if (!userAuthorization || userAuthorization.toUpperCase() !== authorization.toUpperCase() ) 
     {
       throw new Error(messageStatus.FORBIDDEN.message);
     }
     //verificação se falta algum enviado nos Parâmetros
-    if (!userDataTransfer.name || !userDataTransfer.cpf || !userDataTransfer.value || ! userDataTransfer.description || newDescription !== TRANSACTIONS.TRANSFER || !userDataReceiver.name ||!userDataReceiver.cpf) 
+    if (!userDataTransfer.name || !userDataTransfer.cpf || !userDataTransfer.value || !userDataTransfer.date || ! userDataTransfer.description || newDescription !== TRANSACTIONS.TRANSFER || !userDataReceiver.name ||!userDataReceiver.cpf) 
     {
       throw new Error(messageStatus.MISSING_PARAMETERS.message);
+    }
+
+    if (userDataTransfer.date) {
+      const date = dateVerify(userDataTransfer.date);
+      if (date <=-1) {
+        throw new Error(messageStatus.NOT_IMPLEMENTED.message)
+      }
     }
     
     const userTransfer = usersLabebank.find((user)=> user.name.toUpperCase() === userDataTransfer.name.toUpperCase() && user.cpf === userDataTransfer.cpf)
@@ -375,7 +410,7 @@ app.put("/user/balance/transfer/:name", (req:Request, res:Response) =>{
          throw new Error(messageStatus.NO_CONTENT.message);
       }else{
         const date = new Date();
-        const  newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
+        const newDate = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(); 
         usersLabebank.forEach((user:any)=>{
           if(user.id === userTransfer.id){
             user.balance = user.balance - userDataTransfer.value
@@ -407,6 +442,11 @@ res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message)
             .status(messageStatus.MISSING_PARAMETERS.status)
             .send(messageStatus.MISSING_PARAMETERS.message);
           break;
+          case messageStatus.NOT_IMPLEMENTED.message:
+            res
+              .status(messageStatus.NOT_IMPLEMENTED.status)
+              .send(messageStatus.NOT_IMPLEMENTED.message);
+            break;
       case messageStatus.NOT_FOUND.message:
         res
           .status(messageStatus.NOT_FOUND.status)
