@@ -5,6 +5,7 @@ import { v4 as generateId } from "uuid";
 import { usersLabebank, TRANSACTIONS, Account_Info, Users } from "./data";
 import { messageStatus } from "./messages";
 import { dateVerify } from "./functions/dateVerify";
+import { now } from "moment";
 
 enum ENUM_TYPE {
   ADMIN = "ADMIN",
@@ -291,48 +292,30 @@ app.put("/user/balance/payment/:name", (req: Request, res: Response) => {
       throw new Error(messageStatus.MISSING_PARAMETERS.message);
     }
 
-    if (!userData.date) {
-      const date = new Date();
-      const newDate =
-        String(date.getDate()).padStart(2, "0") +
-        "/" +
-        String(date.getMonth() + 1).padStart(2, "0") +
-        "/" +
-        date.getFullYear();
-      const newDateTransform = newDate.split("/").join("/");
-      datePayment = newDateTransform;
-    }
-    if (userData.date) {
-      const date = new Date();
-      const newDate =
-        String(date.getDate()).padStart(2, "0") +
-        "/" +
-        String(date.getMonth() + 1).padStart(2, "0") +
-        "/" +
-        date.getFullYear();
-      const newDateTransform = newDate.split("/");
-
-      const datePaymentSplit = userData.date.split("/");
-
-      if (datePaymentSplit[2] < newDateTransform[2]) {
+    if (!userData.date){
+      const date = new Date()
+      const neWDate = String(date.getDate()).padStart(2, "0") +
+      "/" +
+      String(date.getMonth() + 1).padStart(2, "0") +
+      "/" +
+      date.getFullYear();
+      datePayment = neWDate
+     }else if (userData.date){
+      const date =  new Date().toISOString()
+      const dateSplit = date.split('T')
+      const dateCompara = dateSplit[0]
+      const dateSplitada = dateCompara.split('-')
+      const datando = new Date(`${dateSplitada[0]}-${dateSplitada[1]}-${dateSplitada[2]}`)
+      const userDate = userData.date
+      const [day, month, year] = userDate.split('/')
+      const newUserDate = new Date(`${year}-${month}-${day}`)
+      if(newUserDate < datando) {
         throw new Error(messageStatus.NOT_MODIFIED.message);
+      } else {
+       const newDate =  String(newUserDate.getDate()+1).padStart(2, "0") + "/" + String(newUserDate.getMonth() + 1).padStart(2, "0") + "/" + newUserDate.getFullYear();
+        datePayment = newDate
       }
-      if (
-        datePaymentSplit[0] >= newDateTransform[0] &&
-        datePaymentSplit[1] < newDateTransform[1] &&
-        datePaymentSplit[2] === newDateTransform[2]
-      ) {
-        throw new Error(messageStatus.NOT_MODIFIED.message);
-      }
-      if (
-        datePaymentSplit[0] < newDateTransform[0] &&
-        datePaymentSplit[1] < newDateTransform[1] &&
-        datePaymentSplit[2] < newDateTransform[2]
-      ) {
-        throw new Error(messageStatus.NOT_MODIFIED.message);
-      }
-      datePayment = userData.date;
-    }
+    } 
 
     const userFind = usersLabebank.find(
       (user) =>
@@ -569,17 +552,31 @@ app.put("/user/update/balance", (req: Request, res: Response) => {
       const newDateTransform = newDate.split("/");
       for (let index = 0; index < array.length; index++) {
         const element = array[index].split("/");
-        console.log("element", element);
-        if (
-          element[1] < newDateTransform[1] ||
-          element[2] <= newDateTransform[2]
-        ) {
-          console.log("funcao funcionando");
-        } else {
-          console.log("funcao nao funcionando");
-        }
-      }
+   /*      console.log("element", element); */
+   if (element[2] < newDateTransform[2]) {
+    console.log(`${element} < ${newDateTransform}` );
+  }
+  if(element[2] > newDateTransform[2]){
+    console.log(`${element} > ${newDateTransform}` );
+  }
+  if (
+    element[0] < newDateTransform[0] &&
+    element[1] < newDateTransform[1] &&
+    element[2] < newDateTransform[2]
+  ) {
+    console.log(`${element} > ${newDateTransform}` );
+    if (
+      element[0] >= newDateTransform[0] &&
+      element[1] < newDateTransform[1] &&
+      element[2] > newDateTransform[2]
+    ) {
+      console.log(`${element} > ${newDateTransform}` );
+    }
+  }else{
+    console.log(`${element} < ${newDateTransform}` );
+  }
     };
+  }
     verifyDatePayment(newArrayDatas);
     res
       .status(messageStatus.SUCCESS.status)
