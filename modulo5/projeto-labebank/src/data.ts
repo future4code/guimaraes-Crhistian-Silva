@@ -1,6 +1,4 @@
-import { AccountInfo } from "." 
 import { v4 as generateId } from 'uuid';
-
 
 export enum TRANSACTIONS {
   DEBIT = "PAYMENT",
@@ -8,7 +6,28 @@ export enum TRANSACTIONS {
   TRANSFER ="TRANSFER"
 }
 
-export const usersLabebank: AccountInfo[]= [
+
+export type Users = {
+  name: string;
+  cpf: string | number;
+  birthdate: string | number;
+};
+
+type Transactions = {
+  value: number;
+  date: string;
+  description: TRANSACTIONS 
+}
+
+type Account = {
+  id: string;
+  balance: string | number;
+  extract: Transactions[];
+};
+
+export type Account_Info = Users & Account;
+
+export const usersLabebank: Account_Info[]= [
     {
         id: generateId(),
         name: "crhistian silva",
@@ -17,10 +36,6 @@ export const usersLabebank: AccountInfo[]= [
         balance: 10000.00,
         extract:[
           {
-          value: 180,
-          date: "02/05/2022",
-          description: TRANSACTIONS.DEBIT
-        },{
           value: 200,
           date: "02/03/2022",
           description: TRANSACTIONS.CREDIT
