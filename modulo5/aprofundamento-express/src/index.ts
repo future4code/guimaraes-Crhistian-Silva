@@ -67,6 +67,27 @@ export type typeToDo ={
     "id": 6,
     "title": "quo adipisci enim quam ut ab",
     "completed": true
+
+
+  },
+  {
+    "userId": 2,
+    "id": 1,
+    "title": "quo adipisci enim quam ut ab",
+    "completed": true
+  },
+  {
+    "userId": 2,
+    "id": 2,
+    "title": "quo adipisci enim quam ut ab",
+    "completed": true
+  },
+  {
+    "userId": 2,
+    "id": 3,
+    "title": "quo adipisci enim quam ut ab",
+    "completed": true
+
   }
 ]
 
@@ -157,7 +178,41 @@ app.put("/tasks/modify", (request: Request, response: Response) => {
 
 //Exercicio 7
 
+app.delete('/tasks/:id',(request: Request, response:Response) => {
+  try{
+     // pega o nome do usuario e busca ele nos usuarios
+     const userId = request.headers.authorization;
 
+     const user = tasks.find((user) => user.userId === Number(userId));
+
+     if (!user) throw new Error("Usuario nao existe com esse ID");
+     // passou  daqui, é pq o usuario existe
+ 
+     const taskId = Number(request.params.id)
+
+     const id = tasks.find((task)=> task.id === Number(taskId))
+
+     if (!id)
+        throw new Error("É necessario informar um id para modificar as tarefas");
+     //passou daqui, é pq veio o id da tarefa
+      for (let i = 0; i < tasks.length; i++) {
+        const newTasks = tasks.splice(i, 1); 
+        console.log("novo array", newTasks)
+        return newTasks 
+      }
+
+ response.status(201).send("ok");
+  }
+  catch(error:any){
+    response.end(error.message)
+  }
+})
+
+
+//Nao sei se está correto....
+
+
+//Exercicio 8
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
