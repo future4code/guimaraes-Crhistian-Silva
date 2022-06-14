@@ -3,7 +3,8 @@ import { v4 as generateId } from 'uuid';
 export enum TRANSACTIONS {
   DEBIT = "PAYMENT",
   CREDIT = "DEPOSIT MONEY",
-  TRANSFER ="TRANSFER"
+  TRANSFER_SENT ="TRANSFER SENT",
+  TRANSFER_RECEVEID = "TRANSFER RECEVEID"
 }
 
 
@@ -42,8 +43,8 @@ export const usersLabebank: Account_Info[]= [
         },{
           
         value: 1000,
-        date: "15/03/2022",
-        description: TRANSACTIONS.CREDIT,
+        date: "02/05/2022",
+        description: TRANSACTIONS.TRANSFER_SENT,
       },        
     ]
     },
@@ -63,9 +64,9 @@ export const usersLabebank: Account_Info[]= [
           date: "02/05/2022",
           description: TRANSACTIONS.CREDIT
         },{      
-        value: 180,
-        date: "02/06/2022",
-        description: TRANSACTIONS.CREDIT,
+        value: 1000,
+        date: "02/05/2022",
+        description: TRANSACTIONS.TRANSFER_RECEVEID,
       },        
     ]
       },

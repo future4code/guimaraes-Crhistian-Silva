@@ -303,9 +303,9 @@ app.put("/user/balance/payment/:name", (req: Request, res: Response) => {
      }else if (userData.date){
       const date =  new Date().toISOString()
       const dateSplit = date.split('T')
-      const dateCompara = dateSplit[0]
-      const dateSplitada = dateCompara.split('-')
-      const datando = new Date(`${dateSplitada[0]}-${dateSplitada[1]}-${dateSplitada[2]}`)
+      const compareDate = dateSplit[0]
+      const compareDateSplit = compareDate.split('-')
+      const datando = new Date(`${compareDateSplit[0]}-${compareDateSplit[1]}-${compareDateSplit[2]}`)
       const userDate = userData.date
       const [day, month, year] = userDate.split('/')
       const newUserDate = new Date(`${year}-${month}-${day}`)
@@ -395,7 +395,8 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
     const userDataTransfer = req.body.userTransfer;
     const userDataReceiver = req.body.userReceiver;
 
-    const newDescription = TRANSACTIONS.TRANSFER;
+    const descriptionSent = TRANSACTIONS.TRANSFER_SENT;
+    const descriptionReceiver = TRANSACTIONS.TRANSFER_RECEVEID;
 
     if (
       !userAuthorization ||
@@ -456,7 +457,7 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
               {
                 value: userDataTransfer.value,
                 date: newDate,
-                description: newDescription,
+                description: descriptionSent,
               },
             ];
             /* userReceiver.balance = userReceiver.balance + userDataTransfer.value; */
@@ -465,7 +466,7 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
               {
                 value: userDataTransfer.value,
                 date: newDate,
-                description: newDescription,
+                description: descriptionReceiver,
               },
             ];
           }
@@ -520,8 +521,6 @@ app.put("/user/update/balance", (req: Request, res: Response) => {
   try {
     const userAuthorization = req.headers.authorization as string;
 
-    let dateUpdate: any;
-
     if (
       !userAuthorization ||
       userAuthorization.toString().toUpperCase() !== ENUM_TYPE.NORMAL
@@ -529,58 +528,40 @@ app.put("/user/update/balance", (req: Request, res: Response) => {
       throw new Error(messageStatus.FORBIDDEN.message);
     }
 
-    const day = new Date().getDate();
-    const year = new Date().getFullYear();
-
     let newArrayDatas: any = [];
-
+    let smaller: boolean | undefined;
+    
+    const verifyDatePayment = (array: any): any => {
+      for (let index = 0; index < array.length; index++) {
+        const date =  new Date().toISOString()
+        const dateSplit = date.split('T')
+        const compareDate = dateSplit[0]
+        const compareDateSplit = compareDate.split('-')
+        const newDateSplit = new Date(`${compareDateSplit[0]}-${compareDateSplit[1]}-${compareDateSplit[2]}`)
+        const [day, month, year] = array[index].split('/')
+        const newUserDate = new Date(`${year}-${month}-${day}`)
+        if(newUserDate < newDateSplit) {
+          smaller = true
+        } else {
+          smaller = false
+        }
+    };
+  }
     usersLabebank.forEach((user: any) => {
       for (let index = 0; index < user.extract.length; index++) {
         const element = user.extract[index].date;
         newArrayDatas.push(element);
+        verifyDatePayment(newArrayDatas);
+        if(smaller === true && (user.extract[index].description === "PAYMENT" || user.extract[index].description === "TRANSFER SENT")){
+          const valuePay:number = user.extract[index].value    
+          user.balance = Number(user.balance) - valuePay
+        }if(smaller === true && user.extract[index].description === "TRANSFER RECEVEID"){
+          const valuePay:number = user.extract[index].value    
+          user.balance = Number(user.balance) + valuePay
+        }
       }
     });
-
-    const verifyDatePayment = (array: any): any => {
-      const date = new Date();
-      const newDate =
-        String(date.getDate()).padStart(2, "0") +
-        "/" +
-        String(date.getMonth() + 1).padStart(2, "0") +
-        "/" +
-        date.getFullYear();
-      const newDateTransform = newDate.split("/");
-      for (let index = 0; index < array.length; index++) {
-        const element = array[index].split("/");
-   /*      console.log("element", element); */
-   if (element[2] < newDateTransform[2]) {
-    console.log(`${element} < ${newDateTransform}` );
-  }
-  if(element[2] > newDateTransform[2]){
-    console.log(`${element} > ${newDateTransform}` );
-  }
-  if (
-    element[0] < newDateTransform[0] &&
-    element[1] < newDateTransform[1] &&
-    element[2] < newDateTransform[2]
-  ) {
-    console.log(`${element} > ${newDateTransform}` );
-    if (
-      element[0] >= newDateTransform[0] &&
-      element[1] < newDateTransform[1] &&
-      element[2] > newDateTransform[2]
-    ) {
-      console.log(`${element} > ${newDateTransform}` );
-    }
-  }else{
-    console.log(`${element} < ${newDateTransform}` );
-  }
-    };
-  }
-    verifyDatePayment(newArrayDatas);
-    res
-      .status(messageStatus.SUCCESS.status)
-      .send(messageStatus.SUCCESS.message);
+    res.status(messageStatus.SUCCESS.status).send(messageStatus.SUCCESS.message);
   } catch (error: any) {
     switch (error.message) {
       case messageStatus.FORBIDDEN.message:
