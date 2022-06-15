@@ -40,10 +40,9 @@ app.post("/user/create", (req: Request, res: Response) => {
         throw new Error(messageStatus.NOT_ALLOWED.message);
       }
     }
-    // Comparação de nome e CPF no cadastro, se qualquer um dos dois paramêtros informados for igual ao que já existe no cadastro informa ao
+    // Comparação  CPF no cadastroao
     const user = usersLabebank.find(
       (user) =>
-        user.name.toUpperCase() === String(userData.name).toUpperCase() ||
         user.cpf === userData.cpf
     );
     if (user) {
@@ -200,7 +199,7 @@ app.patch("/user/balance/credit/:name", (req: Request, res: Response) => {
     ) {
       throw new Error(messageStatus.FORBIDDEN.message);
     }
-    //verificação se falta algum enviado nos Parâmetros
+    //verificação se falta algum dado enviado nos Parâmetros
     if (
       !userData.name ||
       !userData.cpf ||
@@ -211,11 +210,10 @@ app.patch("/user/balance/credit/:name", (req: Request, res: Response) => {
       throw new Error(messageStatus.MISSING_PARAMETERS.message);
     }
 
-    const userFind = usersLabebank.find(
-      (user) =>
-        user.name.toUpperCase() === userData.name.toUpperCase() &&
-        user.cpf === userData.cpf
-    );
+    const userFind = usersLabebank.find((user) =>{
+      user.name.toUpperCase() === userData.name.toUpperCase() && user.cpf === userData.cpf
+      return user
+    });
 
     if (!userFind) {
       throw new Error(messageStatus.USERS_NOT_FOUND.message);
@@ -230,7 +228,7 @@ app.patch("/user/balance/credit/:name", (req: Request, res: Response) => {
       date.getFullYear();
     usersLabebank.forEach((user: any) => {
       if (user.id === userFind.id) {
-        user.balance = user.balance; /* + userData.value; */
+        user.balance = user.balance; 
         user.extract = [
           ...user.extract,
           { value: userData.value, date: newDate, description: newDescription },
@@ -281,7 +279,7 @@ app.put("/user/balance/payment/:name", (req: Request, res: Response) => {
     ) {
       throw new Error(messageStatus.FORBIDDEN.message);
     }
-    //verificação se falta algum enviado nos Parâmetros
+    //verificação se falta algum dado enviado nos Parâmetros
     if (
       !userData.name ||
       !userData.cpf ||
@@ -404,7 +402,7 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
     ) {
       throw new Error(messageStatus.FORBIDDEN.message);
     }
-    //verificação se falta algum enviado nos Parâmetros
+    //verificação se falta algum dado enviado nos Parâmetros
     if (
       !userDataTransfer.name ||
       !userDataTransfer.cpf ||
@@ -451,7 +449,6 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
           date.getFullYear();
         usersLabebank.forEach((user: any) => {
           if (user.id === userTransfer.id) {
-            /* user.balance = user.balance - userDataTransfer.value; */
             user.extract = [
               ...user.extract,
               {
@@ -460,7 +457,6 @@ app.post("/user/transfer/:name", (req: Request, res: Response) => {
                 description: descriptionSent,
               },
             ];
-            /* userReceiver.balance = userReceiver.balance + userDataTransfer.value; */
             userReceiver.extract = [
               ...userReceiver.extract,
               {
