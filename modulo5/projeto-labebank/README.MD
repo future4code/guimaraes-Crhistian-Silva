@@ -30,7 +30,7 @@ TYPE: NORMAL
 
       <h2 id="sobre">:notebook: Sobre </h2> 
 💬 estudante da  <a href="http://www.labenu.com.br" target="_blank">Labenu</a> , me senti bem desafiado nesse projeto, pois faz parte de meu primeiro contato com node js, e typescript, realizá-lo com excelência, foi um desafio, mas creio que o resultado final foi muito bom.
-Este projeto atual temos que criar uma aplicação nos moldes do App Ifood
+Este projeto atual se apresenta na forma de comandos que seriam utilizados  em um sistema bancário
 <h4 align="right"><a href="#topo">Topo</a></h4>
 
 <h2 id="funciona">:rocket: O que funciona </h2>
