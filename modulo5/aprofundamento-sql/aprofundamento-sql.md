@@ -87,10 +87,10 @@ SELECT * FROM Movies ORDER BY release_date DESC LIMIT 3;
 #d) 
 SELECT * FROM Movies ORDER BY rating DESC LIMIT 3;
 
-# Essa DICA que está no notion do DESAFIO 8 LETRA "C" NÃO FUNCIOUNOU PARA MIM, RESOLVI COMO ESTÁ NA LETRA C acima, colocando a data de lançamento por ordem descendente
+# Essa DICA que está no notion resolvi como acima, colocando a data de lançamento por ordem descendente
 
 a
-SELECT * FROM Movie 
+SELECT * FROM Movies 
 WHERE release_date < CURDATE() 
 ORDER BY release_date DESC 
 LIMIT 3;
