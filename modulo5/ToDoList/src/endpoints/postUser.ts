@@ -1,23 +1,37 @@
-import { app } from './../index';
-import { success, error } from './../constants/messages';
-import { BASE_URL } from './../constants/url';
+/* import { createUser } from './../constants/functions'; */
+import { USER } from "../types/types"
+import { codes, messages } from '../constants/status';
+import connection from "../connection";
+import app from "../app";
 import { Request, Response } from "express";
+import { v4 as generateId } from 'uuid';
 
-console.log("deu tudo certo")
+const todoListUser = "TodoListUser"
 
-app.get("/", (req: Request, res: Response)=>res.send("deu tudo certo"));
+const createUser = async (
+   name: string,
+   nickname: string,
+   email: string
+ ): Promise<void> => {
+   await connection
+     .insert({
+       id: generateId(),
+       name: name,
+       nickname: nickname,
+       email: email,
+     })
+     .into(`${todoListUser}`);
+ };
 
-app.post("/create", async (req: Request, res: Response)=>{
-    try{
-        const body = {
-            "name": "Astro Dev",
-            "nickname": "astrodev",
-            "email": "astro@dev.com"
-        }
-  
-       res.status(200).send({chaveDoRetorno: success});
-    }catch(error){
-       //deu tudo errado
-       res.status(400).send({chaveDoErro: error});
-    }
+ app.post("/user", async (req: Request, res: Response) => {
+   try {
+     await createUser(
+       req.body.name,
+       req.body.nickname,
+       req.body.email
+     );
+     res.status(codes.SUCCESS).send(messages.SUCCESS);
+   } catch (error: any) {
+     res.status(codes.SOME_ERROR).send(error);
+   }
  });
