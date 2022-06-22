@@ -169,7 +169,7 @@ const createMovie = async (
 };
 
 
-app.post("/movies/create", async (req: Request, res: Response) => {
+app.post("/movie", async (req: Request, res: Response) => {
   try {
    await createMovie(
       req.body.title,
@@ -204,10 +204,10 @@ type Movie = {
 
 //================================================//
 //MÉTODO TIPADO //
-app.post("/movies/tipado", async (req: Request, res: Response) => {
+app.post("/movie/tipado", async (req: Request, res: Response) => {
   try {
     const {title,synopsis,release_date, rating,  playing_limit_date } = req.body
-    
+
    await createMovie2({
     id: Math.random(),
     title,
@@ -219,6 +219,41 @@ app.post("/movies/tipado", async (req: Request, res: Response) => {
     res.status(200).send("Filme Criado com Sucesso");
   } catch (error: any) {
     res.status(500).send({
+      message: error.message,
+    });
+  }
+});
+
+//Exercicio 6
+
+app.get("/movie/all", async (req: Request, res: Response): Promise<any> => {
+  try {
+    const movies = await connection("Movies")
+      .select("*") 
+      .limit (15)
+    res.status(200).send(movies);
+  } catch (error: any) {
+    res.status(400).send({
+      message: error.message,
+    });
+  }
+});
+
+//Exercicio 7
+
+app.get("/movie/search", async (req: Request, res: Response): Promise<any> => {
+  try {
+    const searchString = String(req.query.search)
+    
+    const movies = await connection("Movies")
+    .select("*")
+    .whereILike("title", `%${searchString}%`)
+    .orWhereILike("synopsis",  `%${searchString}%`)
+    .orderBy("release_date", "asc")
+
+    res.status(200).send(movies);
+  } catch (error: any) {
+    res.status(400).send({
       message: error.message,
     });
   }
