@@ -14,3 +14,4 @@ export const codes: {[key:string]: number} =
     NOT_FOUND: 404,
     SOME_ERROR: 500,
   }
+

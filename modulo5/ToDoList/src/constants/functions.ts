@@ -1,9 +1,10 @@
 import connection from "../connection";
 import { USER } from "../types/types";
-export const createUser = async (body:USER, todoList:string): Promise<void> => {
+
+const todoList = "TodoListUser"
+
+export const createUser = async (user:USER): Promise<void> => {
     await connection
-      .insert({
-        body
-      })
+      .insert(user)
       .into(`${todoList}`);
   };

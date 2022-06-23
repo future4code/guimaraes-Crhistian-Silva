@@ -1,9 +1,8 @@
-import { USER } from './types/types';
-import { codes, messages } from "./constants/status";
-import connection from "./connection";
+/* import { createUser } from "./endpoints/postUser" */
+import { codes, messages } from "./constants/statusCode";
 import app from "./app";
 import { Request, Response } from "express";
-import { v4 as generateId } from 'uuid'
+import { postUser } from "./endpoints/postUser";
 
 
 app.get("/test", async (req: Request, res: Response): Promise<any> => {
@@ -11,4 +10,6 @@ app.get("/test", async (req: Request, res: Response): Promise<any> => {
       res.status(codes.SUCCESS).send(messages.SUCCESS)
   } catch (error:any) {}
 });
+
+app.post("/user", postUser)
 
