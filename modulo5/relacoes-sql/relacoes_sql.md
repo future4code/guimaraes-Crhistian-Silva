@@ -122,4 +122,36 @@ SELECT AVG(Rating.rate) FROM Movies
 LEFT JOIN Rating ON Rating.movie_id = Movies.id
 GROUP BY(Movies.id);
 
+#EXERCICIO 5
+
+SELECT * FROM Movies 
+LEFT JOIN MovieCast  ON Movies.id = MovieCast.movie_id
+JOIN Actor ON Actor.id = MovieCast.actor_id;
+#a) nem ideia 
+
+#b) 
+SELECT Movies.id as ID_MOVIE, Movies.title as TITLE_MOVIE, Actor.id as ID_ACTOR, Actor.name as NAME_ACTOR FROM Movies 
+LEFT JOIN MovieCast  ON Movies.id = MovieCast.movie_id
+JOIN Actor ON Actor.id = MovieCast.actor_id;
+
+#c)
+
+#d)
+SELECT Movies.id as ID_MOVIE, Movies.title as TITLE_MOVIE, Actor.id as ID_Actor, Actor.name as NAME_ACTOR, Rating.rate, Rating.Comment FROM Movies
+LEFT JOIN Rating ON Rating.movie_id = Movies.id
+LEFT JOIN MovieCast ON Movies.id = MovieCast.movie_id
+JOIN Actor ON Actor.id = MovieCast.actor_id;
+
+#EXERCICIO 6
+
+#TENTEI INICIAR O DESAFIO 6 MAS NAO SEI SE É ESSA A LÓGICA 
+
+CREATE TABLE Oscar (
+	id VARCHAR(255) PRIMARY KEY,
+    best_Movie VARCHAR(255) NOT NULL,
+    best_Director VARCHAR(255) NOT NULL,
+    date_Win DATE NOT NULL,
+    movie_id VARCHAR(255),
+    FOREIGN KEY (movie_id) REFERENCES Movies(id)
+);
 
