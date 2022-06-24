@@ -35,6 +35,11 @@ export const editUserById = async (req: Request, res: Response) => {
               .status(codes.NOT_FOUND)
               .send(messages.NOT_FOUND);
             break;
+            case messages.NOT_IMPLEMENTED:
+              res
+                .status(codes.NOT_IMPLEMENTED)
+                .send(messages.NOT_IMPLEMENTED);
+              break;
           default:
             res
               .status(codes.SOME_ERROR)
