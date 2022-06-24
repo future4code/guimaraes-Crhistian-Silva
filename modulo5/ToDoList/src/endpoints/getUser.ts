@@ -1,26 +1,22 @@
-import { USER } from "../types/types"
 import { codes, messages } from '../constants/statusCode';
 import { Request, Response } from "express";
-import { v4 as generateId } from 'uuid';
-import { createUser } from "../constants/functions";
+import { getUser } from "../constants/functions"
 
 
-export const postUser = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
     try {
-      const { name, nickname, email}: USER = req.body 
+      const idUser: string = req.params.id
 
-      if(!name || !nickname || !email){
+      if(!idUser){
         throw new Error(messages.MISSING_PARAMETERS)
       }
       
-      const newUser:USER ={
-      id: generateId(),
-      name: name,
-      nickname: nickname,
-      email: email,
+     const user = await getUser(idUser)
+
+     if(!user){
+        throw new Error(messages.NOT_FOUND)
      }
-     await createUser(newUser)
-      res.status(codes.SUCCESS).send(messages.SUCCESS);
+      res.status(codes.SUCCESS).send(user);
     } catch (error: any) {
       switch (error.message) {
         case messages.MISSING_PARAMETERS:
@@ -28,6 +24,12 @@ export const postUser = async (req: Request, res: Response) => {
             .status(codes.MISSING_PARAMETERS)
             .send(messages.MISSING_PARAMETERS);
           break;
+          case messages.NOT_FOUND:
+            res
+              .status(codes.NOT_FOUND)
+              .send(messages.NOT_FOUND);
+            break;
+          
           default:
             res
               .status(codes.SOME_ERROR)

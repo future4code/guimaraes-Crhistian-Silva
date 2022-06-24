@@ -1,15 +1,16 @@
-/* import { createUser } from "./endpoints/postUser" */
-import { codes, messages } from "./constants/statusCode";
 import app from "./app";
-import { Request, Response } from "express";
-import { postUser } from "./endpoints/postUser";
+import { postUser} from "./endpoints/postUser";
+import { getUserById } from './endpoints/getUser';
+import {editUserById} from "./endpoints/editUser"
 
 
-app.get("/test", async (req: Request, res: Response): Promise<any> => {
-  try {
-      res.status(codes.SUCCESS).send(messages.SUCCESS)
-  } catch (error:any) {}
-});
-
+//1 CRIA USÁRIO
 app.post("/user", postUser)
+
+//2 PEGA USUÁRIO PELO ID
+app.get("/user/:id", getUserById)
+
+//3 EDITAR USUÁRIO
+app.put("/user/edit/:id", editUserById)
+
 
