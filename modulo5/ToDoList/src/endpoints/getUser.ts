@@ -1,6 +1,6 @@
 import { codes, messages } from '../constants/statusCode';
 import { Request, Response } from "express";
-import { getUser } from "../constants/functions"
+import { getUserData } from "../constants/functions"
 
 
 export const getUserById = async (req: Request, res: Response) => {
@@ -11,12 +11,17 @@ export const getUserById = async (req: Request, res: Response) => {
         throw new Error(messages.MISSING_PARAMETERS)
       }
       
-     const user = await getUser(idUser)
-
+     const user = await getUserData(idUser)
+    
      if(!user){
         throw new Error(messages.NOT_FOUND)
      }
-      res.status(codes.SUCCESS).send(user);
+
+     const userData:{} = {
+      name: user.name,
+      nickname: user.nickname
+     }
+      res.status(codes.SUCCESS).send(userData);
     } catch (error: any) {
       switch (error.message) {
         case messages.MISSING_PARAMETERS:

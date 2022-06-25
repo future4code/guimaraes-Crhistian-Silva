@@ -5,7 +5,10 @@ export const messages: {[key:string]: string} =
     SOME_ERROR: "Algo deu errado",
     NOT_FOUND: "Usuário não encontrado, confira o Id enviado nos parâmetros",
     MISSING_PARAMETERS: "Informações faltando ou Incorretas. Consulte a documentação e preencha corretamente o Body da sua Requisição.",
-    NOT_IMPLEMENTED:  "Não permitido, dados informados já existentes no banco de dados, verifique e tente novamente"
+    NOT_IMPLEMENTED:  "Não permitido, um ou mais dados informados já existentes no banco de dados, verifique e tente novamente",
+    NOT_IMPLEMENTED_EMAIL:  "Não permitido, EMAIL informado já existente no banco de dados, verifique e tente novamente",
+    NOT_IMPLEMENTED_NICKNAME:  "Não permitido, NICKNAME informado já existente no banco de dados, verifique e tente novamente",
+    NO_CONTENT: "Tarefa não encontrada, verifique o id enviado nos parâmetros"
   }
 ;
 
@@ -13,6 +16,7 @@ export const codes: {[key:string]: number} =
   {
     SUCCESS: 200,
     ACCEPTED: 201,
+    NO_CONTENT: 207,
     NOT_FOUND: 404,
     MISSING_PARAMETERS: 422,
     SOME_ERROR: 500,

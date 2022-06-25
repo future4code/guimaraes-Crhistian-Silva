@@ -1,49 +1,50 @@
 import connection from "../connection";
-import { EDITUSER } from "../types/types";
+import { EDITUSER, TASK, USER } from "../types/types";
 import { messages } from "../constants/statusCode";
 
 const todoList = "TodoListUser";
+const todoTask = "TodoListTask";
+const todoResponsible = "TodoListResponsibleUserTaskRelation";
+const todoListId = "TodoListTask.id";
+const todoResponsibleId = "TodoListResponsibleUserTaskRelation.task_id";
 
-export const createUser = async (user: EDITUSER): Promise<void> => {
-  await connection.insert(user).into(`${todoList}`);
+export const createUser = async (user: USER): Promise<void> => {
+  const userData = await connection(todoList);
+  userData.forEach((u) => {
+    if (u.nickname === user.nickname) {
+      throw new Error(messages.NOT_IMPLEMENTED_NICKNAME);
+    } else if (u.email === user.email) {
+      throw new Error(messages.NOT_IMPLEMENTED_EMAIL);
+    }
+  });
+  await connection(todoList).insert(user).into(todoList);
 };
 
-export const getUser = async (idUser: string): Promise<{}> => {
-  const result = await connection(`${todoList}`)
-    .select("id", "name")
-    .where("id", `${idUser}`);
-  return result[0];
+export const getUserData = async (idUser: string): Promise<any> => {
+  const user = await connection(todoList).select("*").where("id", `${idUser}`);
+  return user[0];
 };
 
 export const editUser = async (
   idUser: string,
   body: EDITUSER
-): Promise<{} | undefined> => {
-  //ANTES DE FAZER A MODIFICAÇÃO, FAÇO UMA VERIFICAÇÃO DE DADOS PARA VER SE OS DADOS ENVIADOS SÃO OS MESMOS QUE JÁ ESTÃO
-  const user = await connection(`${todoList}`)
-    .select("*")
-    .where("id", `${idUser}`);
+): Promise<void> => {
+  await connection(todoList)
+    .where("id", `${idUser}`)
+    .update({
+      name: `${body.name}`,
+      nickname: `${body.nickname}`,
+    });
+};
 
-    if(`${body.name}` === user[0].name && `${body.nickname}` === user[0].nickname){
-      throw new Error(messages.NOT_IMPLEMENTED)
-    }else{
-      await connection(`${todoList}`)
-      .where("id", `${idUser}`)
-      .update({ 
-        name: `${body.name}`,
-        nickname: `${body.nickname}` })
-    }
-      if(`${body.name}` === user[0].name){
-        await connection(`${todoList}`)
-        .where("id", `${idUser}`)
-        .update({ nickname: `${body.nickname}` })
-      }
-      
-      if(`${body.nickname}` === user[0].nickname){
-        await connection(`${todoList}`)
-      .where("id", `${idUser}`)
-      .update({ name: `${body.name}` });
-      } 
-    
-    return user[0]
-  };
+export const createTask = async (body: TASK): Promise<void> => {
+  await connection.insert(body).into(todoTask);
+};
+
+export const getTask = async (idTask: string): Promise<any> => {
+  const result = await connection
+    .select("*")
+    .from(todoTask)
+    .innerJoin(todoResponsible, todoListId, todoResponsibleId);
+  return result[0];
+};
