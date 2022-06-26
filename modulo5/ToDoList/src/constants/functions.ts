@@ -42,9 +42,29 @@ export const createTask = async (body: TASK): Promise<void> => {
 };
 
 export const getTask = async (idTask: string): Promise<any> => {
-  const result = await connection
-    .select("*")
+  const result: any = await connection
+    .select(
+      "id",
+      "title",
+      "description",
+      "limit_date",
+      "status",
+      "creator_user_id",
+      "creator_user_nickname"
+    )
     .from(todoTask)
     .innerJoin(todoResponsible, todoListId, todoResponsibleId);
+  return result;
+};
+
+export const getUsers = async (): Promise<any> => {
+  const users = await connection(todoList).select("*");
+  return users;
+};
+
+export const getTaskUser = async (idTask: string): Promise<any> => {
+  const result = await connection(todoTask)
+    .select("*")
+    .where("creator_user", idTask);
   return result[0];
 };

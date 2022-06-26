@@ -1,29 +1,20 @@
 import { codes, messages } from "../constants/statusCode";
 import { Request, Response } from "express";
-import { getTask } from "../constants/functions";
+import { getTaskUser } from "../constants/functions";
 
-export const getTaskById = async (req: Request, res: Response) => {
+export const getTaskUserId = async (req: Request, res: Response) => {
   try {
-    const idTask: string = req.params.id;
+    const idTask = req.query.creatorUserId as string;
 
     if (!idTask) {
       throw new Error(messages.MISSING_PARAMETERS);
     }
-    const tasks = await getTask(idTask);
+    const task = await getTaskUser(idTask);
 
-    if (!tasks) {
+    if (!task) {
       throw new Error(messages.NO_CONTENT);
     }
-
-    let newTasks;
-
-    tasks.forEach((element: any) => {
-      if (element.id === idTask) {
-        newTasks = element;
-        return newTasks;
-      }
-    });
-    res.status(codes.SUCCESS).send(newTasks);
+    res.status(codes.SUCCESS).send(task);
   } catch (error: any) {
     switch (error.message) {
       case messages.MISSING_PARAMETERS:

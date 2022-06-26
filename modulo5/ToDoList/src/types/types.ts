@@ -13,14 +13,15 @@ export type EDITUSER ={
 export type TASKBODY = {
     title: string,
     description: string,
-    limitDate: Date | string
-    creatorUserId: string
+    limitDate: string,
+    creatorUserId: string;
 }
 
 export type TASK = {
     id: string,
     title: string,
     description: string,
-    limit_Date: Date
-    creator_user_Id: string
+    limit_Date: Date | string
+    creator_user_id: string,
+/*     creator_user_nickname: string | undefined */
 }
