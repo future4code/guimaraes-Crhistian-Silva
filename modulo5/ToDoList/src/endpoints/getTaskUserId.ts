@@ -4,17 +4,18 @@ import { getTaskUser } from "../constants/functions";
 
 export const getTaskUserId = async (req: Request, res: Response) => {
   try {
-    const idTask = req.query.creatorUserId as string;
+    const idCreator = req.query.creatorUserId as string;
 
-    if (!idTask) {
+    if (!idCreator) {
       throw new Error(messages.MISSING_PARAMETERS);
     }
-    const task = await getTaskUser(idTask);
+    const tasks = await getTaskUser(idCreator);
 
-    if (!task) {
+    if (!tasks) {
       throw new Error(messages.NO_CONTENT);
     }
-    res.status(codes.SUCCESS).send(task);
+
+    res.status(codes.SUCCESS).send(tasks);
   } catch (error: any) {
     switch (error.message) {
       case messages.MISSING_PARAMETERS:
