@@ -28,3 +28,5 @@ export type TASK = {
 export type USERS = {[key: string]: [{ id: number, nickname: string }] }
 
 export type TASKS = {[key:string]:[{ taskId:string,title: string, description:string, limitDate:Date, creatorUserId:string, status:string, creatorUserNickname:string  }]}
+
+export type TASKRESPONSIBLE = {[key: string]: [{ task_id: string, responsible_user_id: string }] }

@@ -31,7 +31,8 @@ export const postUser = async (req: Request, res: Response) => {
         break;
       case messages.NOT_IMPLEMENTED_NICKNAME:
         res
-          .status(codes.NOT_IMPLEMENTED).send(messages.NOT_IMPLEMENTED_NICKNAME);
+          .status(codes.NOT_IMPLEMENTED)
+          .send(messages.NOT_IMPLEMENTED_NICKNAME);
         break;
       case messages.NOT_IMPLEMENTED_EMAIL:
         res.status(codes.NOT_IMPLEMENTED).send(messages.NOT_IMPLEMENTED_EMAIL);

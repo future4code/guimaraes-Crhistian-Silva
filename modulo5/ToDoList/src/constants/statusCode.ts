@@ -8,7 +8,9 @@ export const messages: {[key:string]: string} =
     NOT_IMPLEMENTED:  "Não permitido, um ou mais dados informados já existentes no banco de dados, verifique e tente novamente",
     NOT_IMPLEMENTED_EMAIL:  "Não permitido, EMAIL informado já existente no banco de dados, verifique e tente novamente",
     NOT_IMPLEMENTED_NICKNAME:  "Não permitido, NICKNAME informado já existente no banco de dados, verifique e tente novamente",
-    NO_CONTENT: "Tarefa não encontrada, verifique o id enviado nos parâmetros"
+    NO_CONTENT: "Tarefa não encontrada, verifique o id enviado nos parâmetros",
+    NOT_IMPLEMENTED_TASK: "Solicitação não aceita, confira o ID da tarefa enviado nos parâmetros,e tente novamente",
+    NOT_IMPLEMENTED_RESPONSIBLE:"Solicitação não aceita, confira o ID do Responsável pela tarefa enviado nos parâmetros,e tente novamente"
   }
 ;
 

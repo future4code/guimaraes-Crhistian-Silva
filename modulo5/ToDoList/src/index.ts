@@ -6,6 +6,9 @@ import {editUserById} from "./endpoints/editUser";
 import {postTask} from "./endpoints/postTask";
 import {getUsersAll} from "./endpoints/getUserAll"
 import { getTaskUserId } from "./endpoints/getTaskUserId";
+import { searchUsersById } from "./endpoints/searchUserByNick";
+import { postTaskResponsible } from "./endpoints/postTaskResponsible";
+import { getResponsibleTask } from "./endpoints/getResponsibleTask";
 
 
 //1. CRIAR USÁRIO
@@ -30,6 +33,15 @@ app.get("/users/all", getUsersAll)
 
 //7. Pegar tarefas criadas por um usuário
 app.get("/task", getTaskUserId)
+
+//8. Pesquisar usuário 
+app.get("/user", searchUsersById)
+
+//9. Atribuir um usuário responsável a uma tarefa
+app.post("/task/:id/responsible", postTaskResponsible )
+
+//10. Pegar usuários responsáveis por uma tarefa
+app.get("/task/:id/responsible", getResponsibleTask)
 
 
 

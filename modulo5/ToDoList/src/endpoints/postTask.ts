@@ -2,15 +2,20 @@ import { TASKBODY, TASK } from "../types/types";
 import { codes, messages } from "../constants/statusCode";
 import { Request, Response } from "express";
 import { v4 as generateId } from "uuid";
-import { createTask } from "../constants/functions"; 
+import { createTask } from "../constants/functions";
 
 export const postTask = async (req: Request, res: Response) => {
   try {
-    const dataTask:TASKBODY = req.body;
-    const date = req.body.limitDate as string
-    const newDate = date.split("/").reverse().join("-")
-    
-    if (!dataTask.title || !dataTask.description || !dataTask.limitDate || !dataTask.creatorUserId) {
+    const dataTask: TASKBODY = req.body;
+    const date = req.body.limitDate as string;
+    const newDate = date.split("/").reverse().join("-");
+
+    if (
+      !dataTask.title ||
+      !dataTask.description ||
+      !dataTask.limitDate ||
+      !dataTask.creatorUserId
+    ) {
       throw new Error(messages.MISSING_PARAMETERS);
     }
 
@@ -18,10 +23,10 @@ export const postTask = async (req: Request, res: Response) => {
       id: generateId(),
       title: dataTask.title,
       description: dataTask.description,
-      limit_Date:newDate,
-      creator_user_id: dataTask.creatorUserId
+      limit_Date: newDate,
+      creator_user_id: dataTask.creatorUserId,
     };
-    await createTask(newTask); 
+    await createTask(newTask);
     res.status(codes.SUCCESS).send(messages.SUCCESS);
   } catch (error: any) {
     switch (error.message) {
@@ -29,7 +34,7 @@ export const postTask = async (req: Request, res: Response) => {
         res.status(codes.MISSING_PARAMETERS).send(messages.MISSING_PARAMETERS);
         break;
       default:
-        res.status(codes.SOME_ERROR).send(messages.SOME_ERROR); 
-    }   
+        res.status(codes.SOME_ERROR).send(messages.SOME_ERROR);
+    }
   }
 };

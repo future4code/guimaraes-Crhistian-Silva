@@ -1,17 +1,16 @@
 import { codes, messages } from "../constants/statusCode";
 import { Request, Response } from "express";
 import { getUsers } from "../constants/functions";
-import {USERS} from "../types/types";
-
+import { USERS } from "../types/types";
 
 export const getUsersAll = async (req: Request, res: Response) => {
   try {
-    const users:USERS = await getUsers();
+    const users: USERS = await getUsers();
 
     if (!users) {
       res.status(codes.NOT_FOUND).send([]);
     }
-    
+
     res.status(codes.SUCCESS).send(users);
   } catch (error: any) {
     switch (error.message) {
