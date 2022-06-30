@@ -1,0 +1,16 @@
+//Padrão
+GET http://localhost:3003/users
+###
+//filtro name
+GET  http://localhost:3003/users?name=Maju
+###
+//
+//Filtro Type
+GET  http://localhost:3003/users/Teacher
+###
+//Order by name or type
+GET  http://localhost:3003/users?sort=type&order=asc
+###
+//Limit and Pagination
+GET http://localhost:3003/users/page?page=5
+
