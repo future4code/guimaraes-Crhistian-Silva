@@ -31,16 +31,19 @@ export const selectUsersByPages = async (
   return result;
 };
 
-
-export const selectUsersByFilters = async (query:string, sort:string, order:string, size:number, offset:number): Promise<any> => {
-
+export const selectUsersByFilters = async (
+  query: string,
+  sort: string,
+  order: string,
+  limit: number,
+  offset: number
+): Promise<any> => {
   const result = await connection("aula48_exercicio")
     .select("*")
     .where("name", "like", `%${query}%`)
-    .orWhere("type", "like", `%${query}%`) 
+    .orWhere("type", "like", `%${query}%`)
     .orderBy(sort, order)
-    .limit(size)
+    .limit(limit)
     .offset(offset);
-    console.log("result=========", result)
   return result;
 };
