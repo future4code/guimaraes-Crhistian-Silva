@@ -1,27 +1,46 @@
-import connection from "../connection"
+import connection from "../connection";
 
-export const selectAllUsers = async ( sort:string, order:string):Promise<any>=> {
-    const result = await connection("aula48_exercicio")
+export const selectAllUsers = async (
+  sort: string,
+  order: string
+): Promise<any> => {
+  const result = await connection("aula48_exercicio")
     .select("*")
-    .orderBy(sort as string, order as string)
+    .orderBy(sort as string, order as string);
 
-    return result
- }
+  return result;
+};
 
-export const selectUserByType = async (type:string):Promise<any>=> {
-    const result = await connection("aula48_exercicio")
+export const selectUserByType = async (type: string): Promise<any> => {
+  const result = await connection("aula48_exercicio")
     .select("*")
-    .where("type", "like" ,`%${type}%`)
- 
-    return result
- }
+    .where("type", "like", `%${type}%`);
 
- export const selectUsersByPages = async (page:number):Promise<any>=> {
-    console.log("page na funcao", page)
-    const result = await connection("aula48_exercicio")
+  return result;
+};
+
+export const selectUsersByPages = async (
+  offset: number,
+  limit: number
+): Promise<any> => {
+  const result = await connection("aula48_exercicio")
     .select("*")
-    .limit(5)
     .orderBy("id")
-    return result
- }
- 
+    .limit(limit)
+    .offset(offset);
+  return result;
+};
+
+
+export const selectUsersByFilters = async (query:string, sort:string, order:string, size:number, offset:number): Promise<any> => {
+
+  const result = await connection("aula48_exercicio")
+    .select("*")
+    .where("name", "like", `%${query}%`)
+    .orWhere("type", "like", `%${query}%`) 
+    .orderBy(sort, order)
+    .limit(size)
+    .offset(offset);
+    console.log("result=========", result)
+  return result;
+};

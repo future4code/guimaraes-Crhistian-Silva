@@ -6,18 +6,18 @@ export const getUsersByPages = async (
   res: Response
 ): Promise<void> => {
   try {
-    let page = Number(req.query.page)
+    let limit: number = 5;
 
+    let page = Number(req.query.page);
 
-    console.log("page", page)
+    let offset = limit * (page - 1);
 
-    const users = await selectUsersByPages(page);
+    const users = await selectUsersByPages(offset, limit);
 
     if (!users.length) {
       res.statusCode = 404;
       throw new Error("No recipes found");
     }
-
     res.status(200).send(users);
   } catch (error: any) {
     console.log(error);
