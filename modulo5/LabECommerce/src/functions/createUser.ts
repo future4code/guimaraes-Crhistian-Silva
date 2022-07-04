@@ -4,7 +4,6 @@ const usersList = "labecommerce_users";
 const productsList = "labecommerce_products";
 const commercePurchase = "labecommerce_purchases";
 
-//==================================================//
 export const createUser = async (user: USER): Promise<void> => {
   const userData = await connection(usersList);
   if (userData) {
@@ -20,8 +19,7 @@ export const createUser = async (user: USER): Promise<void> => {
     });
   }
 
-  await connection("labecommerce_users")
+  await connection(usersList)
     .insert(user)
-    .into("labecommerce_users");
+    .into(usersList);
 };
-//==================================================//
