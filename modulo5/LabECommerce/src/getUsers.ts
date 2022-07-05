@@ -4,6 +4,7 @@ import { selectUsers } from "../functions/selectUsers";
 import { handlleError } from "../functions/handlleError";
 
 export const getUsers = async (req: Request, res: Response) => {
+  let array: any = [];
   try {
     const users = await selectUsers();
     if (!users) {

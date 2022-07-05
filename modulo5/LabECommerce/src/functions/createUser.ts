@@ -2,7 +2,7 @@ import { USER } from "../types/types";
 import connection from "../connection";
 const usersList = "labecommerce_users";
 const productsList = "labecommerce_products";
-const commercePurchase = "labecommerce_purchases";
+
 
 export const createUser = async (user: USER): Promise<void> => {
   const userData = await connection(usersList);
