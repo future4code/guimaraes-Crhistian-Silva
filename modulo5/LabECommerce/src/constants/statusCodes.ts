@@ -8,7 +8,8 @@ export const messageStatus: {
     status: 401,
     message: "Please verify if your ID was sent on headers authorization",
   },
-  NOT_FOUND:{status: 404, message: "Users Not Found"},
+  NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID USER SENT and try again"},
+  NOT_FOUND_PRODUCT: {status: 404, message: "Product Not Found, please verify the ID PRODUCT SENT and try again"},
   FORBIDDEN: {
     status: 403,
     message:

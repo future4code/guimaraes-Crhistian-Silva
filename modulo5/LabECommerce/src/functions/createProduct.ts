@@ -1,8 +1,8 @@
-import { PRODUCT } from "./../types/types";
+import { PRODUCT_BODY } from "./../types/types";
 import connection from "../connection";
 const productsList = "labecommerce_products";
 
-export const createProduct = async (prod: PRODUCT): Promise<void> => {
+export const createProduct = async (prod: PRODUCT_BODY): Promise<void> => {
   const userData = await connection(productsList);
 
   if (userData.length !== 0) {

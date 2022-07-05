@@ -5,11 +5,11 @@ export type USER = {
   password: string;
 };
 
-export type PRODUCT = {
+export type PRODUCT_BODY = {
   id: string;
   name: string;
   price: number;
-  image_url: URL;
+  imageUrl: URL;
   rating: number;
   description: string;
   brand: string;
@@ -17,6 +17,20 @@ export type PRODUCT = {
   stock: number;
 };
 
+
+export type PURCHASE_BODY ={
+  userId: string,
+  productId: string,
+  quantity: number,
+}
+
+export type PURCHASE ={
+  id: string,
+  user_id: string,
+  product_id: string,
+  quantity: number,
+  total_price: number
+}
 /* export type EDITUSER ={
     name: string,
     nickname: string

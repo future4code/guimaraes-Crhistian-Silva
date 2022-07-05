@@ -10,13 +10,11 @@ export const getUsers = async (req: Request, res: Response) => {
     if (!users) {
       throw new Error("NOT_FOUND");
     }
+    const newUser = {
+      users:users
+    }
 
-    users.forEach((user: any) => {
-      array.push(user.name);
-      return array;
-    });
-
-    res.status(messageStatus.SUCCESS.status).send(array);
+    res.status(messageStatus.SUCCESS.status).send(newUser);
   } catch (error: any) {
     handlleError(res, error, messageStatus);
   }

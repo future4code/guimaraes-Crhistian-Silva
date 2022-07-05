@@ -3,23 +3,23 @@ import { Request, Response } from "express";
 import { v4 as generateId } from "uuid";
 import { createProduct } from "../functions/createProduct";
 import { handlleError } from "../functions/handlleError";
-import { PRODUCT } from "../types/types";
+import { PRODUCT_BODY } from "../types/types";
 
 export const postProduct = async (req: Request, res: Response) => {
   try {
-    //COLOQUEI PRA RECEBER MAIS PROPRIEDADES DO BODY COMO OPCIONAIS, A FUNÇÃO FUNCIONA INDEPENDENTE DE RECEBER TODAS AS PROPRIEDADES PELO BODY OU NÃO
+    //COLOQUEI PRA RECEBER MAIS PROPRIEDADES DO BODY COMO OPCIONAIS, A FUNÇÃO FUNCIONA INDEPENDENTE DE RECEBER TODOS OS DADOS
 
-    const prodData: PRODUCT = req.body;
+    const prodData: PRODUCT_BODY = req.body;
 
-    if (!prodData.name || !prodData.price || !prodData.image_url) {
+    if (!prodData.name || !prodData.price || !prodData.imageUrl) {
       throw new Error("MISSING_PARAMETERS");
     }
 
-    const newProduct: PRODUCT = {
+    const newProduct:any = {
       id: generateId(),
       name: prodData.name,
       price: prodData.price,
-      image_url: prodData.image_url,
+      image_url: prodData.imageUrl,
       rating: prodData.rating,
       description: prodData.description,
       brand: prodData.brand,
@@ -27,6 +27,7 @@ export const postProduct = async (req: Request, res: Response) => {
       stock: prodData.stock,
     };
 
+    
     //ANTES DE CRIAR O PRODUTO COLOQUEI UMA VERIFICAÇÃO DENTRO DA FUNÇÃO PARA ENVIAR MENSAGEM DE ERRO SE OS DADOS DO TITLE JÁ CONSTAREM NO BANCO DE DADOS, PRA NÃO HAVER REPETIÇÃO DE NOME DE PRODUTOS
     await createProduct(newProduct);
     res
