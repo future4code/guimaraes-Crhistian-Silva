@@ -15,6 +15,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
     res.status(messageStatus.SUCCESS.status).send(newUser);
   } catch (error: any) {
-    handlleError(res, error, messageStatus);
+    handlleError(res, error);
   }
 };

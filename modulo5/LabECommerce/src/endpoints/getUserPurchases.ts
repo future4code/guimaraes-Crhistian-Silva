@@ -35,6 +35,6 @@ export const getUserPurchases = async (req: Request, res: Response) => {
 
     res.status(messageStatus.SUCCESS.status).send(newObjectPurchase);
   } catch (error: any) {
-    handlleError(res, error, messageStatus);
+    handlleError(res, error);
   }
 };

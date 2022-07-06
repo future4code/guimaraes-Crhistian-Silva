@@ -37,5 +37,5 @@ export const messageStatus: {
     message:
       "Missing or incorrect information. Consult the documentation and correctly fill in the body of the sa request",
   },
-  SOME_ERROR: { status: 500, message: "Algo deu errado" },
+  SOME_ERROR: { status: 500, message: "Something went wrong" },
 };

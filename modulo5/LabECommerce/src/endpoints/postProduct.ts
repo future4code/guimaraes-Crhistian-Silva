@@ -34,6 +34,6 @@ export const postProduct = async (req: Request, res: Response) => {
       .status(messageStatus.SUCCESS.status)
       .send(messageStatus.SUCCESS.message);
   } catch (error: any) {
-    handlleError(res, error, messageStatus);
+    handlleError(res, error);
   }
 };

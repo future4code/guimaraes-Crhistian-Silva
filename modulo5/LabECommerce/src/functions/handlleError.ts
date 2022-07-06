@@ -1,9 +1,11 @@
+import { messageStatus } from "../constants/statusCodes";
+
 export const handlleError = (
   res: any,
-  error: any,
-  messages: { [key: string]: { status: number; message: string } }
+  error: any
 ) => {
+  error.sqlMessage? res.status(500).send(error.sqlMessage): 
   res
-    .status(messages[error.message].status)
-    .send(messages[error.message].message);
+    .status(messageStatus[error.message].status)
+    .send(messageStatus[error.message].message);
 };
