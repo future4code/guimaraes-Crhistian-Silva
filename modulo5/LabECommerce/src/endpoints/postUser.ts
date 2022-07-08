@@ -3,7 +3,7 @@ import {messageStatus} from "../constants/statusCodes"
 import { Request, Response } from "express";
 import { v4 as generateId } from "uuid";
 import { createUser } from "../functions/createUser";
-import {handlleError} from "../functions/handlleError"
+import { handlleError } from "../functions/handlleError";
 
 export const postUser = async (req: Request, res: Response) => {
   try {

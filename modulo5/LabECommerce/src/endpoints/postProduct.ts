@@ -2,8 +2,8 @@ import { messageStatus } from "../constants/statusCodes";
 import { Request, Response } from "express";
 import { v4 as generateId } from "uuid";
 import { createProduct } from "../functions/createProduct";
-import { handlleError } from "../functions/handlleError";
 import { PRODUCT_BODY } from "../types/types";
+import { handlleError } from "../functions/handlleError";
 
 export const postProduct = async (req: Request, res: Response) => {
   try {
@@ -27,7 +27,6 @@ export const postProduct = async (req: Request, res: Response) => {
       stock: prodData.stock,
     };
 
-    
     //ANTES DE CRIAR O PRODUTO COLOQUEI UMA VERIFICAÇÃO DENTRO DA FUNÇÃO PARA ENVIAR MENSAGEM DE ERRO SE OS DADOS DO TITLE JÁ CONSTAREM NO BANCO DE DADOS, PRA NÃO HAVER REPETIÇÃO DE NOME DE PRODUTOS
     await createProduct(newProduct);
     res

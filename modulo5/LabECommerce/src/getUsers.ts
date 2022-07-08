@@ -1,7 +1,7 @@
-import { messageStatus } from "../constants/statusCodes";
 import { Request, Response } from "express";
-import { selectUsers } from "../functions/selectUsers";
-import { handlleError } from "../functions/handlleError";
+import { messageStatus } from "./constants/statusCodes";
+import { handlleError } from "./functions/handlleError";
+import { selectUsers } from "./functions/selectUsers";
 
 export const getUsers = async (req: Request, res: Response) => {
   let array: any = [];
@@ -16,6 +16,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
     res.status(messageStatus.SUCCESS.status).send(newUser);
   } catch (error: any) {
-    handlleError(res, error, messageStatus);
+    handlleError(res, error);
   }
 };

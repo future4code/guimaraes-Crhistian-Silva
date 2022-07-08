@@ -1,12 +1,13 @@
 import { messageStatus } from "../constants/statusCodes";
 import { Request, Response } from "express";
-import { handlleError } from "../functions/handlleError";
 import { selectUserPurchase } from "../functions/selectUserPurchase";
+import { PURCHASE_USER } from "../types/types";
+import { handlleError } from "../functions/handlleError";
 
 export const getUserPurchases = async (req: Request, res: Response) => {
   try {
-    let array: any = [];
-    let purchaseObject: any = {};
+    let arrayPurchase: PURCHASE_USER[] = [];
+    let purchaseObject: PURCHASE_USER;
     const idUser = req.params.userId;
     const purchasesUser = await selectUserPurchase(idUser);
 
@@ -23,14 +24,12 @@ export const getUserPurchases = async (req: Request, res: Response) => {
         quantity: user.quantity,
         TotalPrice: user.total_price,
       };
-      array.push(purchaseObject);
-      return array;
+      arrayPurchase.push(purchaseObject);
+      return arrayPurchase;
     });
 
     const newObjectPurchase = {
-      name: purchasesUser[0].name,
-      user: purchasesUser[0].email,
-      purchases: array,
+      purchases: arrayPurchase,
     };
 
     res.status(messageStatus.SUCCESS.status).send(newObjectPurchase);
