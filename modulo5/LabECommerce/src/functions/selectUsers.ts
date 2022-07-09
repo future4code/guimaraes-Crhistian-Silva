@@ -9,7 +9,6 @@ export const selectUsers = async (): Promise<any> => {
     .select("name", "email", "id", "address")
     .from("labecommerce_users")
     .orderBy("name", "asc");
-    console.log("usersd==>", users)
   for (let user of users) {
     purchases = await connection("labecommerce_purchases as p")
       .select(
