@@ -37,8 +37,8 @@ export const postUser = async (req: Request, res: Response) => {
         }) 
         
     res
-      .status(messageStatus.SUCCESS.status)
-      .send(messageStatus.SUCCESS.message);
+      .status(messageStatus.CREATED_USER.status)
+      .send(messageStatus.CREATED_USER.message);
   } catch (error: any) {
     handlleError(res, error);
   }

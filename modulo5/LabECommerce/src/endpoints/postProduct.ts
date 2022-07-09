@@ -30,8 +30,8 @@ export const postProduct = async (req: Request, res: Response) => {
     //ANTES DE CRIAR O PRODUTO COLOQUEI UMA VERIFICAÇÃO DENTRO DA FUNÇÃO PARA ENVIAR MENSAGEM DE ERRO SE OS DADOS DO TITLE JÁ CONSTAREM NO BANCO DE DADOS, PRA NÃO HAVER REPETIÇÃO DE NOME DE PRODUTOS
     await createProduct(newProduct);
     res
-      .status(messageStatus.SUCCESS.status)
-      .send(messageStatus.SUCCESS.message);
+      .status(messageStatus.CREATED_PRODUCT.status)
+      .send(messageStatus.CREATED_PRODUCT.message);
   } catch (error: any) {
     handlleError(res, error);
   }

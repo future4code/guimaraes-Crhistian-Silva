@@ -2,7 +2,8 @@ export const messageStatus: {
   [key: string]: { status: number; message: string };
 } = {
   SUCCESS: { status: 200, message: "Request Completed" },
-  CREATED: { status: 201, message: "User created successfully" },
+  CREATED_USER: { status: 201, message: "User created successfully" },
+  CREATED_PRODUCT: { status: 201, message: "Product created successfully" },
   ACCEPTED: { status: 202, message: "Your request has been accepted" },
   UNAUTHORIZED: {
     status: 401,

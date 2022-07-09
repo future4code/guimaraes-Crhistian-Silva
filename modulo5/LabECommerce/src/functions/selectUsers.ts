@@ -1,11 +1,11 @@
 import connection from "../connection";
-import { DATAUSER, USERS, PURCHASE } from "../types/types";
+import { DATAUSER, USER, PURCHASE } from "../types/types";
 
 export const selectUsers = async (): Promise<any> => {
   let purchases: PURCHASE[];
   let newArrayData: DATAUSER[] = [];
 
-  let users: USERS[] = await connection
+  let users: USER[] = await connection
     .select("name", "email", "id", "address")
     .from("labecommerce_users")
     .orderBy("name", "asc");

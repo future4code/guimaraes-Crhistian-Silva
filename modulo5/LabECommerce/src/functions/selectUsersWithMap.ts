@@ -1,10 +1,10 @@
 //DEIXEI NO PROJETO APENAS PARA CONSULTA FUTURA
 
 import connection from "../connection";
-import { DATAUSER, USERS, PURCHASE } from "../types/types";
+import { DATAUSER, USER, PURCHASE } from "../types/types";
 
 export const selectUsersWithMap = async (): Promise<any> => {
-  let users: USERS[] = await connection
+  let users: USER[] = await connection
     .select("name", "email", "id")
     .from("labecommerce_users");
 
