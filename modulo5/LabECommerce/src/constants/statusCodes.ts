@@ -16,15 +16,15 @@ export const messageStatus: {
       " Please verify if your ID was sent on headers authorization, it must be 'ADMIN' or 'NORMAL'. ",
   },
   NOT_IMPLEMENTED_NAME: {
-    status: 404,
+    status: 405,
     message: " NAME already exists in database, please verify and try again",
   },
   NOT_IMPLEMENTED_EMAIL: {
-    status: 404,
+    status: 405,
     message: " EMAIL already exists in database, please verify and try again",
   },
   NOT_IMPLEMENTED_PASSWORD: {
-    status: 404,
+    status: 405,
     message:
       " PASSWORD already exists in database, please verify and try again",
   },
@@ -38,4 +38,6 @@ export const messageStatus: {
       "Missing or incorrect information. Consult the documentation and correctly fill in the body of the sa request",
   },
   SOME_ERROR: { status: 500, message: "Something went wrong" },
+  VIA_CEP_ERROR: {status: 404, message: "Something went wrong on yours address requisition "},
+  NODE_MAILER_ERROR :{status: 404, message: "Something went wrong on yours nodemailer requisition "},
 };

@@ -6,10 +6,10 @@ export const selectUsers = async (): Promise<any> => {
   let newArrayData: DATAUSER[] = [];
 
   let users: USERS[] = await connection
-    .select("name", "email", "id")
+    .select("name", "email", "id", "address")
     .from("labecommerce_users")
     .orderBy("name", "asc");
-
+    console.log("usersd==>", users)
   for (let user of users) {
     purchases = await connection("labecommerce_purchases as p")
       .select(
@@ -26,6 +26,7 @@ export const selectUsers = async (): Promise<any> => {
       id: user.id,
       name: user.name,
       email: user.email,
+      address: user.address,
       purchases: purchases,
     });
   }

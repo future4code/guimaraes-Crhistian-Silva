@@ -1,26 +1,28 @@
-export type USER = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
+export type USER_BODY = {
+  name: string,
+  email: string,
+  password: string,
+  zipcode: number
 };
 
-export type USERS = {
-  id: string;
-  name: string;
-  email: string;
-}
+export type USER = {
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  address: string
+};
 
 export type PRODUCT_BODY = {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  rating: number;
-  description: string;
-  brand: string;
-  category: string;
-  stock: number;
+  id: string,
+  name: string,
+  price: number,
+  imageUrl: string,
+  rating: number,
+  description: string,
+  brand: string,
+  category: string,
+  stock: number
 };
 
 export type PURCHASE_BODY ={
@@ -41,6 +43,7 @@ export type DATAUSER = {
   id: string,
   name: string,
   email: string,
+  address: string,
   purchases: PURCHASE[]
 }
 
