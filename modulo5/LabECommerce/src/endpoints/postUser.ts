@@ -26,16 +26,23 @@ export const postUser = async (req: Request, res: Response) => {
     //ANTES DE CRIAR O USUÁRIO COLOQUEI UMA VERIFICAÇÃO DENTRO DA FUNÇÃO CREATEUSER PARA ENVIAR MENSAGEM DE ERRO SE OS DADOS QUE SÃO ÚNICOS JÁ CONSTAREM NO BANCO DE DADOS
     await createUser(newUser);
     
-    //TIVE QUE TRANSFORMAR ESSA EMAILINFO  EM FUNÇÃO ASYNC PORQUE ELA FICAVA EM LOOP E NÃO ENCERRAVA A REQUISIÇÃO
-    
-    await mailTransporter.sendMail({
+    //TIVE QUE TRANSFORMAR ESSA EMAILINFO  EM FUNÇÃO ASYNC PORQUE QUANDO DÁ ALGUM ERRO DE NODEMAILER, ELA CRIA O USUÁRIO MAS FICA EM LOOP E NÃO ENCERRAVA A REQUISIÇÃO
+
+    const sendConfirmationEmail = async (email: string, name: string) => {
+      try {
+        await mailTransporter.sendMail({
           from: "<submit-backend-crhis@hotmail.com>",
           to: email,
           subject: "Cadastro Efetuado",
           text: "BOAS VINDAS !!!!",
           html: `<p> " Olá ${name}, Seu Cadastro Foi concluído com Sucesso"</p>`,
-        }) 
+        });
         
+      } catch (error:any) {
+        throw new Error("NODE_MAILER_ERROR")
+      }     
+    };
+    sendConfirmationEmail(email,name)
     res
       .status(messageStatus.CREATED_USER.status)
       .send(messageStatus.CREATED_USER.message);
