@@ -27,8 +27,8 @@
 
 
       <h2 id="sobre">:notebook: Sobre </h2> 
-💬 estudante da  <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto realizado com alguns desafios, como quando é necessário retornar uma Lista de usuários com suas respectivas compras, foi um grande desafio resolver isso, com o auxílio de um Mentor fui capaz de contornar esse desafio e entregar o projeto com todos os requisitos funcionando perfeitamente.
-Este projeto atual se apresenta na forma de comandos que criam usuários, produtos e uma relação de compras entre usuários e determinados produtos, também foram criados comandos de busca de todos os usuários, todos os produtos com ordenação ou não, e também um comando para busca de um produto especifíco por nome, todos os comandos em forma de endpoints estão explicitados suas formas corretas de uso no Link da Documentação
+💬 estudante da  <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto realizado com alguns desafios, como quando é necessário retornar uma Lista de usuários com suas respectivas compras, foi bem desafiador resolver isso, com o auxílio de um Mentor fui capaz de contorná-lo e entregar o projeto com todos os requisitos funcionando perfeitamente.
+Este projeto atual se apresenta na forma de comandos que criam usuários, produtos e uma relação de compras entre usuários e determinados produtos, também foram criados comandos de busca de todos os usuários, todos os produtos com ordenação ou não, e também um comando para busca de um produto especifíco por nome, todos os comandos em forma de endpoints estão explicitados com suas formas corretas de uso no Link da Documentação
 <h4 align="right"><a href="#topo">Topo</a></h4>
 
 <h2 id="funciona">:rocket: O que funciona </h2>
