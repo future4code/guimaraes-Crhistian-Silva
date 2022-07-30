@@ -32,7 +32,8 @@ export class PostController {
       const { id } = req.params
 
       const postBusiness = new PostBusiness();
-       const post = await postBusiness.getPost(id)
+      
+      const post = await postBusiness.getPost(id)
 
       res.status(200).send({ message, post })
       
