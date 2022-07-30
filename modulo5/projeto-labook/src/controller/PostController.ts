@@ -23,4 +23,21 @@ export class PostController {
       res.status(400).send(error.message || error.sqlmessage);
     }
   };
+
+  public getPost = async (req: Request, res: Response):Promise<any>=> {
+
+    try {
+      let message = "Success!"
+
+      const { id } = req.params
+
+      const postBusiness = new PostBusiness();
+       const post = await postBusiness.getPost(id)
+
+      res.status(200).send({ message, post })
+      
+    } catch (error: any) {
+      res.status(400).send(error.message || error.sqlmessage);
+    }
+  }
 }

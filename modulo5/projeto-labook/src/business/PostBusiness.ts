@@ -30,4 +30,10 @@ export class PostBusiness {
       throw new Error(error.message || error.sqlmessage);
     }
   };
+
+  public getPost = async (id: string): Promise<any> => {
+
+
+  
+}
 }
