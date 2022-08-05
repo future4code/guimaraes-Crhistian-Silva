@@ -1,6 +1,6 @@
-import { app } from "./controller/app"
-import { postRouter } from "./controller/routes/postRouter";
-import { userRouter } from './controller/routes/userRouter';
+import { app } from "./app"
+import { postRouter } from "./routes/postRouter";
+import { userRouter } from './routes/userRouter';
 
 app.use("/users", userRouter)
 

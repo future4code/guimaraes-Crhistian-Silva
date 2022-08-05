@@ -1,54 +1,52 @@
-import { post, POST_TYPES } from "./../types/types";
-import { v4 as generateId } from "uuid";
 import { PostDatabase } from "../data/PostDatabase";
 import { BaseDatabase } from "../data/BaseDatabase";
-import { CustomError } from "../data/error/customError";
+import { CustomError } from "../error/customError";
+import { postInputDTO } from "../model/postDTO";
+import { generateId } from "../services/generateId";
+import { StatusCodes } from "../error/StatusCOdes";
+import { Post } from "../model/post";
+import {
+  validateIdPost,
+  validateInputPostDTO,
+  validatePostFound,
+  
+} from "../services/validatesPost";
+import { authenticationData, POST_TYPES } from "../model/types";
 
-export class PostBusiness extends BaseDatabase{
-  public createPost = async (input: post): Promise<void> => {
+export class PostBusiness extends BaseDatabase {
+  public createPost = async (input: postInputDTO): Promise<void> => {
     try {
-      let { photo, description,type, authorId } = input;
+      let { photo, description, type, authorId } = input;
 
-      if (!photo || !description || !authorId) {
-        throw new Error("MISSING PARAMETERS, PLEASE VERIFY DATA´S SENT ");
+      //IMPLANTADA VALIDAÇÃO DE INPUT
+      validateInputPostDTO(input, StatusCodes);
+
+      if (type?.toLowerCase() !== "normal" || type?.toLowerCase() !== "event") {
+        type = POST_TYPES.NORMAL;
       }
-
-      if(type?.toLowerCase() !== "normal" ||type?.toLowerCase() !== "event" ){
-       type = POST_TYPES.NORMAL
-      }
-
+      console.log(" type depois da verificacao==> ", type)
       const id: string = generateId();
+
+      const post: Post = new Post(id, photo, description, type, authorId);
 
       const postDatabase = new PostDatabase();
 
-      await postDatabase.insertPost({
-        id,
-        photo,
-        description,
-        type,
-        authorId,
-      });
+      await postDatabase.insertPost(post);
     } catch (error: any) {
-      throw new Error(error.message || error.sqlmessage);
+      throw new CustomError(error.status, error.message || error.sqlMessage);
     }
   };
-
   public getPost = async (id: string): Promise<any> => {
 
     try {
 
-      if(!id){
-        throw new CustomError("MISSING PARAMETERS, PLEASE VERIFY THE ID SENT ", 404)
-      }
-      
+      validateIdPost(id, StatusCodes)
       
       const postDatabase = new PostDatabase();
 
       const queryResult = await postDatabase.getPost(id)
 
-      if (!queryResult[0]) {
-        throw new CustomError("POST NOT FOUND", 404)
-     }
+      validatePostFound(queryResult, StatusCodes)
 
      const date = new Date(queryResult[0].created_at).toISOString().split("T").reverse()
      const newDate = date[1].split("-").reverse().join("/")
@@ -62,9 +60,9 @@ export class PostBusiness extends BaseDatabase{
      }
      return newPost
 
-     } catch (error:any) {
-      throw new CustomError(error.sqlMessage || error.message, 500);
-   }
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
   
 }
 }

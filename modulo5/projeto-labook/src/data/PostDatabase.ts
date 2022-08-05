@@ -1,19 +1,19 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { post } from "../types/types";
-import { CustomError } from "./error/customError";
+import { CustomError } from "../error/customError";
+import { Post } from "../model/post";
 
 export class PostDatabase extends BaseDatabase {
   private postTable = "labook_posts";
 
-  public insertPost = async (post: post): Promise<void> => {
+  public insertPost = async (post: Post): Promise<void> => {
     try {
       await BaseDatabase.connection
         .insert({
-          id: post.id,
-          photo: post.photo,
-          description: post.description,
-          type: post.type,
-          author_id: post.authorId,
+          id: post.getId(),
+          photo: post.getPhoto(),
+          description: post.getDescription(),
+          type: post.getType(),
+          author_id: post.getAuthor(),
         })
         .into(this.postTable);
     } catch (error: any) {
@@ -28,7 +28,7 @@ export class PostDatabase extends BaseDatabase {
         .where({ id });
       return result;
     } catch (error: any) {
-      throw new CustomError(error.sqlMessage || error.message, 500);
+      throw new CustomError(error.status, error.message || error.sqlMessage);
     }
   };
 }

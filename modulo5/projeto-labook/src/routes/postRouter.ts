@@ -1,5 +1,5 @@
 import express from "express"
-import { PostController } from "../PostController"
+import { PostController } from "../controller/PostController"
 
 export const postRouter = express.Router()
 

@@ -1,24 +1,30 @@
+import { UserDTO } from './../model/userDTO';
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
-import { user } from "../types/types";
+import { validateUserInput } from './userControllerSerializer';
+import { StatusCodes } from '../error/StatusCOdes';
 
-export class UserController {
-  public createUser = async (req: Request, res: Response) => {
+export class UserController{
+
+  public createUser = async (req: Request, res: Response):Promise<void> => {
     try {
-      let message = "Success! User Create";
+      const  message = "SUCESS, USER CREATE" 
 
-      const input: user = {
+      const input: UserDTO = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
       };
 
+      validateUserInput(input, StatusCodes)
+
       const userBusiness = new UserBusiness();
+
       await userBusiness.createUser(input);
 
-      res.status(201).send({ message });
+      res.status(201).send(message);
     } catch (error: any) {
-      res.status(400).send(error.message || error.sqlmessage);
+      res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
   };
 }
