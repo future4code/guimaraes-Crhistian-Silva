@@ -1,18 +1,23 @@
+import { StatusCodes } from "./../error/StatusCodes";
+import { validateIdPost, validatePostDTO } from "./postControllerSerializer";
 import { PostBusiness } from "../business/PostBusiness";
 import { Request, Response } from "express";
-import { postInputDTO } from "../model/postDTO";
+import { PostDTO } from "../model/postDTO";
 
 export class PostController {
   public createPost = async (req: Request, res: Response) => {
     try {
-      const  message = "SUCESS, POST CREATE" 
+      const message = "SUCESS, POST CREATE";
 
-      const input: postInputDTO = {
+      const input: PostDTO = {
         photo: req.body.photo,
         description: req.body.description,
         type: req.body.type,
-        authorId: req.body.authorId
+        authorId: req.body.authorId,
       };
+      validatePostDTO(input, StatusCodes);
+
+      await validateIdPost(input.authorId, StatusCodes)
 
       const postBusiness = new PostBusiness();
 
@@ -24,21 +29,19 @@ export class PostController {
     }
   };
 
-  public getPost = async (req: Request, res: Response):Promise<any>=> {
-
+  public getPost = async (req: Request, res: Response): Promise<any> => {
     try {
-      let message = "Success!"
+      const { id } = req.params;
 
-      const { id } = req.params
+      validateIdPost(id, StatusCodes);
 
       const postBusiness = new PostBusiness();
-      
-      const post = await postBusiness.getPost(id)
 
-      res.status(200).send({ message, post })
-      
+      const post = await postBusiness.getPost(id);
+
+      res.status(200).send(post);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
-  }
+  };
 }

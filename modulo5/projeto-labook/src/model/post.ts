@@ -2,7 +2,6 @@ import { POST_TYPES } from "./types";
 
 export class Post {
     constructor(
-        private id: string,
         private photo: string,
         private description: string,
         private type: POST_TYPES,
@@ -10,10 +9,6 @@ export class Post {
         private createdAt?: Date
         
     ){}
-
-    getId(){
-        return this.id
-    }
     getPhoto(){
         return this.photo
     }
@@ -32,4 +27,9 @@ export class Post {
     setType(newType: POST_TYPES){
         this.type = newType
     }
+    checkType(type: POST_TYPES){
+      if(type.toLowerCase() !== POST_TYPES.NORMAL && type.toLowerCase() !== POST_TYPES.EVENT){
+        this.setType(POST_TYPES.NORMAL)
+      }
+  }
 }

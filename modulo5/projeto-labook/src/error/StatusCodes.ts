@@ -1,17 +1,9 @@
-type Err = {
-  status: number,
-  message: string
-}
-
-type statusCodeType = Record <string, Err>
-
-
 export const StatusCodes: {
     [key: string]: { status: number; message: string };
   } = {
     UNAUTHORIZED: {
       status: 401,
-      message: " MISSING PARAMETERS, PLEASE VERIFY THE ID SENT ",
+      message: "Please Verify the ID Author Sent ",
     },
     NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID USER SENT and try again"},
     NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID POST SENT and try again"},
@@ -40,7 +32,7 @@ export const StatusCodes: {
     MISSING_PARAMETERS: {
       status: 422,
       message:
-        "Missing or incorrect information. Consult the documentation and correctly fill in the body of the request",
+        "Missing or incorrect information. Consult the documentation and correctly fill the Body of the Request",
     },
     SOME_ERROR: { status: 500, message: "Something went wrong" },
     VIA_CEP_ERROR: {status: 404, message: "Something went wrong on yours address requisition "},

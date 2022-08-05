@@ -13,13 +13,22 @@ export class UserDatabase extends BaseDatabase {
           id: user.id,
           name: user.name,
           email: user.email,
-          password: user.password
+          password: user.password,
         })
         .into(this.userTable);
-      } catch (error: any) {
-        throw new CustomError(error.status, error.message || error.sqlMessage);
-      }
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public getIdUser = async (userId: string): Promise<any[]> => {
+    try {
+      const result: any[] = await BaseDatabase.connection(this.userTable)
+        .select("*")
+        .where("id", userId);
+      return result;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
   };
 }
-
-
