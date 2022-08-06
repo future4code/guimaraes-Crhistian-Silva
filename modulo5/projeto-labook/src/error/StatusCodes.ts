@@ -25,6 +25,10 @@ export const StatusCodes: {
       message:
         " Invalid Password format, please verify and try again",
     },
+    ID_POST_ERROR: {
+      status: 405,
+      message: "Invalid Id Post, please verify and try again"
+    },
     ALREADY_EXISTS: {
       status: 409,
       message: "Reported data already existing in the database",
@@ -35,7 +39,5 @@ export const StatusCodes: {
         "Missing or incorrect information. Consult the documentation and correctly fill the Body of the Request",
     },
     SOME_ERROR: { status: 500, message: "Something went wrong" },
-    VIA_CEP_ERROR: {status: 404, message: "Something went wrong on yours address requisition "},
-    NODE_MAILER_ERROR :{status: 404, message: "Something went wrong on yours nodemailer requisition "},
   };
   

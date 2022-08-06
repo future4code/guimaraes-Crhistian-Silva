@@ -4,10 +4,7 @@ import { BaseDatabase } from "../data/BaseDatabase";
 import { CustomError } from "../error/customError";
 import { generateId } from "../services/generateId";
 import { Post } from "../model/post";
-import { authenticationData, POST_TYPES } from "../model/types";
-import { validateIdPost } from "../controller/postControllerSerializer";
 import { StatusCodes } from "../error/StatusCodes";
-import { UserDatabase } from "../data/UserDatabase";
 
 export class PostBusiness extends BaseDatabase {
   public createPost = async (input: PostDTO): Promise<void> => {
@@ -37,11 +34,12 @@ export class PostBusiness extends BaseDatabase {
       throw new CustomError(error.status, error.message || error.sqlMessage);
     }
   };
-  public getPost = async (id: string): Promise<any> => {
+
+  public getPostById = async (id: string): Promise<any> => {
     try {
       const postDatabase = new PostDatabase();
 
-      const queryResult = await postDatabase.getPost(id);
+      const queryResult = await postDatabase.getPostById(id);
 
       if (!queryResult[0]) {
         throw new CustomError(

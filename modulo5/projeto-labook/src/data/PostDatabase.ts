@@ -21,7 +21,7 @@ export class PostDatabase extends BaseDatabase {
       }
   };
 
-  public getPost = async (id: string): Promise<any> => {
+  public getPostById = async (id: string): Promise<any> => {
     try {
       const result: any = BaseDatabase.connection(this.postTable)
         .select("*")
