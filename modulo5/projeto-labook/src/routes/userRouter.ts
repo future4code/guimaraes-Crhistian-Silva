@@ -7,4 +7,4 @@ const userController = new UserController()
 
 userRouter.post('/create', userController.createUser)
 
-userRouter.post("/friendship", userController.createFriendship)
+userRouter.post("/relations", userController.createFriendship)

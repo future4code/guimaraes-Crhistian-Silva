@@ -1,9 +1,10 @@
 import { UserDTO } from "./../model/userDTO";
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
-import { validateUserInput } from "./userControllerSerializer";
+import { validateRelationsDTO, validateUserInput } from "./userControllerSerializer";
 import { StatusCodes } from "../error/StatusCodes";
-import { authenticationData } from "../model/types";
+import { authenticationData, idsAuthenticationData } from "../model/types";
+import { RelationsDTO } from "../model/relationsDTO";
 
 export class UserController {
   public createUser = async (req: Request, res: Response): Promise<void> => {
@@ -30,13 +31,17 @@ export class UserController {
 
   public createFriendship = async (req: Request, res: Response): Promise<void> => {
     try {
-      const message = "SUCESS, FRIENDSHIP CREATE";
+      const message = "SUCCESS, FRIENDSHIP CREATE";
 
-      const {id} = req.params as authenticationData
+      const input: RelationsDTO = {
+        idSender: req.body.idSender,
+        idReceiver: req.body.idReceiver
+      }
+      validateRelationsDTO(input, StatusCodes);
 
       const userBusiness = new UserBusiness();
 
-      await userBusiness.createFriendship(id);
+      await userBusiness.createFriendship(input);
 
       res.status(201).send(message);
       

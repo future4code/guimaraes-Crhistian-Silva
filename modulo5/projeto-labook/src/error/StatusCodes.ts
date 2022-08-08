@@ -31,7 +31,7 @@ export const StatusCodes: {
     },
     ALREADY_EXISTS: {
       status: 409,
-      message: "Reported data already existing in the database",
+      message: "Reported Relation already existing in the database",
     },
     MISSING_PARAMETERS: {
       status: 422,

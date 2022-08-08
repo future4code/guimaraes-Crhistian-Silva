@@ -12,7 +12,7 @@ app.use("/post", postRouter)
 app.use("/post/:id", postRouter)
 
 //4
-app.use("users/:id", userRouter )
+app.use("/users", userRouter )
 
 
 
