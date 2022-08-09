@@ -2,7 +2,7 @@ import { BaseDatabase } from "./BaseDatabase";
 import { User } from "../model/user";
 import { CustomError } from "../error/customError";
 import { UserDTO } from "../model/userDTO";
-import { idsAuthenticationData } from "../model/types";
+import { authenticationData, idsAuthenticationData } from "../model/types";
 
 export class UserDatabase extends BaseDatabase {
   private userTable = "labook_users";
@@ -57,6 +57,22 @@ export class UserDatabase extends BaseDatabase {
         .whereLike("friend_sender_id", userId)
         .orWhereLike("friend_receiver_id", userId);
       return result;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public deleteFriendship = async (
+    idUser: authenticationData
+  ): Promise<void> => {
+    const { id } = idUser;
+
+    try {
+      await BaseDatabase.connection
+        .from(this.relationsTable)
+        .where("friend_sender_id", id)
+        .orWhere("friend_receiver_id", id)
+        .del();
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
     }

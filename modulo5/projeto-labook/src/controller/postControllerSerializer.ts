@@ -1,10 +1,9 @@
 import { UserDatabase } from "../data/UserDatabase";
 import { CustomError } from "../error/customError";
-import { PostDTO } from "../model/postDTO";
-import { authenticationData } from "../model/types";
+import { authenticationData, CreatePostInput, RelationsPostInput } from "../model/types";
 
 export const validatePostDTO = (
-  input: PostDTO,
+  input: CreatePostInput,
   status: { [key: string]: { status: number; message: string } }
 ): void => {
   if (!input.photo || !input.description || !input.type || !input.authorId) {
@@ -41,3 +40,28 @@ export const validateIdPost = (
     );
   }
 };
+
+export const validateRelationDTO = (
+  input: RelationsPostInput,
+  status: { [key: string]: { status: number; message: string } }
+): void => {
+  if (!input.idSender || !input.idReceiver ) {
+    throw new CustomError(
+      status.MISSING_PARAMETERS.status,
+      status.MISSING_PARAMETERS.message
+    );
+  }
+}
+  
+export const validateId = (
+  id: authenticationData,
+  status: { [key: string]: { status: number; message: string } }
+): void => {
+  if (!id) {
+    throw new CustomError(
+      status.NOT_FOUND.status,
+      status.NOT_FOUND.message
+    );
+  }
+}
+

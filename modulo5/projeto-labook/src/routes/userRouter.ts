@@ -8,3 +8,5 @@ const userController = new UserController()
 userRouter.post('/create', userController.createUser)
 
 userRouter.post("/relations", userController.createFriendship)
+
+userRouter.delete("/relations", userController.deleteFriendship)

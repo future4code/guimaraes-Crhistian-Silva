@@ -1,9 +1,9 @@
 import { CustomError } from "../error/customError";
 import { RelationsDTO } from "../model/relationsDTO";
-import { UserDTO } from "../model/userDTO";
+import { CreateUserInput } from "../model/types";
 
 export const validateUserInput = (
-  input: UserDTO,
+  input: CreateUserInput,
   status: { [key: string]: { status: number; message: string } }
 ): void => {
   if (!input.name || !input.email || !input.password) {
@@ -24,4 +24,10 @@ export const validateRelationsDTO = (
       status.MISSING_PARAMETERS.message
     );
   }
+ if(input.idSender === input.idReceiver){
+  throw new CustomError(
+    status.ID_ERROR.status,
+    status.ID_ERROR.message
+  );
+ }
 };

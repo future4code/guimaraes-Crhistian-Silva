@@ -5,13 +5,13 @@ export const StatusCodes: {
       status: 401,
       message: "Please Verify the ID Author Sent ",
     },
-    NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID USER SENT and try again"},
-    NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID POST SENT and try again"},
-    FORBIDDEN: {
-      status: 403,
-      message:
-        " Please verify if your ID was sent on headers authorization, it must be 'ADMIN' or 'NORMAL'. ",
+    ID_ERROR: {
+      status: 401,
+      message: "ID Sent value is the Same, Please verify and try again"
     },
+    NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID SENT and try again"},
+    NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID SENT and try again"},
+    NOT_FOUND_RELATIONS: {status: 404, message: "Relations Not Found, please verify the ID USER SENT  and try again"},
     NAME_ERROR: {
       status: 405,
       message: " NAME already exists in database, please verify and try again",

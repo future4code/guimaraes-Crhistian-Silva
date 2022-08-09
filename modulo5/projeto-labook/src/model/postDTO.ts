@@ -1,7 +1,7 @@
 import { POST_TYPES } from "./types";
 
 export interface PostDTO{
-    id?: string,
+    id: string,
     photo: string,
     description: string,
     type: POST_TYPES,
