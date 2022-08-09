@@ -20,6 +20,9 @@ app.use("/users", userRouter )
 //6
 app.use("/posts", postRouter)
 
+//7
+app.use("/posts", postRouter)
+
 
 
 

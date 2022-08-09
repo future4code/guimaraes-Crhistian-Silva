@@ -7,7 +7,11 @@ import { CustomError } from "../error/customError";
 import { generateId } from "../services/generateId";
 import { Post } from "../model/post";
 import { StatusCodes } from "../error/StatusCodes";
-import { authenticationData, CreatePostInput } from "../model/types";
+import {
+  authenticationData,
+  CreatePostInput,
+  POST_TYPES,
+} from "../model/types";
 
 export class PostBusiness extends BaseDatabase {
   public createPost = async (input: CreatePostInput): Promise<void> => {
@@ -98,6 +102,32 @@ export class PostBusiness extends BaseDatabase {
             post.createdAt = newDate;
           }
         }
+      }
+      return posts;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public getPostsByType = async (type: POST_TYPES): Promise<any> => {
+    try {
+      const types = type;
+
+      const postsDB = new PostDatabase();
+
+      const posts = await postsDB.getPostsByType(types);
+
+      if (!posts[0]) {
+        throw new CustomError(
+          StatusCodes.TYPE_ERROR.status,
+          StatusCodes.TYPE_ERROR.message
+        );
+      }
+
+      for (const post of posts) {
+        let newDateSplit = new Date(post.createdAt).toISOString().split("T");
+        let newDate = newDateSplit[0].split("-").reverse().join("/");
+        post.createdAt = newDate;
       }
       return posts;
     } catch (error: any) {

@@ -1,13 +1,15 @@
-import { authenticationData } from "./../model/types";
+import { authenticationData, POST_TYPES } from "./../model/types";
 import { StatusCodes } from "./../error/StatusCodes";
 import {
   validateId,
   validateIdAuthor,
   validatePostDTO,
   validateRelationDTO,
+  validateType,
 } from "./postControllerSerializer";
 import { PostBusiness } from "../business/PostBusiness";
 import { Request, Response } from "express";
+import { Post } from "../model/post";
 
 export class PostController {
   public createPost = async (req: Request, res: Response) => {
@@ -66,6 +68,23 @@ export class PostController {
       res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
   };
+
+  public getPostsByType = async (req: Request, res: Response): Promise<any> => {
+    try {
+      let type = req.query.type as POST_TYPES
+
+      validateType(type, StatusCodes)
+      
+      const postBusiness = new PostBusiness();
+
+      const posts = await postBusiness.getPostsByType(type);
+
+      res.status(200).send({posts});
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message || error.sqlMessage);
+    }
+  };
+
 }
 
 

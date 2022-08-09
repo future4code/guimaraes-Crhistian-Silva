@@ -1,6 +1,6 @@
 import { UserDatabase } from "../data/UserDatabase";
 import { CustomError } from "../error/customError";
-import { authenticationData, CreatePostInput, RelationsPostInput } from "../model/types";
+import { authenticationData, CreatePostInput, POST_TYPES, RelationsPostInput } from "../model/types";
 
 export const validatePostDTO = (
   input: CreatePostInput,
@@ -62,6 +62,19 @@ export const validateId = (
       status.NOT_FOUND.status,
       status.NOT_FOUND.message
     );
+  }
+}
+
+export const validateType = (type: POST_TYPES,  status: { [key: string]: { status: number; message: string } }): void =>{
+  if(!type){
+   throw new CustomError(
+      status.MISSING_PARAMETERS.status,
+      status.MISSING_PARAMETERS.message
+    )
+  }else{
+    if(type.toLowerCase() !== POST_TYPES.NORMAL && type.toLowerCase() !== POST_TYPES.EVENT){
+      type = POST_TYPES.NORMAL
+     }
   }
 }
 

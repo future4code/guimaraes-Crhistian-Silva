@@ -12,6 +12,7 @@ export const StatusCodes: {
     NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_RELATIONS: {status: 404, message: "Relations Not Found, please verify the ID USER SENT  and try again"},
+    TYPE_ERROR: {status: 405, message: " Invalid Type, please verify and try again" },
     NAME_ERROR: {
       status: 405,
       message: " NAME already exists in database, please verify and try again",

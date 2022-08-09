@@ -2,6 +2,7 @@ import { PostDTO } from "./../model/postDTO";
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
 import { RelationsDTO } from "../model/relationsDTO";
+import { POST_TYPES } from "../model/types";
 
 export class PostDatabase extends BaseDatabase {
   private postTable = "labook_posts";
@@ -28,7 +29,6 @@ export class PostDatabase extends BaseDatabase {
       const result: any = await BaseDatabase.connection(this.postTable)
         .select("*")
         .where({ id })
-        .orderBy("created_at", "DESC");
       return result;
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
@@ -46,7 +46,27 @@ export class PostDatabase extends BaseDatabase {
           "created_at as createdAt",
           "author_id as authorId"
         )
-        .where("author_id", authorId);
+        .where("author_id", authorId)
+        .orderBy("created_at", "DESC");
+      return result;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public getPostsByType = async (type: string): Promise<any> => {
+    try {
+      const result: any = await BaseDatabase.connection(this.postTable)
+      .select(
+        "id",
+        "photo",
+        "description",
+        "type",
+        "created_at as createdAt",
+        "author_id as authorId"
+      )
+        .where({type})
+        .orderBy("created_at", "DESC");
       return result;
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
