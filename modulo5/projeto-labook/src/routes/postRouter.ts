@@ -13,5 +13,8 @@ postRouter.get("/:id", postController.getPostById)
 
 postRouter.get("/", postController.getFeeds)
 
+postRouter.post("/like", postController.likedPOst)
+
+
 
 

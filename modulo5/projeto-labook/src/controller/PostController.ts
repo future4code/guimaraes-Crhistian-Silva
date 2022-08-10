@@ -3,8 +3,8 @@ import { StatusCodes } from "./../error/StatusCodes";
 import {
   validateId,
   validateIdAuthor,
-  validatePostDTO,
-  validateRelationDTO,
+  validateLikedInput,
+  validatePostInput,
   validateType,
 } from "./postControllerSerializer";
 import { PostBusiness } from "../business/PostBusiness";
@@ -23,7 +23,7 @@ export class PostController {
         authorId: req.body.authorId,
       };
 
-      validatePostDTO(input, StatusCodes);
+      validatePostInput(input, StatusCodes);
 
       await validateIdAuthor(input.authorId, StatusCodes);
 
@@ -54,16 +54,16 @@ export class PostController {
   public getFeeds = async (req: Request, res: Response): Promise<any> => {
     try {
       const id = {
-        id: req.body.idSender
-      }
-      
-      validateId(id, StatusCodes)
+        id: req.body.idSender,
+      };
+
+      validateId(id, StatusCodes);
 
       const postBusiness = new PostBusiness();
 
       const posts = await postBusiness.getFeeds(id);
 
-      res.status(200).send({posts});
+      res.status(200).send({ posts });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
@@ -71,20 +71,39 @@ export class PostController {
 
   public getPostsByType = async (req: Request, res: Response): Promise<any> => {
     try {
-      let type = req.query.type as POST_TYPES
+      let type = req.query.type as POST_TYPES;
 
-      validateType(type, StatusCodes)
-      
+      validateType(type, StatusCodes);
+
       const postBusiness = new PostBusiness();
 
       const posts = await postBusiness.getPostsByType(type);
 
-      res.status(200).send({posts});
+      res.status(200).send({ posts });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
   };
 
+  public likedPOst = async (req: Request, res: Response): Promise<any> => {
+    try {
+
+      const message = "SUCESS, LIKED CREATE";
+
+      const idsLiked = {
+        idPost: req.body.idPost,
+        idLikedAuthor: req.body.idLikedAuthor
+      };
+
+      validateLikedInput(idsLiked, StatusCodes);
+
+      const postBusiness = new PostBusiness();
+
+      await postBusiness.createLiked(idsLiked);
+
+      res.status(201).send({ message });
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message || error.sqlMessage);
+    }
+  };
 }
-
-

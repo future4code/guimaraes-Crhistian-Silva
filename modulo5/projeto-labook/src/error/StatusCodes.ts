@@ -9,7 +9,8 @@ export const StatusCodes: {
       status: 401,
       message: "ID Sent value is the Same, Please verify and try again"
     },
-    NOT_FOUND:{status: 404, message: "Users Not Found, please verify the ID SENT and try again"},
+    NOT_FOUND_USERS:{status: 404, message: "Users Not Found, please verify the ID SENT and try again"},
+    NOT_FOUND_ID:{status: 404, message: "Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_RELATIONS: {status: 404, message: "Relations Not Found, please verify the ID USER SENT  and try again"},
     TYPE_ERROR: {status: 405, message: " Invalid Type, please verify and try again" },

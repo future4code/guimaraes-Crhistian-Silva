@@ -10,8 +10,10 @@ import { StatusCodes } from "../error/StatusCodes";
 import {
   authenticationData,
   CreatePostInput,
+  LikePostInput,
   POST_TYPES,
 } from "../model/types";
+import { LikedDTO } from "../model/likedDTO";
 
 export class PostBusiness extends BaseDatabase {
   public createPost = async (input: CreatePostInput): Promise<void> => {
@@ -130,6 +132,56 @@ export class PostBusiness extends BaseDatabase {
         post.createdAt = newDate;
       }
       return posts;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+  public createLiked = async (idsLiked: LikePostInput): Promise<void> => {
+    try {
+      let { idPost, idLikedAuthor } = idsLiked;
+
+      const postsDB = new PostDatabase();
+
+      const posts = await postsDB.getPostById(idPost);
+
+      const userDB = new UserDatabase();
+
+      const users = await userDB.getUserById(idLikedAuthor);
+
+      if (!posts[0]) {
+        throw new CustomError(
+          StatusCodes.NOT_FOUND_POST.status,
+          StatusCodes.NOT_FOUND_POST.message
+        );
+      }
+
+      if (!users[0]) {
+        throw new CustomError(
+          StatusCodes.NOT_FOUND_USERS.status,
+          StatusCodes.NOT_FOUND_USERS.message
+        );
+      }
+
+      const id = generateId();
+
+      const likedPost: LikedDTO = {
+        id,
+        id_post: idPost,
+        id_liked_author: idLikedAuthor,
+      };
+      const postDB = new PostDatabase();
+
+      //AQUI FAÇO VERIFICAÇÃO SE JÁ EXISTE O LIKE NO POST ENVIADO
+      const like = await postDB.getLikedsById(idPost);
+      
+      if (like.length) {
+        throw new CustomError(
+          StatusCodes.ALREADY_EXISTS.status,
+          StatusCodes.ALREADY_EXISTS.message
+        );
+      }
+
+      await postDB.insertLiked(likedPost);
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
     }

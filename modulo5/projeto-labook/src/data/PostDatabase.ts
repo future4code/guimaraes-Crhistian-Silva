@@ -1,11 +1,11 @@
 import { PostDTO } from "./../model/postDTO";
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import { RelationsDTO } from "../model/relationsDTO";
-import { POST_TYPES } from "../model/types";
+import { LikedDTO } from "../model/likedDTO";
 
 export class PostDatabase extends BaseDatabase {
   private postTable = "labook_posts";
+  private likedTable = "labook_liked_posts";
 
   public insertPost = async (post: PostDTO): Promise<void> => {
     try {
@@ -28,7 +28,7 @@ export class PostDatabase extends BaseDatabase {
     try {
       const result: any = await BaseDatabase.connection(this.postTable)
         .select("*")
-        .where({ id })
+        .where({ id });
       return result;
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
@@ -57,17 +57,36 @@ export class PostDatabase extends BaseDatabase {
   public getPostsByType = async (type: string): Promise<any> => {
     try {
       const result: any = await BaseDatabase.connection(this.postTable)
-      .select(
-        "id",
-        "photo",
-        "description",
-        "type",
-        "created_at as createdAt",
-        "author_id as authorId"
-      )
-        .where({type})
+        .select(
+          "id",
+          "photo",
+          "description",
+          "type",
+          "created_at as createdAt",
+          "author_id as authorId"
+        )
+        .where({ type })
         .orderBy("created_at", "DESC");
       return result;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public getLikedsById = async (idPost: string): Promise<any> => {
+    try {
+      const result: any = await BaseDatabase.connection(this.likedTable)
+        .select("*")
+        .where("id_post", idPost);
+      return result;
+    } catch (error: any) {
+      throw new CustomError(error.status, error.message || error.sqlMessage);
+    }
+  };
+
+  public insertLiked = async (likedPost: LikedDTO): Promise<void> => {
+    try {
+      await BaseDatabase.connection.insert(likedPost).into(this.likedTable);
     } catch (error: any) {
       throw new CustomError(error.status, error.message || error.sqlMessage);
     }

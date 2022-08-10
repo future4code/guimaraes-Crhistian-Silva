@@ -1,8 +1,8 @@
 import { UserDatabase } from "../data/UserDatabase";
 import { CustomError } from "../error/customError";
-import { authenticationData, CreatePostInput, POST_TYPES, RelationsPostInput } from "../model/types";
+import { authenticationData, CreatePostInput, LikePostInput, POST_TYPES, RelationsPostInput } from "../model/types";
 
-export const validatePostDTO = (
+export const validatePostInput = (
   input: CreatePostInput,
   status: { [key: string]: { status: number; message: string } }
 ): void => {
@@ -59,8 +59,8 @@ export const validateId = (
 ): void => {
   if (!id) {
     throw new CustomError(
-      status.NOT_FOUND.status,
-      status.NOT_FOUND.message
+      status.NOT_FOUND_ID.status,
+      status.NOT_FOUND_ID.message
     );
   }
 }
@@ -77,4 +77,16 @@ export const validateType = (type: POST_TYPES,  status: { [key: string]: { statu
      }
   }
 }
+
+export const validateLikedInput = (
+  input: LikePostInput,
+  status: { [key: string]: { status: number; message: string } }
+): void => {
+  if (!input.idPost || !input.idLikedAuthor) {
+    throw new CustomError(
+      status.MISSING_PARAMETERS.status,
+      status.MISSING_PARAMETERS.message
+    );
+  }
+};
 

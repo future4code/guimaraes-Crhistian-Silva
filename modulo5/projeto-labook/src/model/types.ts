@@ -31,4 +31,8 @@ export type RelationsPostInput = {
   idReceiver: string;
 };
 
+export type LikePostInput = {
+  idPost: string;
+  idLikedAuthor: string
+}
 
