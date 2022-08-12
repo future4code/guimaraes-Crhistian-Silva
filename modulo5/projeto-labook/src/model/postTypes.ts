@@ -7,23 +7,11 @@ export enum POST_TYPES {
   EVENT = "event",
 }
 
-export type idsAuthenticationData = {
-  id: string;
-  idSender: string;
-  idReceiver: string;
-};
-
 export type CreatePostInput = {
   photo: string;
   description: string;
   type: POST_TYPES;
   authorId: string;
-};
-
-export type CreateUserInput = {
-  name: string;
-  email: string;
-  password: string;
 };
 
 export type RelationsPostInput = {
@@ -36,3 +24,14 @@ export type LikePostInput = {
   idLikedAuthor: string
 }
 
+export type CreateCommentInput = {
+  idPost: string;
+  comment: string;
+  authorCommentId: string
+}
+
+export type InputFeed = {
+  authorId: string,
+  offset: number,
+  limit: number
+}

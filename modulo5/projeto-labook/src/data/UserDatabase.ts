@@ -1,8 +1,8 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { User } from "../model/user";
 import { CustomError } from "../error/customError";
 import { UserDTO } from "../model/userDTO";
-import { authenticationData, idsAuthenticationData } from "../model/types";
+import { authenticationData } from "../model/postTypes";
+import { RelationsDTO } from "../model/relationsDTO";
 
 export class UserDatabase extends BaseDatabase {
   private userTable = "labook_users";
@@ -19,38 +19,46 @@ export class UserDatabase extends BaseDatabase {
         })
         .into(this.userTable);
     } catch (error: any) {
-      throw new CustomError(error.status, error.message || error.sqlMessage);
+      throw new CustomError(500, error.sqlMessage);
     }
   };
 
-  public getUserById = async (userId: string): Promise<any[]> => {
+  public getUserById = async (userId: string): Promise<UserDTO[]> => {
     try {
       const result: any[] = await BaseDatabase.connection(this.userTable)
         .select("*")
         .where("id", userId);
       return result;
     } catch (error: any) {
-      throw new CustomError(error.status, error.message || error.sqlMessage);
+      throw new CustomError(500, error.sqlMessage);
     }
   };
 
   public insertRelations = async (
-    inputRelations: idsAuthenticationData
+    inputRelations: RelationsDTO,
+    inputRelations2: RelationsDTO
   ): Promise<void> => {
     try {
       await BaseDatabase.connection
-        .insert({
-          id: inputRelations.id,
-          friend_sender_id: inputRelations.idSender,
-          friend_receiver_id: inputRelations.idReceiver,
-        })
+        .insert([
+          {
+            id: inputRelations.id,
+            friend_sender_id: inputRelations.friend_sender_id,
+            friend_receiver_id: inputRelations.friend_receiver_id,
+          },
+          {
+            id: inputRelations2.id,
+            friend_sender_id: inputRelations2.friend_sender_id,
+            friend_receiver_id: inputRelations2.friend_receiver_id,
+          },
+        ])
         .into(this.relationsTable);
     } catch (error: any) {
-      throw new CustomError(error.status, error.message || error.sqlMessage);
+      throw new CustomError(500, error.sqlMessage);
     }
   };
 
-  public checkRelations = async (userId: string): Promise<any[]> => {
+  public checkRelations = async (userId: string): Promise<RelationsDTO[]> => {
     try {
       const result: any[] = await BaseDatabase.connection(this.relationsTable)
         .select("friend_sender_id", "friend_receiver_id")
@@ -58,7 +66,7 @@ export class UserDatabase extends BaseDatabase {
         .orWhereLike("friend_receiver_id", userId);
       return result;
     } catch (error: any) {
-      throw new CustomError(error.status, error.message || error.sqlMessage);
+      throw new CustomError(500, error.sqlMessage);
     }
   };
 
@@ -66,7 +74,6 @@ export class UserDatabase extends BaseDatabase {
     idUser: authenticationData
   ): Promise<void> => {
     const { id } = idUser;
-
     try {
       await BaseDatabase.connection
         .from(this.relationsTable)
@@ -74,7 +81,7 @@ export class UserDatabase extends BaseDatabase {
         .orWhere("friend_receiver_id", id)
         .del();
     } catch (error: any) {
-      throw new CustomError(error.status, error.message || error.sqlMessage);
+      throw new CustomError(500, error.sqlMessage);
     }
   };
 }

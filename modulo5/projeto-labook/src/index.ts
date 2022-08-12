@@ -23,9 +23,17 @@ app.use("/posts", postRouter)
 //7
 app.use("/posts", postRouter)
 
-//7
+//8
 app.use("/posts", postRouter)
 
+//9
+app.use("/posts", postRouter)
+
+//10
+app.use("/posts", postRouter)
+
+//11
+app.use("/posts", postRouter) //Páginação feita dentro do getFeed
 
 
 

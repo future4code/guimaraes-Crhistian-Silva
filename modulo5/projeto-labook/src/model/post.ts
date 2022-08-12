@@ -1,6 +1,4 @@
-import { CustomError } from "../error/customError";
-import { StatusCodes } from "../error/StatusCodes";
-import { authenticationData, POST_TYPES } from "./types";
+import { POST_TYPES } from "./postTypes";
 
 export class Post {
   constructor(
@@ -8,7 +6,7 @@ export class Post {
     private description: string,
     private type: POST_TYPES,
     private authorId: string,
-    private createdAt?: Date
+    private createdAt?: Date | undefined
   ) {}
   getPhoto() {
     return this.photo;

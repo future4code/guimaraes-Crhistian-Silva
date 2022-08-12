@@ -33,10 +33,13 @@ class TableConnection extends BaseDatabase_1.BaseDatabase {
             FOREIGN KEY (author_id) REFERENCES labook_users (id)
          )
 
-         CREATE TABLE IF NOT EXISTS labook_friendship(
+         CREATE TABLE  IF NOT EXISTS labook_relations(
           id VARCHAR(255) PRIMARY KEY,
-          
-         )
+          friend_1_id VARCHAR (255) NOT NULL,
+          friend_2_id VARCHAR (255) NOT NULL,
+          FOREIGN KEY (friend_1_id) REFERENCES labook_users (id),
+          FOREIGN KEY (friend_2_id) REFERENCES labook_users (id) 
+       );
       `);
             }
             catch (error) {

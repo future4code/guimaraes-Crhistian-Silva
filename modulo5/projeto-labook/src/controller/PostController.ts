@@ -1,6 +1,6 @@
-import { authenticationData, POST_TYPES } from "./../model/types";
-import { StatusCodes } from "./../error/StatusCodes";
+import { authenticationData, POST_TYPES } from "../model/postTypes";
 import {
+  validateCommentPostInput,
   validateId,
   validateIdAuthor,
   validateLikedInput,
@@ -9,12 +9,11 @@ import {
 } from "./postControllerSerializer";
 import { PostBusiness } from "../business/PostBusiness";
 import { Request, Response } from "express";
-import { Post } from "../model/post";
 
 export class PostController {
   public createPost = async (req: Request, res: Response) => {
     try {
-      const message = "SUCESS, POST CREATE";
+      const message = "SUCESS, POST CREATED";
 
       const input = {
         photo: req.body.photo,
@@ -23,9 +22,9 @@ export class PostController {
         authorId: req.body.authorId,
       };
 
-      validatePostInput(input, StatusCodes);
+      validatePostInput(input);
 
-      await validateIdAuthor(input.authorId, StatusCodes);
+      await validateIdAuthor(input.authorId);
 
       const postBusiness = new PostBusiness();
 
@@ -51,17 +50,29 @@ export class PostController {
     }
   };
 
-  public getFeeds = async (req: Request, res: Response): Promise<any> => {
+  public getFeed = async (req: Request, res: Response): Promise<any> => {
     try {
       const id = {
-        id: req.body.idSender,
+        id: String(req.body.authorId)
       };
+//Exercicio 11 
+      let limit: number = 5
 
-      validateId(id, StatusCodes);
+      let page = Number(req.query.page)? Number(req.query.page): 1
+
+      let offset = limit * (page -1);
+      
+      validateId(id);
+
+      const inputFeed = {
+        authorId:id.id,
+        offset,
+        limit,
+      }
 
       const postBusiness = new PostBusiness();
 
-      const posts = await postBusiness.getFeeds(id);
+      const posts = await postBusiness.getFeed(inputFeed);
 
       res.status(200).send({ posts });
     } catch (error: any) {
@@ -73,7 +84,7 @@ export class PostController {
     try {
       let type = req.query.type as POST_TYPES;
 
-      validateType(type, StatusCodes);
+      validateType(type);
 
       const postBusiness = new PostBusiness();
 
@@ -85,25 +96,70 @@ export class PostController {
     }
   };
 
-  public likedPOst = async (req: Request, res: Response): Promise<any> => {
+  public likePost = async (req: Request, res: Response): Promise<any> => {
     try {
 
-      const message = "SUCESS, LIKED CREATE";
+      const message = "SUCESS, LIKED CREATED";
 
       const idsLiked = {
         idPost: req.body.idPost,
         idLikedAuthor: req.body.idLikedAuthor
       };
 
-      validateLikedInput(idsLiked, StatusCodes);
+      validateLikedInput(idsLiked);
 
       const postBusiness = new PostBusiness();
 
-      await postBusiness.createLiked(idsLiked);
+      await postBusiness.likePost(idsLiked);
 
-      res.status(201).send({ message });
+      res.status(201).send(message);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message || error.sqlMessage);
     }
   };
+
+  public unlikePost = async (req: Request, res: Response): Promise<any> => {
+    try {
+
+      const message = "SUCESS, YOUR REQUEST HAS BEEN ACCEPTED";
+
+      const idPost = {
+        id: req.body.idPost,
+      };
+ 
+      validateId(idPost);
+
+      const postBusiness = new PostBusiness();
+
+      await postBusiness.unlikePost(idPost); 
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message || error.sqlMessage);
+    }
+  };
+
+  public commentPost = async (req: Request, res: Response) => {
+    try {
+      const message = "SUCESS, COMMENT CREATED";
+
+      const input = {
+       idPost:req.body.idPost,
+       comment: req.body.comment,
+       authorCommentId: req.body.authorCommentId
+      };
+
+      validateCommentPostInput(input);
+
+      const postBusiness = new PostBusiness();
+      
+      await postBusiness.commentPost(input);
+
+      res.status(201).send(message);
+    } catch (error: any) {
+      res.status(error.status || 500).send(error.message);
+    }
+  };
+
+
 }

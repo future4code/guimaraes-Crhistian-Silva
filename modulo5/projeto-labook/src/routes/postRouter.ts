@@ -11,9 +11,13 @@ postRouter.get("/type", postController.getPostsByType)
 
 postRouter.get("/:id", postController.getPostById)
 
-postRouter.get("/", postController.getFeeds)
+postRouter.get("/", postController.getFeed)
 
-postRouter.post("/like", postController.likedPOst)
+postRouter.post("/like", postController.likePost)
+
+postRouter.delete("/unlike", postController.unlikePost)
+
+postRouter.post("/comment", postController.commentPost)
 
 
 

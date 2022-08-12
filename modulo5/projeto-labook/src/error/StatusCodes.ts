@@ -13,6 +13,8 @@ export const StatusCodes: {
     NOT_FOUND_ID:{status: 404, message: "Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_POST: {status: 404, message: "Posts Not Found, please verify the ID SENT and try again"},
     NOT_FOUND_RELATIONS: {status: 404, message: "Relations Not Found, please verify the ID USER SENT  and try again"},
+    NOT_FOUND_LIKE: {status: 404, message: "LIKE Not Found, please verify the ID POST SENT  and try again"},
+    NOT_ACCEPTABLE:{status: 406, message: " POST already unliked"},
     TYPE_ERROR: {status: 405, message: " Invalid Type, please verify and try again" },
     NAME_ERROR: {
       status: 405,

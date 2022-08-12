@@ -1,33 +1,18 @@
-import { CustomError } from "../error/customError";
-import { RelationsDTO } from "../model/relationsDTO";
-import { CreateUserInput } from "../model/types";
+import { MissingParameters, SameIdError } from "../error/customError";
+import { RelationsPostInput } from "../model/postTypes";
+import { CreateUserInput } from "../model/userTypes";
 
-export const validateUserInput = (
-  input: CreateUserInput,
-  status: { [key: string]: { status: number; message: string } }
-): void => {
+export const validateUserInput = (input: CreateUserInput): void => {
   if (!input.name || !input.email || !input.password) {
-    throw new CustomError(
-      status.MISSING_PARAMETERS.status,
-      status.MISSING_PARAMETERS.message
-    );
+    throw new MissingParameters();
   }
 };
 
-export const validateRelationsDTO = (
-  input: RelationsDTO,
-  status: { [key: string]: { status: number; message: string } }
-): void => {
+export const validateRelationsDTO = (input: RelationsPostInput): void => {
   if (!input.idSender || !input.idReceiver) {
-    throw new CustomError(
-      status.MISSING_PARAMETERS.status,
-      status.MISSING_PARAMETERS.message
-    );
+    throw new MissingParameters();
   }
- if(input.idSender === input.idReceiver){
-  throw new CustomError(
-    status.ID_ERROR.status,
-    status.ID_ERROR.message
-  );
- }
+  if (input.idSender === input.idReceiver) {
+    throw new SameIdError();
+  }
 };
