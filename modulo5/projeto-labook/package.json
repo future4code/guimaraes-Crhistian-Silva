@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "migrations": "tsc && node ./build/migrations.js",
-    "start": "npm run build && node --inspect ./build/src/index.js",
-    "dev": "clear && ts-node-dev ./src/index.ts",
+    "start": "npm run build && node --inspect ./build/index.js",
+    "dev": "clear && tsnd --transpile-only --ignore-watch node_modules ./src/index.ts",
     "build": "clear && echo \"Transpiling files...\" && tsc && echo \"Done!\" ",
     "test": "jest"
  },

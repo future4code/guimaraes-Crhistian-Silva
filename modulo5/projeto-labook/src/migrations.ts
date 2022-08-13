@@ -1,4 +1,4 @@
-import { BaseDatabase } from "./src/data/BaseDatabase";
+import { BaseDatabase } from "./data/BaseDatabase";
 
 class TableConnection extends BaseDatabase {
   public createTable = async (): Promise<void> => {
