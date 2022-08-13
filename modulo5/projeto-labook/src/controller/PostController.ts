@@ -32,7 +32,7 @@ export class PostController {
 
       res.status(201).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
@@ -46,29 +46,30 @@ export class PostController {
 
       res.status(200).send(post);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
   public getFeed = async (req: Request, res: Response): Promise<any> => {
     try {
+
       const id = {
-        id: String(req.body.authorId)
+        id: String(req.body.authorId),
       };
-//Exercicio 11 
-      let limit: number = 5
-
-      let page = Number(req.query.page)? Number(req.query.page): 1
-
-      let offset = limit * (page -1);
       
+      let limit: number = 5;
+
+      let page = Number(req.query.page) ? Number(req.query.page) : 1;
+
+      let offset = limit * (page - 1);
+
       validateId(id);
 
       const inputFeed = {
-        authorId:id.id,
+        authorId: id.id,
         offset,
         limit,
-      }
+      };
 
       const postBusiness = new PostBusiness();
 
@@ -76,7 +77,7 @@ export class PostController {
 
       res.status(200).send({ posts });
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
@@ -92,18 +93,17 @@ export class PostController {
 
       res.status(200).send({ posts });
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
   public likePost = async (req: Request, res: Response): Promise<any> => {
     try {
-
       const message = "SUCESS, LIKED CREATED";
 
       const idsLiked = {
         idPost: req.body.idPost,
-        idLikedAuthor: req.body.idLikedAuthor
+        idLikedAuthor: req.body.idLikedAuthor,
       };
 
       validateLikedInput(idsLiked);
@@ -114,28 +114,27 @@ export class PostController {
 
       res.status(201).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
   public unlikePost = async (req: Request, res: Response): Promise<any> => {
     try {
-
       const message = "SUCESS, YOUR REQUEST HAS BEEN ACCEPTED";
 
       const idPost = {
         id: req.body.idPost,
       };
- 
+
       validateId(idPost);
 
       const postBusiness = new PostBusiness();
 
-      await postBusiness.unlikePost(idPost); 
+      await postBusiness.unlikePost(idPost);
 
       res.status(200).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
@@ -144,15 +143,15 @@ export class PostController {
       const message = "SUCESS, COMMENT CREATED";
 
       const input = {
-       idPost:req.body.idPost,
-       comment: req.body.comment,
-       authorCommentId: req.body.authorCommentId
+        idPost: req.body.idPost,
+        comment: req.body.comment,
+        authorCommentId: req.body.authorCommentId,
       };
 
       validateCommentPostInput(input);
 
       const postBusiness = new PostBusiness();
-      
+
       await postBusiness.commentPost(input);
 
       res.status(201).send(message);
@@ -160,6 +159,4 @@ export class PostController {
       res.status(error.status || 500).send(error.message);
     }
   };
-
-
 }

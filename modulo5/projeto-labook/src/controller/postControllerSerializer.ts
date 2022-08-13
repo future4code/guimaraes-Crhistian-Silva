@@ -47,16 +47,9 @@ export const validateId = (id: authenticationData): void => {
   }
 };
 
-export const validateType = (type: POST_TYPES): void => {
+export const validateType = (type: POST_TYPES): void | POST_TYPES => {
   if (!type) {
     throw new MissingParameters();
-  } else {
-    if (
-      type.toLowerCase() !== POST_TYPES.NORMAL &&
-      type.toLowerCase() !== POST_TYPES.EVENT
-    ) {
-      type = POST_TYPES.NORMAL;
-    }
   }
 };
 

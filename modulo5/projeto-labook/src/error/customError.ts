@@ -11,6 +11,18 @@ export class UserNotFound extends CustomError{
   }
 }
 
+export class PostNotFound extends CustomError{
+  constructor(){
+    super(404, "Not Found, please verify ID Post Sent")
+  }
+}
+
+export class LikeNotFound extends CustomError{
+  constructor(){
+    super(404, "LIKE Not Found, please verify the ID POST SENT  and try again")
+  }
+}
+
 export class MissingParameters extends CustomError{
   constructor(){
     super(422,  "Missing or incorrect information. Consult the documentation and correctly fill the Body of the Request")
@@ -32,5 +44,11 @@ export class AlreadyExists extends CustomError{
 export class RelationsNotFound extends CustomError{
   constructor(){
     super(404, "Relations Not Found, please verify the ID USER SENT  and try again")
+  }
+}
+
+export class ErrorType extends CustomError{
+  constructor(){
+    super(405,"Invalid Type, please verify and try again" )
   }
 }

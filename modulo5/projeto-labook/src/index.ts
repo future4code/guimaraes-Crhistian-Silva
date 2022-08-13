@@ -8,34 +8,6 @@ app.use("/users", userRouter)
 //2
 app.use("/posts", postRouter)
 
-//3
-app.use("/posts/:id", postRouter)
-
-//4
-app.use("/users", userRouter )
-
-//5
-app.use("/users", userRouter )
-
-//6
-app.use("/posts", postRouter)
-
-//7
-app.use("/posts", postRouter)
-
-//8
-app.use("/posts", postRouter)
-
-//9
-app.use("/posts", postRouter)
-
-//10
-app.use("/posts", postRouter)
-
-//11
-app.use("/posts", postRouter) //Páginação feita dentro do getFeed
-
-
 
 
 

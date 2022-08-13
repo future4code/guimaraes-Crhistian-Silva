@@ -2,7 +2,14 @@ import { PostDatabase } from "./../data/PostDatabase";
 import { UserDatabase } from "./../data/UserDatabase";
 import { PostDTO } from "./../model/postDTO";
 import { BaseDatabase } from "../data/BaseDatabase";
-import { CustomError } from "../error/customError";
+import {
+  AlreadyExists,
+  CustomError,
+  ErrorType,
+  LikeNotFound,
+  PostNotFound,
+  UserNotFound,
+} from "../error/customError";
 import { generateId } from "../services/generateId";
 import { Post } from "../model/post";
 import { StatusCodes } from "../error/StatusCodes";
@@ -46,11 +53,8 @@ export class PostBusiness extends BaseDatabase {
 
     const queryResult = await postDB.getPostById(id);
 
-    if (!queryResult[0]) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_POST.status,
-        StatusCodes.NOT_FOUND_POST.message
-      );
+    if (!queryResult.length) {
+      throw new PostNotFound();
     }
     const dateSplit = new Date(String(queryResult[0].createdAt))
       .toISOString()
@@ -75,10 +79,7 @@ export class PostBusiness extends BaseDatabase {
     const usersResult = await userDB.checkRelations(input.authorId);
 
     if (!usersResult.length) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_POST.status,
-        StatusCodes.NOT_FOUND_POST.message
-      );
+      throw new UserNotFound();
     }
 
     for (let user of usersResult) {
@@ -98,18 +99,17 @@ export class PostBusiness extends BaseDatabase {
   };
 
   public getPostsByType = async (type: POST_TYPES): Promise<PostDTO[]> => {
-    const types = type;
+    if (
+      type.toLowerCase() !== POST_TYPES.NORMAL &&
+      type.toLowerCase() !== POST_TYPES.EVENT
+    ) {
+      type = POST_TYPES.NORMAL;
+    }
 
     const postsDB = new PostDatabase();
 
-    const posts = await postsDB.getPostsByType(types);
+    const posts = await postsDB.getPostsByType(type);
 
-    if (!posts[0]) {
-      throw new CustomError(
-        StatusCodes.TYPE_ERROR.status,
-        StatusCodes.TYPE_ERROR.message
-      );
-    }
     for (const post of posts) {
       let newDateSplit = new Date(String(posts[0].createdAt))
         .toISOString()
@@ -131,18 +131,12 @@ export class PostBusiness extends BaseDatabase {
 
     const users = await userDB.getUserById(idLikedAuthor);
 
-    if (!posts[0]) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_POST.status,
-        StatusCodes.NOT_FOUND_POST.message
-      );
+    if (!posts.length) {
+      throw new PostNotFound();
     }
 
-    if (!users[0]) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_USERS.status,
-        StatusCodes.NOT_FOUND_USERS.message
-      );
+    if (!users.length) {
+      throw new UserNotFound();
     }
 
     const id = generateId();
@@ -158,10 +152,7 @@ export class PostBusiness extends BaseDatabase {
     const like = await postDB.getLikedsById(idPost);
 
     if (like.length) {
-      throw new CustomError(
-        StatusCodes.ALREADY_EXISTS.status,
-        StatusCodes.ALREADY_EXISTS.message
-      );
+      throw new AlreadyExists();
     }
 
     await postDB.likePost(likedPost);
@@ -178,17 +169,11 @@ export class PostBusiness extends BaseDatabase {
     const liked = await postsDB.getLikedsById(id);
 
     if (!posts.length) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_POST.status,
-        StatusCodes.NOT_FOUND_POST.message
-      );
+      throw new PostNotFound();
     }
 
     if (!liked.length) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_LIKE.status,
-        StatusCodes.NOT_FOUND_LIKE.message
-      );
+      throw new LikeNotFound();
     }
     await postsDB.unlikePost(id);
   };
@@ -205,17 +190,11 @@ export class PostBusiness extends BaseDatabase {
     const user = await userDB.getUserById(authorCommentId);
 
     if (!post.length) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_POST.status,
-        StatusCodes.NOT_FOUND_POST.message
-      );
+      throw new PostNotFound();
     }
 
     if (!user.length) {
-      throw new CustomError(
-        StatusCodes.NOT_FOUND_USERS.status,
-        StatusCodes.NOT_FOUND_USERS.message
-      );
+      throw new UserNotFound();
     }
 
     const id = generateId();

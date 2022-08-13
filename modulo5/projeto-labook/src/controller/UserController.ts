@@ -26,7 +26,7 @@ export class UserController {
 
       res.status(201).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
@@ -49,7 +49,7 @@ export class UserController {
 
       res.status(201).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 
@@ -72,7 +72,7 @@ export class UserController {
 
       res.status(200).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message || error.sqlMessage);
+      res.status(error.status || 400).send(error.message);
     }
   };
 }
