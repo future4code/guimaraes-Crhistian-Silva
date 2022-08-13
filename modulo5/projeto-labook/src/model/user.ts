@@ -1,14 +1,13 @@
-import { CustomError } from "../error/customError";
-import { StatusCodes } from "../error/StatusCodes";
+import { EmailError, PasswordError } from "../error/customError";
 
 export class User {
   constructor(
     private name: string,
     private email: string,
     private password: string,
-    private _emailRegex: RegExp = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/,
-    private _passwordRegex: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])(?:([0-9a-zA-Z$*&@#])(?!\1)){8,20}$/
-  ) {}
+    private _emailRegeX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    private _passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?([^\w\s]|[_])).{8,}$/
+      ) {}
 
   public getName() {
     return this.name;
@@ -23,12 +22,12 @@ export class User {
   }
 
   public setEmail(email: string) {
-    const result = this._emailRegex.test(email);
-    if (!result) throw new CustomError(405, StatusCodes.EMAIL_ERROR.message);
+    const result = this._emailRegeX.test(email);
+    if (!result) throw new EmailError();
   }
 
   public setPassword(password: string) {
     const result = this._passwordRegex.test(password);
-    if (!result) throw new CustomError(405, StatusCodes.PASSWORD_ERROR.message);
+    if (!result) throw new PasswordError();
   }
 }
