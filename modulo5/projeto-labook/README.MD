@@ -11,7 +11,7 @@
 
 - [Como usar](#como-usar)
 
-- [Pré-Requisitos](#pre-requisitos)
+- [Pré-Requisitos](#pré-requisitos)
 
 - [Tecnologias](#tecnologias)
   _ Typescript: 4.7.4
@@ -31,8 +31,8 @@
 
         <h2 id="sobre">:notebook: Sobre </h2>
 
-  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos, tendo 2 classes User e Post, com seus diversos atributos e métodos, feoi feito o encapsulamento para que haja a segurança dos dados reecbidos, o principal desafio foi entender como retornar alguns atributos, mas acredito que o resultado foi satisfatório.
-  O projeto se apresenta na forma de comandos que interagem com Usuários e Posts, baseando-se em uma relação de redes sociais entre usuários onde pode-se criar usuários, criar posts, criar relações de amizade entre usuários, criar relações entre curtidas nos posts e usuários, também foram criados comandos de busca de  um post específico através do seu Id, buscar todos os posts de um determinado tipo, buscar todos os posts de amigos, todos os comandos em forma de endpoints estão explicitados com suas formas corretas de uso no Link da Documentação
+  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos, tendo classes User e Post, com seus diversos atributos e métodos, foi feito o encapsulamento para que haja a segurança dos dados recebidos e verificações necessárias, o principal desafio foi entender como retornar alguns atributos, mas acredito que o resultado foi satisfatório.
+  O projeto se apresenta na forma de comandos que interagem com Usuários e Posts, baseando-se em uma relação de redes sociais entre usuários onde pode-se criar usuários, criar posts, criar relações de amizade entre usuários, criar relações entre curtidas nos posts de usuários e descurti-los, também foram criados comandos de busca de  um post específico através do seu Id, buscar todos os posts de um determinado tipo, buscar todos os posts de amigos, todos os dados requisitados para que os comandos de endpoints funcionem e suas formas corretas de uso, estão explicitados no Link da Documentação do Postman em anexo
   <h4 align="right"><a href="#topo">Topo</a></h4>
 
 <h2 id="funciona">:rocket: O que funciona </h2>
