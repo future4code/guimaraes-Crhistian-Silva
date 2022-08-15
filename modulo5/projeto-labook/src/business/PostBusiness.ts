@@ -4,15 +4,12 @@ import { PostDTO } from "./../model/postDTO";
 import { BaseDatabase } from "../data/BaseDatabase";
 import {
   AlreadyExists,
-  CustomError,
-  ErrorType,
   LikeNotFound,
   PostNotFound,
   UserNotFound,
 } from "../error/customError";
 import { generateId } from "../services/generateId";
 import { Post } from "../model/post";
-import { StatusCodes } from "../error/StatusCodes";
 import {
   authenticationData,
   CreateCommentInput,
@@ -98,7 +95,7 @@ export class PostBusiness extends BaseDatabase {
     return posts;
   };
 
-  public getPostsByType = async (type: POST_TYPES): Promise<PostDTO[]> => {
+  public getPostsByType = async (type: POST_TYPES): Promise<any> => {
     if (
       type.toLowerCase() !== POST_TYPES.NORMAL &&
       type.toLowerCase() !== POST_TYPES.EVENT
@@ -110,12 +107,13 @@ export class PostBusiness extends BaseDatabase {
 
     const posts = await postsDB.getPostsByType(type);
 
-    for (const post of posts) {
-      let newDateSplit = new Date(String(posts[0].createdAt))
+    for (let i = 0; i < posts.length; i++) {
+      const element = posts[i];
+      let newDateSplit = new Date(String(element.createdAt))
         .toISOString()
         .split("T");
       let newDate = newDateSplit[0].split("-").reverse().join("/");
-      post.createdAt = newDate;
+      element.createdAt = newDate;
     }
     return posts;
   };

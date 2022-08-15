@@ -1,6 +1,6 @@
 <h1 align="center">Projeto Labook</h1>
 
-<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/UzJPMay1" target="_blank">LabEcommerce API</a>.</p>
+<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/VUjTihGb" target="_blank">LabEcommerce API</a>.</p>
 
 <h1 id="topo">Conteúdo</h1>
 
