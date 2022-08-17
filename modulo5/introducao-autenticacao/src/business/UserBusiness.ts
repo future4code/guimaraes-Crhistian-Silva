@@ -1,73 +1,120 @@
+import { AuthenticationData } from './../services/Authenticator';
+import { IdGenerator } from "./../services/IdGenerator";
 import { UserDatabase } from "../data/UserDatabase";
-import { CustomError, InvalidEmail, InvalidName } from "../error/customError";
+import {
+  CustomError,
+  InvalidEmail,
+  InvalidName,
+  InvalidPassword,
+  MissingParameters,
+  UserNotFound,
+} from "../error/customError";
 import {
   UserInputDTO,
   user,
   EditUserInputDTO,
   EditUserInput,
-} from "../model/user";
+  LoginInput,
+  UserResult,
+} from "../model/userTypes";
+import { Authenticator } from "../services/Authenticator";
+import { User } from "../model/user";
+
+const idGenerator = new IdGenerator();
+
+const authenticator = new Authenticator();
 
 export class UserBusiness {
-  public createUser = async (input: UserInputDTO) => {
-    try {
-      const { name, nickname, email, password } = input;
+  public signUp = async (input: UserInputDTO): Promise<string> => {
+    const { name, nickname, email, password } = input;
 
-      if (!name || !nickname || !email || !password) {
-        throw new CustomError(
-          400,
-          'Preencha os campos "name","nickname", "email" e "password"'
-        );
-      }
+    // aqui crio um novo usuário para fazer as verificações de email e senha com regex
+    const user = new User(name, nickname, email, password);
 
-      if (name.length < 4) {
-        throw new InvalidName();
-      }
+    const id: string = idGenerator.generateId();
 
-      if (!email.includes("@")) {
-        throw new InvalidEmail();
-      }
+    const newUser: user = {
+      id,
+      name: user.getName(),
+      nickname: user.getNickname(),
+      email: user.getEmail(),
+      password: user.getPassword(),
+    };
 
-      const id: string = Date.now().toString();
+    const userDatabase = new UserDatabase();
+    await userDatabase.insertUser(newUser);
 
-      const user: user = {
-        id,
-        name,
-        nickname,
-        email,
-        password,
-      };
-      const userDatabase = new UserDatabase();
-      await userDatabase.insertUser(user);
-    } catch (error: any) {
-      throw new CustomError(400, error.message);
-    }
+    const token = authenticator.generateToken({ id });
+    return token;
   };
 
-  public editUser = async (input: EditUserInputDTO) => {
-    try {
-      const { name, nickname, id } = input;
+  public login = async (input: LoginInput): Promise<string> => {
 
-      if (!name || !nickname || !id) {
-        throw new CustomError(
-          400,
-          'Preencha os campos "id", "name" e "nickname"'
-        );
-      }
+    const {email, password } = input;
 
-      if (name.length < 4) {
-        throw new InvalidName();
-      }
+    // aqui crio um novo usuário para fazer as verificações de email e senha com regex
 
-      const editUserInput: EditUserInput = {
-        id,
-        name,
-        nickname,
-      };
+    const userDB = new UserDatabase();
+    const user = await userDB.getUserByEmail(email)
 
-      const userDatabase = new UserDatabase();
-      await userDatabase.editUser(editUserInput);
-    } catch (error: any) {
-      throw new CustomError(400, error.message);
+    if(!user){
+      throw new UserNotFound();
     }
+    if(user.password !== password){
+      throw new InvalidPassword();
+    }
+
+    const id = user.id
+
+    const token = authenticator.generateToken({id});
+    return token;
+  };
+
+
+  public editUser = async (input: EditUserInputDTO) => {
+    const { name, nickname, id } = input;
+
+    if (!name || !nickname || !id) {
+      throw new MissingParameters();
+    }
+    if (name.length < 4) {
+      throw new InvalidName();
+    }
+    const editUserInput: EditUserInput = {
+      id,
+      name,
+      nickname,
+    };
+    const userDatabase = new UserDatabase();
+    await userDatabase.editUser(editUserInput);
+  };
+
+  public getUserByEmail = async (email: string): Promise<user> => {
+    const userDB = new UserDatabase();
+
+    const user = await userDB.getUserByEmail(email);
+
+    if (!user) {
+      throw new UserNotFound();
+    }
+    return user;
+  };
+
+  public getUser = async (token: string): Promise<UserResult> => {
+    const userDB = new UserDatabase();
+
+    const {id} = authenticator.getTokenData(token)
+
+    const result = await userDB.getUserById({id});
+
+    if (!result) {
+      throw new UserNotFound();
+    }
+
+    const user = {
+      id: result.id,
+      email: result.email
+    }
+    return user;
   };
 }
