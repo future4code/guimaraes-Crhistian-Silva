@@ -2,8 +2,6 @@ import { AuthenticationData } from './../services/Authenticator';
 import { IdGenerator } from "./../services/IdGenerator";
 import { UserDatabase } from "../data/UserDatabase";
 import {
-  CustomError,
-  InvalidEmail,
   InvalidName,
   InvalidPassword,
   MissingParameters,
@@ -19,10 +17,13 @@ import {
 } from "../model/userTypes";
 import { Authenticator } from "../services/Authenticator";
 import { User } from "../model/user";
+import { HashManager } from '../services/HashManager';
 
 const idGenerator = new IdGenerator();
 
 const authenticator = new Authenticator();
+
+const hashManager = new HashManager
 
 export class UserBusiness {
   public signUp = async (input: UserInputDTO): Promise<string> => {
@@ -33,12 +34,14 @@ export class UserBusiness {
 
     const id: string = idGenerator.generateId();
 
+    const hashPassword = await hashManager.generateHash(password)
+
     const newUser: user = {
       id,
       name: user.getName(),
       nickname: user.getNickname(),
       email: user.getEmail(),
-      password: user.getPassword(),
+      password: hashPassword,
     };
 
     const userDatabase = new UserDatabase();
@@ -57,10 +60,12 @@ export class UserBusiness {
     const userDB = new UserDatabase();
     const user = await userDB.getUserByEmail(email)
 
+    const hashCompare = await hashManager.compareHash(password, user.password)
+
     if(!user){
       throw new UserNotFound();
     }
-    if(user.password !== password){
+    if(!hashCompare){
       throw new InvalidPassword();
     }
 
