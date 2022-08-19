@@ -1,0 +1,23 @@
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+    "name": "Teste autenticação",
+    "nickname": "teste",
+    "email": "emailteste@com.br",
+    "password": "125453Aa*"
+}
+###
+POST  http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+    "email": "emailteste@com.br",
+    "password": "12545Aa*"
+}
+
+###
+
+GET  http://localhost:3003/user/profile
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFhOTk5NGY4LTJjMzEtNGJmNC1iN2Y4LWZjOWU1YzY3ODAyZCIsImlhdCI6MTY2MDc2NjA3OSwiZXhwIjoxNjYwNzY5Njc5fQ.7AJ-sMMpH8UTmoyArhsbuW0orfswU8jqgoKKJ0QEdqQ
+Content-Type: application/json
