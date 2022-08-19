@@ -1,0 +1,34 @@
+```
+Exercício 1
+a) *O que são os `round` e `salt`? Que valores são recomendados para o `round`? Que valor você usou? Por quê?*
+
+Resposta: Round = é o custo numérico ligado a segurança da senha, porém quanto maior o cost maior o tempo de execução do algoritmo.
+
+Resposta: Salt =  é uma string que o próprio algoritmo adiciona ao Hash que aumenta a segurança da criptografia da senha.
+
+Resposta: : Usei o 12 que é o padrão recomendado para Round, Salt o próprio algoritmo adiciona (se quiser pode ser adicionada separadamente, mas a meu ver compromete a segurança da criptografia)
+
+
+b) *Instale o bcryptjs no seu projeto e comece criando a função generateHash(), que será responsável por **criptografar** uma string usando o bcryptjs.  ***** 
+
+Resposta: feito
+
+c) *Agora, crie a função que verifique se uma string é correspondente a um hash, use a função `compare` do bcryptjs*
+
+Resposta: feito
+
+Exercício 2
+
+a) *Para realizar os testes corretamente, qual deles você deve modificar primeiro? O cadastro ou o login? Justifique.*
+Resposta: Primeiro o signup para que faça o envio do hash corretamente para o banco de dados, para que após isso no endpoint de login possa ser efetuada a comparação
+
+b) *Faça a alteração do primeiro endpoint*
+Resposta: Feito
+
+c) *Faça a alteração do segundo endpoint*
+Resposta: Feito
+
+d) *No exercício da aula anterior, nós criamos o endpoint `user/profile`. Também temos que modificar esse endpoint devido à adição da criptografia? Justifique.*
+Resposta: Não, pois a criptografia gerada no signup e a verificação feita no login já são suficientes para a geração do token que será usado nesse endpoint.
+
+``` 
