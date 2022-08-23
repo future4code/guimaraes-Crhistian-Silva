@@ -1,13 +1,17 @@
-import { EmailError, PasswordError } from "../error/customError";
+import { InvalidEmail, InvalidPassword} from "../error/customError";
 
 export class User {
+  private _emailRegeX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+  private _passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?([^\w\s]|[_])).{8,20}$/
+
   constructor(
     private name: string,
     private email: string,
     private password: string,
-    private _emailRegeX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    private _passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?([^\w\s]|[_])).{8,20}$/
-      ) {}
+      ) {
+        this.setEmail(email)
+        this.setPassword(password)
+      }
 
   public getName() {
     return this.name;
@@ -23,11 +27,12 @@ export class User {
 
   public setEmail(email: string) {
     const result = this._emailRegeX.test(email);
+    if (!result) throw new InvalidEmail();
     if (!result) throw new EmailError();
   }
 
   public setPassword(password: string) {
     const result = this._passwordRegex.test(password);
-    if (!result) throw new PasswordError();
+    if (!result) throw new InvalidPassword();
   }
 }

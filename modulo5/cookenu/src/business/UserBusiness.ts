@@ -1,3 +1,4 @@
+import { HashManager } from './../services/HashManager';
 import { RelationsPostInput } from "../model/postTypes";
 import { UserDatabase } from "../data/UserDatabase";
 import {
@@ -5,21 +6,36 @@ import {
   RelationsNotFound,
   UserNotFound,
 } from "../error/customError";
-import { generateId } from "../services/IdGenerator";
 import { User } from "../model/user";
 import { UserDTO } from "../model/userDTO";
 import { RelationsDTO } from "../model/relationsDTO";
 import { CreateUserInput } from "../model/userTypes";
+import { IdGenerator } from '../services/IdGenerator';
+import { Authenticator } from '../services/Authenticator';
+
 
 export class UserBusiness {
+  private userDB: UserDatabase
+  private hashManager: HashManager
+  private authenticator: Authenticator
+  private idGenerator: IdGenerator
+  constructor(){
+    this.userDB = new UserDatabase(),
+    this.hashManager = new HashManager(),
+    this.authenticator = new Authenticator(),
+    this.idGenerator = new IdGenerator()
+      }
   public signUp = async (input: CreateUserInput): Promise<void> => {
-    const user = new User(input.name, input.email, input.password);
 
-    user.setEmail(input.email);
+    const { name, email, password } = input;
 
-    user.setPassword(input.password);
+    // aqui crio um novo usuário para fazer as verificações de email e senha com regex
 
-    const id: string = generateId();
+    const user = new User(name, email, password);
+
+    const id: string = this.idGenerator.generateId()
+
+    const hashCompare = await this.hashManager.generateHash(password)
 
     const newUser: UserDTO = {
       id,
@@ -28,9 +44,8 @@ export class UserBusiness {
       password: user.getPassword(),
     };
 
-    const userDB = new UserDatabase();
-
-    await userDB.insertUser(newUser);
+    await this.userDB.insertUser(newUser);
+    const token = this.authenticator.generateToken()
   };
 
   public createFriendship = async (
@@ -66,7 +81,7 @@ export class UserBusiness {
       throw new AlreadyExists();
     }
 
-    const id = generateId();
+    const id: string = this.idGenerator.generateId()
 
     const relations: RelationsDTO = {
       id,
@@ -74,7 +89,7 @@ export class UserBusiness {
       friend_receiver_id: idsInput.idReceiver,
     };
 
-    const id2 = generateId();
+    const id2: string = this.idGenerator.generateId()
 
     const relations2: RelationsDTO = {
       id: id2,
@@ -82,9 +97,7 @@ export class UserBusiness {
       friend_receiver_id: idsInput.idSender,
     };
 
-    const createRelations = new UserDatabase();
-
-    await createRelations.insertRelations(relations, relations2);
+    await  this.userDB.insertRelations(relations, relations2);
   };
 
   public deleteFriendship = async (
@@ -113,8 +126,7 @@ export class UserBusiness {
     }
 
     const id = idsInput.idSender;
-    const deleteRelations = new UserDatabase();
 
-    await deleteRelations.deleteFriendship({ id });
+    await  this.userDB.deleteFriendship({ id });
   };
 }

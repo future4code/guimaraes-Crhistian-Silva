@@ -53,13 +53,13 @@ export class ErrorType extends CustomError{
   }
 }
 
-export class EmailError extends CustomError{
+export class InvalidEmail extends CustomError{
   constructor(){
     super(405," Invalid Email, please verify and try again" )
   }
 }
 
-export class PasswordError extends CustomError{
+export class InvalidPassword extends CustomError{
   constructor(){
     super(405," Invalid Password format, please verify and try again")
   }

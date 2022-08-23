@@ -8,6 +8,10 @@ import { RelationsPostInput } from "../model/postTypes";
 import { CreateUserInput } from "../model/userTypes";
 
 export class UserController {
+  private userBusiness: UserBusiness
+  constructor(){
+    this.userBusiness = new UserBusiness()
+  }
   public signUp = async (req: Request, res: Response): Promise<void> => {
     try {
       const message = "SUCESS, USER CREATED";
@@ -20,11 +24,9 @@ export class UserController {
 
       validateUserInput(input);
 
-      const userBusiness = new UserBusiness();
+     const token =  await this.userBusiness.signUp(input);
 
-      await userBusiness.signUp(input);
-
-      res.status(201).send(message);
+      res.status(201).send({message, token});
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
@@ -43,9 +45,7 @@ export class UserController {
       };
       validateRelationsDTO(input);
 
-      const userBusiness = new UserBusiness();
-
-      await userBusiness.createFriendship(input);
+      await this.userBusiness.createFriendship(input);
 
       res.status(201).send(message);
     } catch (error: any) {
@@ -66,9 +66,7 @@ export class UserController {
       };
       validateRelationsDTO(input);
 
-      const userBusiness = new UserBusiness();
-
-      await userBusiness.deleteFriendship(input);
+      await this.userBusiness.deleteFriendship(input);
 
       res.status(200).send(message);
     } catch (error: any) {
