@@ -8,7 +8,7 @@ import { RelationsPostInput } from "../model/postTypes";
 import { CreateUserInput } from "../model/userTypes";
 
 export class UserController {
-  public createUser = async (req: Request, res: Response): Promise<void> => {
+  public signUp = async (req: Request, res: Response): Promise<void> => {
     try {
       const message = "SUCESS, USER CREATED";
 
@@ -22,7 +22,7 @@ export class UserController {
 
       const userBusiness = new UserBusiness();
 
-      await userBusiness.createUser(input);
+      await userBusiness.signUp(input);
 
       res.status(201).send(message);
     } catch (error: any) {

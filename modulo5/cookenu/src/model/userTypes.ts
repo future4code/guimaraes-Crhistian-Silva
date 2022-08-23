@@ -4,3 +4,8 @@ export type CreateUserInput = {
     password: string;
   };
   
+
+  export enum ROLE_TYPE {
+    ADMIN = "ADMIN",
+    NORMAL = "NORMAL"
+}

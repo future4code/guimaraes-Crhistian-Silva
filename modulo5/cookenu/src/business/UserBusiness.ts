@@ -12,7 +12,7 @@ import { RelationsDTO } from "../model/relationsDTO";
 import { CreateUserInput } from "../model/userTypes";
 
 export class UserBusiness {
-  public createUser = async (input: CreateUserInput): Promise<void> => {
+  public signUp = async (input: CreateUserInput): Promise<void> => {
     const user = new User(input.name, input.email, input.password);
 
     user.setEmail(input.email);

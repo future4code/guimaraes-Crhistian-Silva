@@ -1,13 +1,15 @@
 import * as jwt from "jsonwebtoken";
 import { Unauthorized } from "../error/customError";
+import { ROLE_TYPE } from "../model/userTypes";
 
 export type AuthenticationData = {
   id: string;
+  role: ROLE_TYPE
 };
 
 export class Authenticator {
-  public generateToken = ({ id }: AuthenticationData): string => {
-    const token = jwt.sign({ id }, process.env.JWT_KEY as string, {
+  public generateToken = (payload: AuthenticationData): string => {
+    const token = jwt.sign(payload, process.env.JWT_KEY as string, {
       expiresIn: process.env.JWT_DURATION,
     });
     return token;
