@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS Auth_users (
     name VARCHAR(64) NOT NULL,
     nickname VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(64) NOT NULL,
+    role VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Auth_tasks (

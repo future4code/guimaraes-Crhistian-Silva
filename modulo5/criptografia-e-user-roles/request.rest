@@ -2,10 +2,12 @@ POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-    "name": "Teste autenticação",
-    "nickname": "teste",
-    "email": "emailteste@com.br",
-    "password": "125453Aa*"
+    "name": "Teste autenticação normal",
+    "nickname": "usuario normal",
+    "email": "emailtestenormal@com.br",
+    "password": "125453Aa*",
+    "role": "NORM"
+
 }
 ###
 POST  http://localhost:3003/user/login
@@ -13,11 +15,11 @@ Content-Type: application/json
 
 {
     "email": "emailteste@com.br",
-    "password": "12545Aa*"
+    "password": "125453Aa*"
 }
 
 ###
 
 GET  http://localhost:3003/user/profile
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFhOTk5NGY4LTJjMzEtNGJmNC1iN2Y4LWZjOWU1YzY3ODAyZCIsImlhdCI6MTY2MDc2NjA3OSwiZXhwIjoxNjYwNzY5Njc5fQ.7AJ-sMMpH8UTmoyArhsbuW0orfswU8jqgoKKJ0QEdqQ
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1OTk0MTJjLThjNDMtNGYwYS05ZmIzLTU5YmI3MjBjMzc3YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTI4OTI5NywiZXhwIjoxNjYxMjkyODk3fQ.1QZZGmhKUdcJ058rEBdWWFOZ-8RNmmGiit9bQd5dQJo
 Content-Type: application/json

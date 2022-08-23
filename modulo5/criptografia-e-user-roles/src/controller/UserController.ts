@@ -2,14 +2,17 @@ import { InvalidEmail, MissingParametersToken } from './../error/customError';
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
 import { InvalidName, MissingParameters, MissingParametersLogin } from "../error/customError";
-import { EditUserInputDTO, LoginInput, UserInputDTO } from "../model/userTypes";
+import { EditUserInputDTO, LoginInput, UserInputDTO } from "../model/types";
 
 export class UserController {
+  private userBusiness: UserBusiness
+  constructor(){
+    this.userBusiness = new UserBusiness()
+  }
   public signUp = async (req: Request, res: Response) => {
     try {
-      const { name, nickname, email, password } = req.body;
-
-      if (!name || !nickname || !email || !password) {
+      const { name, nickname, email, password, role} = req.body;
+      if (!name || !nickname || !email || !password || !role) {
         throw new MissingParameters();
       }
 
@@ -22,9 +25,10 @@ export class UserController {
         nickname,
         email,
         password,
+        role
       };
-      const userBusiness = new UserBusiness();
-      const token = await userBusiness.signUp(input);
+
+      const token = await this.userBusiness.signUp(input);
 
       res.status(201).send({ message: "Usuário criado!", token });
     } catch (error: any) {
@@ -40,8 +44,7 @@ export class UserController {
         id: req.params.id,
       };
 
-      const userBusiness = new UserBusiness();
-      userBusiness.editUser(input);
+      await this.userBusiness.editUser(input);
 
       res.status(201).send({ message: "Usuário alterado!" });
     } catch (error: any) {
@@ -56,9 +59,8 @@ export class UserController {
       if(!token){
         throw new MissingParametersToken()
       }
-      const userBusiness = new UserBusiness();
 
-      const user = await userBusiness.getUser(token)
+      const user = await this.userBusiness.getUser(token)
 
       res.status(200).send(user);
     } catch (error: any) {
@@ -81,8 +83,7 @@ export class UserController {
         email,
         password,
       };
-      const userBusiness = new UserBusiness();
-      const token = await userBusiness.login(input);
+      const token = await this.userBusiness.login(input);
 
       res.status(200).send({ message: "Usuário Logado com Sucesso!", token });
     } catch (error: any) {
