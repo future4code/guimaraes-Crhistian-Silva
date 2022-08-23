@@ -1,3 +1,4 @@
+import { ROLE_TYPE } from './../model/userTypes';
 import { HashManager } from './../services/HashManager';
 import { RelationsPostInput } from "../model/postTypes";
 import { UserDatabase } from "../data/UserDatabase";
@@ -25,27 +26,46 @@ export class UserBusiness {
     this.authenticator = new Authenticator(),
     this.idGenerator = new IdGenerator()
       }
-  public signUp = async (input: CreateUserInput): Promise<void> => {
+  public signUp = async (input: CreateUserInput): Promise<string> => {
 
-    const { name, email, password } = input;
+    const { name, email, password} = input;
+
+    let role = input.role // nao da pra transformar em string senao perde as comparações
+
+    if(role?.toUpperCase() === ROLE_TYPE.NORMAL ){
+      role = ROLE_TYPE.NORMAL ;
+    }
+    if(role?.toUpperCase() === ROLE_TYPE.ADMIN ){
+      role = ROLE_TYPE.ADMIN ;
+    }
+    if (!role || role?.toUpperCase() !== ROLE_TYPE.NORMAL && role?.toUpperCase() !== ROLE_TYPE.ADMIN) {
+      role = ROLE_TYPE.NORMAL ;
+    }
 
     // aqui crio um novo usuário para fazer as verificações de email e senha com regex
 
-    const user = new User(name, email, password);
+    const user = new User(name, email, password, role);
 
     const id: string = this.idGenerator.generateId()
 
-    const hashCompare = await this.hashManager.generateHash(password)
+    const hashPassword = await this.hashManager.generateHash(password)
 
     const newUser: UserDTO = {
       id,
       name: user.getName(),
       email: user.getEmail(),
-      password: user.getPassword(),
+      password: hashPassword,
+      role: user.getRole()
     };
 
+    const payload = {
+      id,
+      role
+    }
+
     await this.userDB.insertUser(newUser);
-    const token = this.authenticator.generateToken()
+    const token = this.authenticator.generateToken(payload)
+    return token
   };
 
   public createFriendship = async (

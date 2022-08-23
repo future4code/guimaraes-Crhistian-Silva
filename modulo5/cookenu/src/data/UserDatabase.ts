@@ -5,7 +5,7 @@ import { authenticationData } from "../model/postTypes";
 import { RelationsDTO } from "../model/relationsDTO";
 
 export class UserDatabase extends BaseDatabase {
-  private userTable = "labook_users";
+  private userTable = "cookenu_users";
   private relationsTable = "labook_relations";
 
   public insertUser = async (user: UserDTO): Promise<void> => {
@@ -16,6 +16,7 @@ export class UserDatabase extends BaseDatabase {
           name: user.name,
           email: user.email,
           password: user.password,
+          role: user.role
         })
         .into(this.userTable);
     } catch (error: any) {

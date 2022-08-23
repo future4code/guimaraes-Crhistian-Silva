@@ -8,9 +8,9 @@ import { RelationsPostInput } from "../model/postTypes";
 import { CreateUserInput } from "../model/userTypes";
 
 export class UserController {
-  private userBusiness: UserBusiness
-  constructor(){
-    this.userBusiness = new UserBusiness()
+  private userBusiness: UserBusiness;
+  constructor() {
+    this.userBusiness = new UserBusiness();
   }
   public signUp = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -20,13 +20,14 @@ export class UserController {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        role: req.body.role
       };
 
       validateUserInput(input);
 
-     const token =  await this.userBusiness.signUp(input);
+      const token = await this.userBusiness.signUp(input);
 
-      res.status(201).send({message, token});
+      res.status(201).send({ message, token });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }

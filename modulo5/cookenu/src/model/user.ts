@@ -1,17 +1,20 @@
-import { InvalidEmail, InvalidPassword} from "../error/customError";
+import { InvalidEmail, InvalidPassword } from "../error/customError";
+import { ROLE_TYPE } from "./userTypes";
 
 export class User {
-  private _emailRegeX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-  private _passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?([^\w\s]|[_])).{8,20}$/
+  private _emailRegeX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  private _passwordRegex: RegExp =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?([^\w\s]|[_])).{8,20}$/;
 
   constructor(
     private name: string,
     private email: string,
     private password: string,
-      ) {
-        this.setEmail(email)
-        this.setPassword(password)
-      }
+    private role: ROLE_TYPE
+  ) {
+    this.setEmail(email);
+    this.setPassword(password);
+  }
 
   public getName() {
     return this.name;
@@ -25,14 +28,18 @@ export class User {
     return this.password;
   }
 
+  public getRole() {
+    return this.role;
+  }
+
   public setEmail(email: string) {
     const result = this._emailRegeX.test(email);
     if (!result) throw new InvalidEmail();
-    if (!result) throw new EmailError();
   }
 
   public setPassword(password: string) {
     const result = this._passwordRegex.test(password);
     if (!result) throw new InvalidPassword();
   }
+
 }
