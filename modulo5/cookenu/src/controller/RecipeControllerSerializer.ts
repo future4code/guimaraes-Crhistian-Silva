@@ -1,34 +1,46 @@
 import { UserDatabase } from "../data/UserDatabase";
 import {
+  AuthorRecipeNotFound,
   MissingParameters,
   SameIdError,
   UserNotFound,
 } from "../error/customError";
 import {
-  authenticationData,
   CreateCommentInput,
-  CreatePostInput,
+  RecipeInput,
   LikePostInput,
   POST_TYPES,
   RelationsPostInput,
-} from "../model/postTypes";
+} from "../model/recipeTypes";
 
-export const validatePostInput = (input: CreatePostInput): void => {
-  if (!input.photo || !input.description || !input.type || !input.authorId) {
+export const validateRecipeInput = (input: RecipeInput): void => {
+  if (!input.authorId || !input.title || !input.description || !input.preparationMode) {
     throw new MissingParameters();
   }
 };
+
+export const validateIdAuthorRecipe = async (id: string): Promise<void> => {
+  const user = new UserDatabase();
+  const userList = await user.getUserById(id);
+
+  if (!userList) {
+    throw new AuthorRecipeNotFound();
+  }
+};
+
+
 
 export const validateIdAuthor = async (id: string): Promise<void> => {
   const user = new UserDatabase();
   const userList = await user.getUserById(id);
 
-  if (!userList.length) {
+  if (!userList) {
     throw new UserNotFound();
   }
 };
 
-export const validateIdPost = (id: authenticationData): void => {
+
+export const validateIdPost = (id: string): void => {
   if (!id) {
     throw new SameIdError();
   }
@@ -40,9 +52,8 @@ export const validateRelationDTO = (input: RelationsPostInput): void => {
   }
 };
 
-export const validateId = (id: authenticationData): void => {
-  const authorId = id.id;
-  if (!authorId) {
+export const validateId = (id: string): void => {
+  if (!id) {
     throw new UserNotFound();
   }
 };

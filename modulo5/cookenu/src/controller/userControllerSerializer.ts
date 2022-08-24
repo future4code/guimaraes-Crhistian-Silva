@@ -5,7 +5,7 @@ import {
   MissingParametersToken,
   SameIdError,
 } from "../error/customError";
-import { RelationsPostInput } from "../model/postTypes";
+import { RelationsPostInput } from "../model/recipeTypes";
 import { CreateUserInput, LoginInput, ROLE_TYPE } from "../model/userTypes";
 
 export const validateUserInput = (input: CreateUserInput): void => {

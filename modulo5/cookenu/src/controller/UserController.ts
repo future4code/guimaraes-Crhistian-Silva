@@ -6,7 +6,7 @@ import {
   validateToken,
   validateUserInput,
 } from "./userControllerSerializer";
-import { RelationsPostInput } from "../model/postTypes";
+import { RelationsPostInput } from "../model/recipeTypes";
 import { CreateUserInput, LoginInput } from "../model/userTypes";
 
 export class UserController {

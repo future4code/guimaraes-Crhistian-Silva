@@ -5,6 +5,11 @@ export class CustomError extends Error {
   }
 }
 
+export class AuthorRecipeNotFound extends CustomError{
+  constructor(){
+    super(404, "Not Found, please verify AuthorId Sent")
+  }
+}
 export class UserNotFound extends CustomError{
   constructor(){
     super(404, "Not Found, please verify ID User Sent")

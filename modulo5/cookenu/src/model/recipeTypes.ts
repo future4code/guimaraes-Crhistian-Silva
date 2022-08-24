@@ -1,18 +1,32 @@
-export type authenticationData = {
-  id: string;
-};
-
 export enum POST_TYPES {
   NORMAL = "normal",
   EVENT = "event",
 }
 
-export type CreatePostInput = {
-  photo: string;
-  description: string;
-  type: POST_TYPES;
-  authorId: string;
+export type RecipeInput = {
+  authorId:string,
+  title: string;
+  description: string,
+  preparationMode: string;
 };
+
+
+export interface RecipeDTO{
+  authorId: string,
+  id: string,
+  title: string,
+  description: string,
+  preparationMode: string,
+  creationDate?: Date | number| string
+}
+
+
+
+
+
+
+
+
 
 export type RelationsPostInput = {
   idSender: string;

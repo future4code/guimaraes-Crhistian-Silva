@@ -4,7 +4,7 @@ import {
   UserProfile,
 } from "./../model/userTypes";
 import { HashManager } from "./../services/HashManager";
-import { RelationsPostInput } from "../model/postTypes";
+import { RelationsPostInput } from "../model/recipeTypes";
 import { UserDatabase } from "../data/UserDatabase";
 import {
   AlreadyExists,
@@ -14,7 +14,6 @@ import {
   UserNotFound,
 } from "../error/customError";
 import { User } from "../model/user";
-import { RelationsDTO } from "../model/relationsDTO";
 import { CreateUserInput } from "../model/userTypes";
 import { IdGenerator } from "../services/IdGenerator";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";

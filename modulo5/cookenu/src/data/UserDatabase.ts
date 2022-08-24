@@ -1,7 +1,6 @@
-import { User } from './../model/user';
+import { User } from '../model/user';
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import { authenticationData } from "../model/postTypes";
 import { RelationsDTO } from "../model/relationsDTO";
 import { UserDTO } from "../model/userTypes";
 
@@ -36,12 +35,6 @@ export class UserDatabase extends BaseDatabase {
       throw new CustomError(500, error.sqlMessage);
     }
   };
-
-
-
-
-
-
 
   public getUserById = async (userId: string): Promise<UserDTO> => {
     try {
@@ -91,14 +84,13 @@ export class UserDatabase extends BaseDatabase {
   };
 
   public deleteFriendship = async (
-    idUser: authenticationData
+    idUser: string
   ): Promise<void> => {
-    const { id } = idUser;
     try {
       await BaseDatabase.connection
         .from(this.relationsTable)
-        .where("friend_sender_id", id)
-        .orWhere("friend_receiver_id", id)
+        .where("friend_sender_id", idUser)
+        .orWhere("friend_receiver_id", idUser)
         .del();
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
