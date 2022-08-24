@@ -65,9 +65,14 @@ export class InvalidPassword extends CustomError{
   }
 }
 
-
 export class Unauthorized extends CustomError {
   constructor() {
     super(401, "User not Authorized");
+  }
+}
+
+export class InvalidRole extends CustomError {
+  constructor() {
+    super(401, 'Invalid Role format, must be "NORMAL" OR "ADMIN" verify and try again');
   }
 }

@@ -1,4 +1,4 @@
-import { InvalidEmail, InvalidPassword } from "../error/customError";
+import { InvalidEmail, InvalidPassword, InvalidRole } from "../error/customError";
 import { ROLE_TYPE } from "./userTypes";
 
 export class User {
@@ -10,10 +10,11 @@ export class User {
     private name: string,
     private email: string,
     private password: string,
-    private role: ROLE_TYPE
+    private role: ROLE_TYPE = ROLE_TYPE.NORMAL
   ) {
     this.setEmail(email);
     this.setPassword(password);
+    this.setRole(role);
   }
 
   public getName() {
@@ -42,4 +43,19 @@ export class User {
     if (!result) throw new InvalidPassword();
   }
 
+   public setRole(role: ROLE_TYPE) {
+
+    if (role.toUpperCase() === ROLE_TYPE.NORMAL) {
+      this.role = ROLE_TYPE.NORMAL;
+    }
+    else if (role.toUpperCase() === ROLE_TYPE.ADMIN) {
+      this.role = ROLE_TYPE.ADMIN;
+    }
+    else if (
+      (role.toUpperCase() !== ROLE_TYPE.NORMAL &&
+      role.toUpperCase() !== ROLE_TYPE.ADMIN)
+    ) {
+      throw new InvalidRole();
+    }
+  } 
 }

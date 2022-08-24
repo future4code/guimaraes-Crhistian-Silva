@@ -28,21 +28,7 @@ export class UserBusiness {
       }
   public signUp = async (input: CreateUserInput): Promise<string> => {
 
-    const { name, email, password} = input;
-
-    let role = input.role // nao da pra transformar em string senao perde as comparações
-
-    if(role?.toUpperCase() === ROLE_TYPE.NORMAL ){
-      role = ROLE_TYPE.NORMAL ;
-    }
-    if(role?.toUpperCase() === ROLE_TYPE.ADMIN ){
-      role = ROLE_TYPE.ADMIN ;
-    }
-    if (!role || role?.toUpperCase() !== ROLE_TYPE.NORMAL && role?.toUpperCase() !== ROLE_TYPE.ADMIN) {
-      role = ROLE_TYPE.NORMAL ;
-    }
-
-    // aqui crio um novo usuário para fazer as verificações de email e senha com regex
+    const { name, email, password, role} = input;
 
     const user = new User(name, email, password, role);
 
