@@ -45,15 +45,15 @@ export class User {
 
    public setRole(role: ROLE_TYPE) {
 
-    if (role.toUpperCase() === ROLE_TYPE.NORMAL) {
+    if (role.toLowerCase() === ROLE_TYPE.NORMAL) {
       this.role = ROLE_TYPE.NORMAL;
     }
-    else if (role.toUpperCase() === ROLE_TYPE.ADMIN) {
+    else if (role.toLowerCase() === ROLE_TYPE.ADMIN) {
       this.role = ROLE_TYPE.ADMIN;
     }
     else if (
-      (role.toUpperCase() !== ROLE_TYPE.NORMAL &&
-      role.toUpperCase() !== ROLE_TYPE.ADMIN)
+      (role.toLowerCase() !== ROLE_TYPE.NORMAL &&
+      role.toLowerCase() !== ROLE_TYPE.ADMIN)
     ) {
       throw new InvalidRole();
     }

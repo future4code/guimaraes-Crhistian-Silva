@@ -1,8 +1,9 @@
+import { User } from './../model/user';
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import { UserDTO } from "../model/userDTO";
 import { authenticationData } from "../model/postTypes";
 import { RelationsDTO } from "../model/relationsDTO";
+import { UserDTO } from "../model/userTypes";
 
 export class UserDatabase extends BaseDatabase {
   private userTable = "cookenu_users";
@@ -24,12 +25,30 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  public getUserById = async (userId: string): Promise<UserDTO[]> => {
+  public getUserByEmail = async (email: string): Promise<UserDTO> => {
     try {
-      const result: any[] = await BaseDatabase.connection(this.userTable)
+      const user: UserDTO[] = await UserDatabase.connection
+        .select("*")
+        .from(this.userTable)
+        .where({ email });
+      return user[0];
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage);
+    }
+  };
+
+
+
+
+
+
+
+  public getUserById = async (userId: string): Promise<UserDTO> => {
+    try {
+      const result: UserDTO[] = await BaseDatabase.connection(this.userTable)
         .select("*")
         .where("id", userId);
-      return result;
+      return result[0];
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
     }

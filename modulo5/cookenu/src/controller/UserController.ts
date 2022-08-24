@@ -1,11 +1,13 @@
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
 import {
+  validateLoginInput,
   validateRelationsDTO,
+  validateToken,
   validateUserInput,
 } from "./userControllerSerializer";
 import { RelationsPostInput } from "../model/postTypes";
-import { CreateUserInput } from "../model/userTypes";
+import { CreateUserInput, LoginInput } from "../model/userTypes";
 
 export class UserController {
   private userBusiness: UserBusiness;
@@ -20,7 +22,7 @@ export class UserController {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        role: req.body.role
+        role: req.body.role,
       };
 
       validateUserInput(input);
@@ -33,45 +35,40 @@ export class UserController {
     }
   };
 
-  public createFriendship = async (
-    req: Request,
-    res: Response
-  ): Promise<void> => {
+  public login = async (req: Request, res: Response) => {
     try {
-      const message = "SUCCESS, FRIENDSHIP CREATED";
-
-      const input: RelationsPostInput = {
-        idSender: req.body.idSender,
-        idReceiver: req.body.idReceiver,
+      const input: LoginInput = {
+        email: req.body.email,
+        password: req.body.password,
       };
-      validateRelationsDTO(input);
 
-      await this.userBusiness.createFriendship(input);
+      validateLoginInput(input);
 
-      res.status(201).send(message);
+      const token = await this.userBusiness.login(input);
+
+      res.status(200).send({ message: "Login Sucessfull !!", token });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
   };
 
-  public deleteFriendship = async (
-    req: Request,
-    res: Response
-  ): Promise<void> => {
+  public getUser = async (req: Request, res: Response) => {
     try {
-      const message = "SUCCESS, FRIENDSHIP DELETED";
+      const token = req.headers.authorization as string
 
-      const input: RelationsPostInput = {
-        idSender: req.body.idSender,
-        idReceiver: req.body.idReceiver,
-      };
-      validateRelationsDTO(input);
+      validateToken(token)
 
-      await this.userBusiness.deleteFriendship(input);
+      const user = await this.userBusiness.getUser(token)
 
-      res.status(200).send(message);
+      res.status(200).send(user);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
   };
+
+
+
+
+
+
 }

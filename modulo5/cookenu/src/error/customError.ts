@@ -29,6 +29,18 @@ export class MissingParameters extends CustomError{
   }
 }
 
+export class MissingParametersLogin extends CustomError{
+  constructor(){
+    super(422,  "Missing or incorrect information. Consult the documentation and fill email and password correctly")
+  }
+}
+
+export class MissingParametersToken extends CustomError {
+  constructor() {
+    super(422,  "Missing or incorrect Token. Consult the documentation and fill in headers authorization");
+  }
+}
+
 export class SameIdError extends CustomError{
   constructor(){
     super(401, "ID Sent value is the Same, Please verify and try again")
@@ -73,6 +85,12 @@ export class Unauthorized extends CustomError {
 
 export class InvalidRole extends CustomError {
   constructor() {
-    super(401, 'Invalid Role format, must be "NORMAL" OR "ADMIN" verify and try again');
+    super(401, "Invalid Role format, must be 'NORMAL' OR 'ADMIN' verify and try again");
+  }
+}
+
+export class NotAllowed extends CustomError {
+  constructor() {
+    super(401, "Only 'NORMAL' users are allowed");
   }
 }

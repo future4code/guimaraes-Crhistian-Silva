@@ -1,138 +1,114 @@
-import { ROLE_TYPE } from './../model/userTypes';
-import { HashManager } from './../services/HashManager';
+import {
+  LoginInput,
+  UserDTO,
+  UserProfile,
+} from "./../model/userTypes";
+import { HashManager } from "./../services/HashManager";
 import { RelationsPostInput } from "../model/postTypes";
 import { UserDatabase } from "../data/UserDatabase";
 import {
   AlreadyExists,
+  InvalidPassword,
+  NotAllowed,
   RelationsNotFound,
   UserNotFound,
 } from "../error/customError";
 import { User } from "../model/user";
-import { UserDTO } from "../model/userDTO";
 import { RelationsDTO } from "../model/relationsDTO";
 import { CreateUserInput } from "../model/userTypes";
-import { IdGenerator } from '../services/IdGenerator';
-import { Authenticator } from '../services/Authenticator';
-
+import { IdGenerator } from "../services/IdGenerator";
+import { AuthenticationData, Authenticator } from "../services/Authenticator";
+import { validateRole } from "../controller/userControllerSerializer";
 
 export class UserBusiness {
-  private userDB: UserDatabase
-  private hashManager: HashManager
-  private authenticator: Authenticator
-  private idGenerator: IdGenerator
-  constructor(){
-    this.userDB = new UserDatabase(),
-    this.hashManager = new HashManager(),
-    this.authenticator = new Authenticator(),
-    this.idGenerator = new IdGenerator()
-      }
+  private userDB: UserDatabase;
+  private hashManager: HashManager;
+  private authenticator: Authenticator;
+  private idGenerator: IdGenerator;
+  constructor() {
+    (this.userDB = new UserDatabase()),
+      (this.hashManager = new HashManager()),
+      (this.authenticator = new Authenticator()),
+      (this.idGenerator = new IdGenerator());
+  }
   public signUp = async (input: CreateUserInput): Promise<string> => {
-
-    const { name, email, password, role} = input;
+    const { name, email, password, role } = input;
 
     const user = new User(name, email, password, role);
 
-    const id: string = this.idGenerator.generateId()
+    const id: string = this.idGenerator.generateId();
 
-    const hashPassword = await this.hashManager.generateHash(password)
+    const hashPassword = await this.hashManager.generateHash(password);
 
     const newUser: UserDTO = {
       id,
       name: user.getName(),
       email: user.getEmail(),
       password: hashPassword,
-      role: user.getRole()
+      role: user.getRole(),
     };
 
     const payload = {
       id,
-      role
-    }
+      role,
+    };
 
     await this.userDB.insertUser(newUser);
-    const token = this.authenticator.generateToken(payload)
-    return token
+    const token = this.authenticator.generateToken(payload);
+    return token;
   };
 
-  public createFriendship = async (
-    idsInput: RelationsPostInput
-  ): Promise<void> => {
-    const userDB = new UserDatabase();
+  public login = async (input: LoginInput): Promise<string> => {
+    const { email, password } = input;
 
-    //CONSULTA AO BANCO PRA VER SE O ID ENVIADO RETORNA ALGUM USUÁRIO VÁLIDO
-    const friendSender = await userDB.getUserById(idsInput.idSender);
+    // aqui crio um novo usuário para fazer as verificações de email e senha
 
-    const friendReceiver = await userDB.getUserById(idsInput.idReceiver);
+    const user = await this.userDB.getUserByEmail(email);
 
-    if (!friendSender.length || !friendReceiver.length) {
+    const hashCompare = await this.hashManager.compareHash(
+      password,
+      user.password
+    );
+
+    if (!user) {
+      throw new UserNotFound();
+    }
+    if (!hashCompare) {
+      throw new InvalidPassword();
+    }
+
+    const payload: AuthenticationData = {
+      id: user.id,
+      role: user.role,
+    };
+
+    const token = this.authenticator.generateToken(payload);
+    return token;
+  };
+
+  public getUser = async (token: string): Promise<UserProfile> => {
+
+    const authentication = this.authenticator.getTokenData(token);
+
+    validateRole(authentication.role);
+
+    /* 
+    if (authentication.role !== "NORMAL") {
+      throw new NotAllowed();
+    }
+ */
+    const result = await this.userDB.getUserById(authentication.id);
+
+    if (!result) {
       throw new UserNotFound();
     }
 
-    //CONSULTA AO BANCO PRA VER SE  A RELAÇÃO DE AMIZADE JÁ EXISTE ENTRE QUEM ENVIA O PEDIDO E QUEM RECEBE, SE JÁ EXISTIR UMA RELAÇÃO ENVIA ERRO,
-    const userRelations = await userDB.checkRelations(idsInput.idSender);
-
-    if (
-      userRelations.length &&
-      (userRelations[0].friend_sender_id === idsInput.idSender ||
-        userRelations[0].friend_receiver_id === idsInput.idSender)
-    ) {
-      throw new AlreadyExists();
-    }
-
-    if (
-      userRelations.length &&
-      (userRelations[0].friend_sender_id === idsInput.idSender ||
-        userRelations[0].friend_receiver_id === idsInput.idSender)
-    ) {
-      throw new AlreadyExists();
-    }
-
-    const id: string = this.idGenerator.generateId()
-
-    const relations: RelationsDTO = {
-      id,
-      friend_sender_id: idsInput.idSender,
-      friend_receiver_id: idsInput.idReceiver,
+    const user:UserProfile = {
+      id: result.id,
+      email: result.email,
     };
-
-    const id2: string = this.idGenerator.generateId()
-
-    const relations2: RelationsDTO = {
-      id: id2,
-      friend_sender_id: idsInput.idReceiver,
-      friend_receiver_id: idsInput.idSender,
-    };
-
-    await  this.userDB.insertRelations(relations, relations2);
+    return user;
   };
 
-  public deleteFriendship = async (
-    idsInput: RelationsPostInput
-  ): Promise<void> => {
-    const userDB = new UserDatabase();
-
-    //CONSULTA AO BANCO PRA VER SE O ID ENVIADO RETORNA ALGUM USUÁRIO VÁLIDO
-    const friendSender = await userDB.getUserById(idsInput.idSender);
-
-    const friendReceiver = await userDB.getUserById(idsInput.idReceiver);
-
-    if (!friendSender.length || !friendReceiver.length) {
-      throw new UserNotFound();
-    }
-
-    //CONSULTA AO BANCO PRA VER SE A RELAÇÃO DE AMIZADE JÁ EXISTE ENTRE QUEM ENVIA O PEDIDO E QUEM RECEBE, SE JÁ EXISTIR UMA RELAÇÃO ENVIA ERRO,
-    const userRelations = await userDB.checkRelations(idsInput.idSender);
-    if (
-      userRelations.length &&
-      (userRelations[0].friend_sender_id === idsInput.idSender ||
-        userRelations[0].friend_receiver_id === idsInput.idSender)
-    ) {
-    } else {
-      throw new RelationsNotFound();
-    }
-
-    const id = idsInput.idSender;
-
-    await  this.userDB.deleteFriendship({ id });
-  };
+ 
 }
