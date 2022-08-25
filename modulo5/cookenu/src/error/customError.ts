@@ -28,9 +28,9 @@ export class PostNotFound extends CustomError{
   }
 }
 
-export class LikeNotFound extends CustomError{
+export class RecipesNotFound extends CustomError{
   constructor(){
-    super(404, "LIKE Not Found, please verify the ID POST SENT  and try again")
+    super(404, "This User has no Recipes yet")
   }
 }
 

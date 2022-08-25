@@ -27,3 +27,8 @@ CREATE TABLE IF NOT EXISTS cookenu_users_relations (
     FOREIGN KEY (id_user_follower) REFERENCES cookenu_users (id),
     FOREIGN KEY (id_user_followed) REFERENCES cookenu_users (id)
 );
+
+
+ALTER TABLE cookenu_users_relations DROP INDEX id_user_follower ;
+
+DESCRIBE cookenu_recipes;

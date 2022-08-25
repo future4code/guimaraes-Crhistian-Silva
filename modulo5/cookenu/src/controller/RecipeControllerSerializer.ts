@@ -12,6 +12,7 @@ import {
   LikePostInput,
   POST_TYPES,
   RelationsPostInput,
+  RecipeFeedInput,
 } from "../model/recipeTypes";
 
 export const validateRecipeInput = (input: RecipeInput): void => {
@@ -21,6 +22,16 @@ export const validateRecipeInput = (input: RecipeInput): void => {
     throw new MissingParametersToken();
   }
 };
+
+export const validateRecipeFeedInput = (input: RecipeFeedInput): void => {
+  if (!input.idFollowed) {
+    throw new MissingParameters();
+  }else if(!input.token){
+    throw new MissingParametersToken();
+  }
+};
+
+
 
 export const validateIdAuthorRecipe = async (id: string): Promise<void> => {
   const user = new UserDatabase();

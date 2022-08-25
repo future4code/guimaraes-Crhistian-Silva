@@ -1,3 +1,5 @@
+import { AuthenticationData } from "../services/Authenticator";
+
 export enum POST_TYPES {
   NORMAL = "normal",
   EVENT = "event",
@@ -20,6 +22,23 @@ export interface RecipeDTO{
   creationDate?: Date | number| string
 }
 
+export type RecipeFeedInput = {
+  idFollowed: string,
+  token: string
+};
+
+export type RecipeBusinessFeedInput = {
+  idFollowed: string,
+  offset: number,
+  limit: number,
+  token: string 
+};
+
+export type RecipeDBDTO = {
+  idFollowed: string,
+  offset: number,
+  limit: number,
+};
 
 
 

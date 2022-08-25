@@ -65,9 +65,9 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  public checkRelations = async (idFollower: string, idFollowed:string): Promise<FollowDTO> => {
+  public checkRelations = async (idFollower: string, idFollowed:string): Promise<FollowDTO[]> => {
     try {
-      const result: any[] = await BaseDatabase.connection(this.relationsTable)
+      const result = await BaseDatabase.connection(this.relationsTable)
         .select("*")
         .whereLike("id_user_follower", idFollower)
         .andWhereLike("id_user_followed", idFollowed);
