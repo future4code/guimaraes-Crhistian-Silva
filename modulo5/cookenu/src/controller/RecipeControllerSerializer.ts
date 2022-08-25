@@ -2,6 +2,7 @@ import { UserDatabase } from "../data/UserDatabase";
 import {
   AuthorRecipeNotFound,
   MissingParameters,
+  MissingParametersToken,
   SameIdError,
   UserNotFound,
 } from "../error/customError";
@@ -14,8 +15,10 @@ import {
 } from "../model/recipeTypes";
 
 export const validateRecipeInput = (input: RecipeInput): void => {
-  if (!input.authorId || !input.title || !input.description || !input.preparationMode) {
+  if (!input.title || !input.description || !input.preparationMode) {
     throw new MissingParameters();
+  }else if(!input.token){
+    throw new MissingParametersToken();
   }
 };
 

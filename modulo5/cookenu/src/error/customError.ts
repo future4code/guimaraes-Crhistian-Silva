@@ -16,6 +16,12 @@ export class UserNotFound extends CustomError{
   }
 }
 
+export class UserFollowedNotFound extends CustomError{
+  constructor(){
+    super(404, "Not Found, please verify ID Followed User Sent")
+  }
+}
+
 export class PostNotFound extends CustomError{
   constructor(){
     super(404, "Not Found, please verify ID Post Sent")
@@ -42,7 +48,7 @@ export class MissingParametersLogin extends CustomError{
 
 export class MissingParametersToken extends CustomError {
   constructor() {
-    super(422,  "Missing or incorrect Token. Consult the documentation and fill in headers authorization");
+    super(422,  "Missing Token. Consult the documentation and fill in headers authorization");
   }
 }
 
@@ -82,6 +88,12 @@ export class InvalidPassword extends CustomError{
   }
 }
 
+export class InvalidToken extends CustomError{
+  constructor(){
+    super(401," Invalid Token, please verify and try again" )
+  }
+}
+
 export class Unauthorized extends CustomError {
   constructor() {
     super(401, "User not Authorized");
@@ -97,5 +109,11 @@ export class InvalidRole extends CustomError {
 export class NotAllowed extends CustomError {
   constructor() {
     super(401, "Only 'NORMAL' users are allowed");
+  }
+}
+
+export class NotAllowedFollow extends CustomError {
+  constructor() {
+    super(401, "You Don´t follow yourself");
   }
 }

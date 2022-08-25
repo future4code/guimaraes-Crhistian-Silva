@@ -18,3 +18,12 @@ CREATE TABLE IF NOT EXISTS cookenu_recipes (
     author_id VARCHAR(64) ,
     FOREIGN KEY (author_id) REFERENCES cookenu_users (id)
 );
+
+
+CREATE TABLE IF NOT EXISTS cookenu_users_relations (
+    id VARCHAR(64) PRIMARY KEY,
+    id_user_follower VARCHAR(64) UNIQUE NOT NULL,
+    id_user_followed  VARCHAR(255) NOT NULL ,
+    FOREIGN KEY (id_user_follower) REFERENCES cookenu_users (id),
+    FOREIGN KEY (id_user_followed) REFERENCES cookenu_users (id)
+);

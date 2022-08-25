@@ -27,3 +27,15 @@ export interface UserProfile{
   id: string,
   email: string
 }
+
+export interface FollowInput{
+  idFollowed: string,
+  token: string
+}
+
+export interface FollowDTO{
+  id: string,
+  idFollower: string,
+  idFollowed: string
+
+}

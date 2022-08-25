@@ -4,10 +4,10 @@ export enum POST_TYPES {
 }
 
 export type RecipeInput = {
-  authorId:string,
-  title: string;
+  title: string,
   description: string,
-  preparationMode: string;
+  preparationMode: string,
+  token: string
 };
 
 

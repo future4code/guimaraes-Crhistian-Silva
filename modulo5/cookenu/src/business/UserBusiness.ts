@@ -1,16 +1,17 @@
 import {
+  FollowDTO,
+  FollowInput,
   LoginInput,
   UserDTO,
   UserProfile,
 } from "./../model/userTypes";
 import { HashManager } from "./../services/HashManager";
-import { RelationsPostInput } from "../model/recipeTypes";
 import { UserDatabase } from "../data/UserDatabase";
 import {
   AlreadyExists,
   InvalidPassword,
-  NotAllowed,
-  RelationsNotFound,
+  NotAllowedFollow,
+  UserFollowedNotFound,
   UserNotFound,
 } from "../error/customError";
 import { User } from "../model/user";
@@ -60,18 +61,19 @@ export class UserBusiness {
   public login = async (input: LoginInput): Promise<string> => {
     const { email, password } = input;
 
-    // aqui crio um novo usuário para fazer as verificações de email e senha
+    
 
     const user = await this.userDB.getUserByEmail(email);
-
-    const hashCompare = await this.hashManager.compareHash(
-      password,
-      user.password
-    );
 
     if (!user) {
       throw new UserNotFound();
     }
+  
+    const hashCompare = await this.hashManager.compareHash(
+      password,
+      user.password
+    );
+   
     if (!hashCompare) {
       throw new InvalidPassword();
     }
@@ -91,11 +93,6 @@ export class UserBusiness {
 
     validateRole(authentication.role);
 
-    /* 
-    if (authentication.role !== "NORMAL") {
-      throw new NotAllowed();
-    }
- */
     const result = await this.userDB.getUserById(authentication.id);
 
     if (!result) {
@@ -109,5 +106,43 @@ export class UserBusiness {
     return user;
   };
 
- 
+  public followUser = async (input: FollowInput): Promise<void> => {
+    const {idFollowed, token} = input 
+
+    const authentication = this.authenticator.getTokenData(token);
+
+    validateRole(authentication.role);
+
+    //Aqui faço a verificação se o id enviado para seguir é o do próprio usuário, talvez seja redundante, gostaria de opinião sobre isso
+
+if(authentication.id === idFollowed){
+  throw new NotAllowedFollow();
+}
+
+    //faço a verificação pra ver se o usuário que deseja seguir existe
+    const user = await this.userDB.getUserById(idFollowed);
+
+    if (!user) {
+      throw new UserFollowedNotFound();
+    }
+//Faço a verificação pra saber se a relação de seguir algum usuário já existe
+
+    const userRelations = await this.userDB.checkRelations(authentication.id, user.id);
+
+    if(userRelations){
+      throw new AlreadyExists();
+    }
+
+    const id: string = this.idGenerator.generateId();
+
+    const relations: FollowDTO= {
+      id,
+      idFollowed,
+      idFollower: authentication.id  
+    }
+
+    await this.userDB.insertFollow(relations)
+
+  };
+
 }

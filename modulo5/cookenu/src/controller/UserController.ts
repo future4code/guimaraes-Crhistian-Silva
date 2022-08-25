@@ -1,13 +1,12 @@
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
 import {
+  validateFollowInput,
   validateLoginInput,
-  validateRelationsDTO,
   validateToken,
   validateUserInput,
 } from "./userControllerSerializer";
-import { RelationsPostInput } from "../model/recipeTypes";
-import { CreateUserInput, LoginInput } from "../model/userTypes";
+import { CreateUserInput, FollowInput, LoginInput } from "../model/userTypes";
 
 export class UserController {
   private userBusiness: UserBusiness;
@@ -61,6 +60,25 @@ export class UserController {
       const user = await this.userBusiness.getUser(token)
 
       res.status(200).send(user);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
+
+  public followUser  = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const message = "REQUEST SUCESSFULL";
+
+      const input: FollowInput = {
+        token: req.headers.authorization as string,
+        idFollowed: req.body.idFollowed   
+      }
+
+      validateFollowInput(input);
+      
+      await this.userBusiness.followUser(input);
+
+      res.status(200).send(message);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }

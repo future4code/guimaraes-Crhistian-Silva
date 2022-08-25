@@ -1,9 +1,9 @@
 import { Authenticator } from './../services/Authenticator';
 import {  RecipeDTO, RecipeInput } from "../model/recipeTypes";
-import { Recipe } from "../model/Recipe";
 import { HashManager } from '../services/HashManager';
 import { IdGenerator } from "../services/IdGenerator";
 import { RecipeDatabase } from '../data/RecipeDatabase';
+import { Recipe } from '../model/recipe';
 
 export class RecipeBusiness {
   private recipeDB: RecipeDatabase;
@@ -18,9 +18,13 @@ export class RecipeBusiness {
     }
   public createRecipe = async (input: RecipeInput): Promise<void> => {
 
-    let { authorId, title, description, preparationMode } = input;
+    let {title, description, preparationMode, token } = input;
 
-    const recipe = new Recipe(authorId, title, description, preparationMode );
+    const recipe = new Recipe(title, description, preparationMode );
+
+    const tokenData = this.authenticator.getTokenData(token);
+
+    //achei interessante após a verificação do token, pegar o id do usuário e inserir no Banco em vez de pedir para ser enviado no body, já que para fazer a solicitação de criar o usuário já está logado e criação da receita só será concluída se for enviado um token válido
 
     const id: string = this.idGenerator.generateId();
 
@@ -29,7 +33,7 @@ export class RecipeBusiness {
       title: recipe.getTitle(),
       description: recipe.getDescription(),
       preparationMode: recipe.getPreparation(),
-      authorId: recipe.getAuthor(),
+      authorId: tokenData.id
     };
 
     await this.recipeDB.insertRecipe(newRecipe);

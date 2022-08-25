@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import { Unauthorized } from "../error/customError";
+import { InvalidToken, Unauthorized } from "../error/customError";
 import { ROLE_TYPE } from "../model/userTypes";
 
 export type AuthenticationData = {
@@ -24,7 +24,7 @@ export class Authenticator {
 
       return payload;
     } catch (error: any) {
-      throw new Unauthorized();
+      throw new InvalidToken();
     }
   };
 }

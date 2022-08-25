@@ -4,7 +4,6 @@ import {
 } from "./RecipeControllerSerializer";
 import { Request, Response } from "express";
 import { RecipeBusiness } from "../business/RecipeBusiness";
-import { validateToken } from "./userControllerSerializer";
 
 export class RecipeController {
   private recipeBusiness: RecipeBusiness;
@@ -15,17 +14,14 @@ export class RecipeController {
     try {
       const message = "SUCESS, RECIPE CREATED";
 
-      const token = req.headers.authorization as string
-
       const input: RecipeInput = {
-        authorId: req.body.authorId,
         title: req.body.title,
         description: req.body.description,
         preparationMode: req.body.preparationMode,
+        token: req.headers.authorization as string
       };
 
-      validateToken(token)
-
+// validação de parâmetros input 
       validateRecipeInput(input);
 
       await this.recipeBusiness.createRecipe(input)

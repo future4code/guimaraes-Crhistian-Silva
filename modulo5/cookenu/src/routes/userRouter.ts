@@ -9,6 +9,10 @@ userRouter.post("/signup", userController.signUp)
 
 userRouter.post("/login", userController.login)
 
-userRouter.get('/profile', userController.getUser)
+userRouter.get("/profile", userController.getUser)
+
+userRouter.post("/follow", userController.followUser)
+
+
 
 

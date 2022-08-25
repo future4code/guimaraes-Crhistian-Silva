@@ -1,12 +1,10 @@
-import { User } from '../model/user';
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import { RelationsDTO } from "../model/relationsDTO";
-import { UserDTO } from "../model/userTypes";
+import { FollowDTO, UserDTO } from "../model/userTypes";
 
 export class UserDatabase extends BaseDatabase {
   private userTable = "cookenu_users";
-  private relationsTable = "labook_relations";
+  private relationsTable = "cookenu_users_relations";
 
   public insertUser = async (user: UserDTO): Promise<void> => {
     try {
@@ -30,6 +28,8 @@ export class UserDatabase extends BaseDatabase {
         .select("*")
         .from(this.userTable)
         .where({ email });
+
+       
       return user[0];
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
@@ -47,37 +47,31 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  public insertRelations = async (
-    inputRelations: RelationsDTO,
-    inputRelations2: RelationsDTO
+  public insertFollow = async (
+    inputRelations: FollowDTO,
   ): Promise<void> => {
     try {
       await BaseDatabase.connection
-        .insert([
+        .insert(
           {
             id: inputRelations.id,
-            friend_sender_id: inputRelations.friend_sender_id,
-            friend_receiver_id: inputRelations.friend_receiver_id,
+            id_user_follower: inputRelations.idFollower,
+            id_user_followed: inputRelations.idFollowed,
           },
-          {
-            id: inputRelations2.id,
-            friend_sender_id: inputRelations2.friend_sender_id,
-            friend_receiver_id: inputRelations2.friend_receiver_id,
-          },
-        ])
+    )
         .into(this.relationsTable);
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
     }
   };
 
-  public checkRelations = async (userId: string): Promise<RelationsDTO[]> => {
+  public checkRelations = async (idFollower: string, idFollowed:string): Promise<FollowDTO> => {
     try {
       const result: any[] = await BaseDatabase.connection(this.relationsTable)
-        .select("friend_sender_id", "friend_receiver_id")
-        .whereLike("friend_sender_id", userId)
-        .orWhereLike("friend_receiver_id", userId);
-      return result;
+        .select("*")
+        .whereLike("id_user_follower", idFollower)
+        .andWhereLike("id_user_followed", idFollowed);
+      return result[0];
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
     }
