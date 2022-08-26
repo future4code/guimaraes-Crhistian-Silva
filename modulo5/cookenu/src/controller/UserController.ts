@@ -4,9 +4,12 @@ import {
   validateFollowInput,
   validateLoginInput,
   validateToken,
+  validateUnFollowInput,
   validateUserInput,
 } from "./userControllerSerializer";
-import { CreateUserInput, FollowInput, LoginInput } from "../model/userTypes";
+import { BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, UnFollowInput } from "../model/userTypes";
+import { validateRecipeFeedInput } from "./RecipeControllerSerializer";
+import { UserFeedDTO } from "../model/recipeTypes";
 
 export class UserController {
   private userBusiness: UserBusiness;
@@ -67,11 +70,11 @@ export class UserController {
 
   public followUser  = async (req: Request, res: Response): Promise<void> => {
     try {
-      const message = "REQUEST SUCESSFULL";
+      const message = "Followed successfully";
 
       const input: FollowInput = {
         token: req.headers.authorization as string,
-        idFollowed: req.body.idFollowed   
+        idFollowd: req.body.idFollowd   
       }
 
       validateFollowInput(input);
@@ -84,9 +87,69 @@ export class UserController {
     }
   };
 
+  public getUserById = async (req: Request, res: Response) => {
+    try {
+      const input: FollowInput = {
+        idFollowd: req.params.id as string,
+        token: req.headers.authorization as string
+      }
+      validateFollowInput(input)
+      
+      const user = await this.userBusiness.getUserById(input)
 
+      res.status(200).send(user);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
 
+  public unfollowUser  = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const message = "Unfollowed successfully";
 
+      const input: UnFollowInput = {
+        token: req.headers.authorization as string,
+        userUnfollowId: req.body.userUnfollowId   
+      }
 
+      validateUnFollowInput(input);
+      
+      await this.userBusiness.unfollowUser(input);
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
+
+  public getFeed = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const input: FeedInput = {
+        idFollowd: req.body.idFollowd as string,
+        token: req.headers.authorization as string,
+      };
+
+      validateRecipeFeedInput(input);
+
+      let limit: number = 5;
+
+      let page = Number(req.query.page) ? Number(req.query.page) : 1;
+
+      let offset = limit * (page - 1);
+
+      const feed: BusinessFeedInput = {
+        idFollowd: input.idFollowd,
+        offset,
+        limit,
+        token: input.token,
+      };
+
+      const recipes = await this.userBusiness.getFeed(feed);
+
+      res.status(200).send({recipes});
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
 
 }

@@ -7,13 +7,11 @@ import {
   UserNotFound,
 } from "../error/customError";
 import {
-  CreateCommentInput,
   RecipeInput,
-  LikePostInput,
   POST_TYPES,
-  RelationsPostInput,
-  RecipeFeedInput,
+  RecipeInputById,
 } from "../model/recipeTypes";
+import { FeedInput } from "../model/userTypes";
 
 export const validateRecipeInput = (input: RecipeInput): void => {
   if (!input.title || !input.description || !input.preparationMode) {
@@ -23,13 +21,24 @@ export const validateRecipeInput = (input: RecipeInput): void => {
   }
 };
 
-export const validateRecipeFeedInput = (input: RecipeFeedInput): void => {
-  if (!input.idFollowed) {
+export const validateRecipeFeedInput = (input: FeedInput): void => {
+  if (!input.idFollowd) {
     throw new MissingParameters();
   }else if(!input.token){
     throw new MissingParametersToken();
   }
 };
+
+export const validateRecipeIdInput = (input:RecipeInputById ): void => {
+  if (!input.idRecipe) {
+    throw new MissingParameters();
+  }else if(!input.token){
+    throw new MissingParametersToken();
+  }
+};
+
+
+
 
 
 
@@ -53,16 +62,9 @@ export const validateIdAuthor = async (id: string): Promise<void> => {
   }
 };
 
-
 export const validateIdPost = (id: string): void => {
   if (!id) {
     throw new SameIdError();
-  }
-};
-
-export const validateRelationDTO = (input: RelationsPostInput): void => {
-  if (!input.idSender || !input.idReceiver) {
-    throw new MissingParameters();
   }
 };
 
@@ -74,18 +76,6 @@ export const validateId = (id: string): void => {
 
 export const validateType = (type: POST_TYPES): void | POST_TYPES => {
   if (!type) {
-    throw new MissingParameters();
-  }
-};
-
-export const validateLikedInput = (input: LikePostInput): void => {
-  if (!input.idPost || !input.idLikedAuthor) {
-    throw new MissingParameters();
-  }
-};
-
-export const validateCommentPostInput = (input: CreateCommentInput): void => {
-  if (!input.idPost || !input.comment || !input.authorCommentId) {
     throw new MissingParameters();
   }
 };

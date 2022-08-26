@@ -6,7 +6,7 @@ import { userRouter } from './routes/userRouter';
 app.use("/user", userRouter)
 
 //2
-app.use("/recipes", recipeRouter)
+app.use("/recipe", recipeRouter)
 
 
 

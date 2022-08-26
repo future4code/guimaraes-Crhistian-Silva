@@ -1,5 +1,3 @@
-import { AuthenticationData } from "../services/Authenticator";
-
 export enum POST_TYPES {
   NORMAL = "normal",
   EVENT = "event",
@@ -12,26 +10,18 @@ export type RecipeInput = {
   token: string
 };
 
-
 export interface RecipeDTO{
   authorId: string,
   id: string,
   title: string,
   description: string,
   preparationMode: string,
-  creationDate?: Date | number| string
+  creationDate?: Date | string
 }
 
 export type RecipeFeedInput = {
-  idFollowed: string,
+  idFollowd: string,
   token: string
-};
-
-export type RecipeBusinessFeedInput = {
-  idFollowed: string,
-  offset: number,
-  limit: number,
-  token: string 
 };
 
 export type RecipeDBDTO = {
@@ -40,31 +30,23 @@ export type RecipeDBDTO = {
   limit: number,
 };
 
-
-
-
-
-
-
-
-export type RelationsPostInput = {
-  idSender: string;
-  idReceiver: string;
-};
-
-export type LikePostInput = {
-  idPost: string;
-  idLikedAuthor: string
-}
-
-export type CreateCommentInput = {
-  idPost: string;
-  comment: string;
-  authorCommentId: string
-}
-
-export type InputFeed = {
+export type InputRecipe = {
   authorId: string,
   offset: number,
   limit: number
+}
+
+export type RecipeInputById = {
+  idRecipe: string,
+  token: string,
+}
+
+export interface UserFeedDTO{
+  id: string,
+  title: string,
+  description: string,
+  creationDate: string,
+  userId: string,
+  userName: string
+
 }

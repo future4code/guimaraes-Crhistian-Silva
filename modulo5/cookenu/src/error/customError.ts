@@ -16,9 +16,9 @@ export class UserNotFound extends CustomError{
   }
 }
 
-export class UserFollowedNotFound extends CustomError{
+export class UserFollowdNotFound extends CustomError{
   constructor(){
-    super(404, "Not Found, please verify ID Followed User Sent")
+    super(404, "Not Found, please verify ID Followd User Sent")
   }
 }
 
@@ -31,6 +31,12 @@ export class PostNotFound extends CustomError{
 export class RecipesNotFound extends CustomError{
   constructor(){
     super(404, "This User has no Recipes yet")
+  }
+}
+
+export class RecipeIdNotFound extends CustomError{
+  constructor(){
+    super(404, "Not Found Recipe, please verify ID Recipe Sent")
   }
 }
 
@@ -66,7 +72,7 @@ export class AlreadyExists extends CustomError{
 
 export class RelationsNotFound extends CustomError{
   constructor(){
-    super(404, "Relations Not Found, please verify the ID USER SENT  and try again")
+    super(404, "Relations Not Found, please verify the ID USER Followd SENT and try again")
   }
 }
 

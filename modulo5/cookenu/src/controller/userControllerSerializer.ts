@@ -9,6 +9,7 @@ import {
   FollowInput,
   LoginInput,
   ROLE_TYPE,
+  UnFollowInput,
 } from "../model/userTypes";
 
 export const validateUserInput = (input: CreateUserInput): void => {
@@ -36,9 +37,17 @@ export const validateRole = (role: ROLE_TYPE): void => {
 };
 
 export const validateFollowInput = (input: FollowInput): void => {
-  if (!input.idFollowed) {
+  if (!input.idFollowd) {
     throw new MissingParameters();
   } else if (!input.token) {
     throw new MissingParametersToken();
   }
+};
+
+  export const validateUnFollowInput = (input: UnFollowInput): void => {
+    if (!input.userUnfollowId) {
+      throw new MissingParameters();
+    } else if (!input.token) {
+      throw new MissingParametersToken();
+    }
 };

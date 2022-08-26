@@ -1,6 +1,9 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import {  RecipeBusinessFeedInput, RecipeDBDTO, RecipeDTO } from "../model/recipeTypes";
+import {
+  RecipeDBDTO,
+  RecipeDTO,
+} from "../model/recipeTypes";
 
 export class RecipeDatabase extends BaseDatabase {
   private recipesTable = "cookenu_recipes";
@@ -21,13 +24,32 @@ export class RecipeDatabase extends BaseDatabase {
     }
   };
 
+  public getRecipesById = async (idRecipe: string): Promise<RecipeDTO> => {
+    try {
+      const recipe = await BaseDatabase.connection(this.recipesTable)
+        .select(
+          "id",
+          "title",
+          "description",
+          "preparation_mode as preparationMode",
+          "creation_date as creationDate"
+        )
+        .where("id", idRecipe);
+      return recipe[0];
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage);
+    }
+  };
+
   public getRecipesByAuthorId = async ({
     idFollowed,
     limit,
-    offset
+    offset,
   }: RecipeDBDTO): Promise<RecipeDTO[]> => {
     try {
-      const result: RecipeDTO[] = await BaseDatabase.connection(this.recipesTable)
+      const result: RecipeDTO[] = await BaseDatabase.connection(
+        this.recipesTable
+      )
         .select(
           "id",
           "title",
@@ -45,4 +67,4 @@ export class RecipeDatabase extends BaseDatabase {
       throw new CustomError(500, error.sqlMessage);
     }
   };
-};
+}

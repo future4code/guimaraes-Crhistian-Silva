@@ -25,17 +25,40 @@ export interface UserDTO{
 
 export interface UserProfile{
   id: string,
+  name: string,
   email: string
 }
 
 export interface FollowInput{
-  idFollowed: string,
+  idFollowd: string,
+  token: string
+}
+
+export interface UnFollowInput{
+  userUnfollowId: string,
   token: string
 }
 
 export interface FollowDTO{
   id: string,
   idFollower: string,
-  idFollowed: string
+  idFollowd: string
+}
 
+export interface FeedInput{
+  idFollowd: string,
+  token: string
+}
+
+export type BusinessFeedInput = {
+  idFollowd: string,
+  offset: number,
+  limit: number,
+  token: string 
+};
+
+export type FeedDTO = {
+  idFollowd: string,
+  offset: number,
+  limit: number
 }

@@ -13,6 +13,17 @@ userRouter.get("/profile", userController.getUser)
 
 userRouter.post("/follow", userController.followUser)
 
+userRouter.delete("/unfollow", userController.unfollowUser)
+
+userRouter.get("/feed", userController.getFeed)
+
+userRouter.get("/:id", userController.getUserById)
+
+
+
+
+
+
 
 
 
