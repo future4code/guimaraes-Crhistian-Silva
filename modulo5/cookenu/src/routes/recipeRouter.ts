@@ -9,10 +9,14 @@ recipeRouter.post('/create', recipeController.createRecipe)
 
 recipeRouter.get("/:id", recipeController.getRecipeById)
 
+recipeRouter.patch("/:id", recipeController.editRecipe)
+
+recipeRouter.delete("/:id", recipeController.delRecipe)
+
 /*
 recipeRouter.get("/", recipeController.getPostsByType)
 
-recipeRouter.get("/:id", recipeController.getPostById)
+
 
 recipeRouter.post("/like", recipeController.likePost)
 

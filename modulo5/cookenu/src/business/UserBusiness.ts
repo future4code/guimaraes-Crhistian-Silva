@@ -24,7 +24,7 @@ import { CreateUserInput } from "../model/userTypes";
 import { IdGenerator } from "../services/IdGenerator";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { validateRole } from "../controller/userControllerSerializer";
-import { RecipeDTO, UserFeedDTO } from "../model/recipeTypes";
+import { UserFeedDTO } from "../model/recipeTypes";
 
 export class UserBusiness {
   private userDB: UserDatabase;

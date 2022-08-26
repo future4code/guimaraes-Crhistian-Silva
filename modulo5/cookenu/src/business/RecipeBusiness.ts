@@ -1,8 +1,12 @@
+import { InvalidToken, Unauthorized } from './../error/customError';
 import { Authenticator } from "./../services/Authenticator";
 import {
+  EditRecipeDTO,
+  EditRecipeInput,
   RecipeDTO,
   RecipeInput,
   RecipeInputById,
+  ValuesEditRecipe,
 } from "../model/recipeTypes";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
@@ -10,8 +14,12 @@ import { RecipeDatabase } from "../data/RecipeDatabase";
 import { Recipe } from "../model/recipe";
 import { UserDatabase } from "../data/UserDatabase";
 import {
+  AuthorRecipeNotFound,
+  ErrorType,
+  MissingParameters,
   RecipeIdNotFound, UserNotFound
 } from "../error/customError";
+import { validateValuesRecipeInput } from "../controller/RecipeControllerSerializer";
 
 export class RecipeBusiness {
   private recipeDB: RecipeDatabase;
@@ -27,7 +35,7 @@ export class RecipeBusiness {
     this.userDB = new UserDatabase();
   }
   public createRecipe = async (input: RecipeInput): Promise<void> => {
-    let { title, description, preparationMode, token } = input;
+    const { title, description, preparationMode, token } = input;
 
     const recipe = new Recipe(title, description, preparationMode);
 
@@ -61,8 +69,8 @@ export class RecipeBusiness {
 
     //aqui sem deixar como any gera um erro
 
-    const tokenData = this.authenticator.getTokenData(input.token);
-  
+    this.authenticator.getTokenData(input.token);
+
     const recipe  = await this.recipeDB.getRecipesById(input.idRecipe);
 
     if (!recipe) {
@@ -73,6 +81,57 @@ export class RecipeBusiness {
       recipe.creationDate = newDate;
 
     return recipe;
+  };
+
+  public editRecipe = async (input: EditRecipeInput) => {
+    let { title, id, token, description, preparationMode} = input
+//acho interessante não validar nada, pois o usuário pode querer editar apenas algum item da receita e não todos
+
+const tokenData = this.authenticator.getTokenData(token);
+
+if (tokenData.role !== "normal") {
+  throw new ErrorType();
+}
+
+const recipe = await this.recipeDB.getRecipesById(id);
+
+if (!recipe) {
+  throw new RecipeIdNotFound();
+}
+
+if(tokenData.id !== recipe.authorId){
+  throw new AuthorRecipeNotFound()
+}
+
+//aqui crio uma função para pegar os valores que serão enviados no body, caso o usuário não queira editar algum valor a função usa os mesmos que retornaram da busca no database, não consegui bolar alguma forma de no database atualizar apenas o que foi passada, aceito dicas sobre como melhorar isso
+const recipeInput: ValuesEditRecipe = { title, description, preparationMode}
+
+const newRecipe = validateValuesRecipeInput(recipeInput, recipe)
+
+    const editRecipeInput: EditRecipeDTO = {
+      title: newRecipe.title,
+      description: newRecipe.description,
+      preparationMode:newRecipe.description,
+      id,
+    };
+    await this.recipeDB.editRecipe(editRecipeInput);
+  };
+
+  public delRecipe = async (idRecipe: string, token: string): Promise<void> => {
+
+    const tokenData = this.authenticator.getTokenData(token);
+
+    const recipe = await this.recipeDB.getRecipesById(idRecipe);
+        
+    if (!recipe) {
+      throw new RecipeIdNotFound();
+    }
+    // validação de tipo ou autor da receita, se for usuário comum e não for o autor não pode deletar
+    if (tokenData.role !== "admin" && tokenData.id !== recipe.authorId) {
+        throw new Unauthorized();
+    }
+
+    await this.recipeDB.delRecipe(idRecipe);
   };
 
 }

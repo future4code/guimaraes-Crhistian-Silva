@@ -22,12 +22,6 @@ export class UserFollowdNotFound extends CustomError{
   }
 }
 
-export class PostNotFound extends CustomError{
-  constructor(){
-    super(404, "Not Found, please verify ID Post Sent")
-  }
-}
-
 export class RecipesNotFound extends CustomError{
   constructor(){
     super(404, "This User has no Recipes yet")

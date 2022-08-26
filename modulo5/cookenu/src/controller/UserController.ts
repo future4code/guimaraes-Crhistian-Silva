@@ -9,7 +9,6 @@ import {
 } from "./userControllerSerializer";
 import { BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, UnFollowInput } from "../model/userTypes";
 import { validateRecipeFeedInput } from "./RecipeControllerSerializer";
-import { UserFeedDTO } from "../model/recipeTypes";
 
 export class UserController {
   private userBusiness: UserBusiness;

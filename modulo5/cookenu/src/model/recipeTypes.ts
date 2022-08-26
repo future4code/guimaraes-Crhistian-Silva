@@ -48,5 +48,26 @@ export interface UserFeedDTO{
   creationDate: string,
   userId: string,
   userName: string
+}
 
+
+export type EditRecipeInput = {
+  title: string,
+  description: string | undefined,
+  preparationMode: string | undefined,
+  token: string,
+  id: string
+};
+
+export interface EditRecipeDTO{
+  id:string,
+  title:string | undefined,
+  description: string | undefined,
+  preparationMode:string | undefined
+}
+
+export interface ValuesEditRecipe{
+  title: string | undefined,
+  description: string | undefined,
+  preparationMode: string | undefined
 }

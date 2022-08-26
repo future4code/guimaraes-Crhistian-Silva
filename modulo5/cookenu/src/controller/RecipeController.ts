@@ -1,10 +1,9 @@
 import {
+  EditRecipeInput,
   RecipeInput,
   RecipeInputById,
 } from "../model/recipeTypes";
-import {
-  validateRecipeInput,
-} from "./RecipeControllerSerializer";
+import { validateRecipeInput } from "./RecipeControllerSerializer";
 import { Request, Response } from "express";
 import { RecipeBusiness } from "../business/RecipeBusiness";
 import { validateToken } from "./userControllerSerializer";
@@ -53,4 +52,40 @@ export class RecipeController {
     }
   };
 
+  public editRecipe = async (req: Request, res: Response) => {
+    try {
+      const message = "Recipe changed successfully!! ";
+
+      const input: EditRecipeInput = {
+        token: req.headers.authorization as string,
+        title: req.body.title,
+        description: req.body.description,
+        preparationMode: req.body.preparationMode,
+        id: req.params.id,
+      };
+
+      validateToken(input.token);
+      await this.recipeBusiness.editRecipe(input);
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
+
+  public delRecipe = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const message = "SUCESS, YOUR REQUEST HAS BEEN ACCEPTED, RECIPE DELETED";
+    
+      const token = req.headers.authorization as string
+      const idRecipe = req.params.id 
+
+      validateToken(token);
+
+      await this.recipeBusiness.delRecipe(idRecipe, token);
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
 }

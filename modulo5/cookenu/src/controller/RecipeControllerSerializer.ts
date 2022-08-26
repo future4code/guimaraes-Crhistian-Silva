@@ -1,3 +1,4 @@
+import { RecipeDTO, ValuesEditRecipe } from './../model/recipeTypes';
 import { UserDatabase } from "../data/UserDatabase";
 import {
   AuthorRecipeNotFound,
@@ -36,6 +37,27 @@ export const validateRecipeIdInput = (input:RecipeInputById ): void => {
     throw new MissingParametersToken();
   }
 };
+
+export const validateValuesRecipeInput = (input: ValuesEditRecipe, recipe: RecipeDTO): ValuesEditRecipe  =>{
+
+  let { title, description, preparationMode } = input
+
+  if(!title){
+     title = recipe.title
+  }
+  
+  if(!description){
+     description = recipe.description
+  }
+  if(!preparationMode){
+     preparationMode = recipe.preparationMode
+  } 
+
+  const newInput = {
+    title, description, preparationMode
+  }
+  return newInput
+}
 
 
 

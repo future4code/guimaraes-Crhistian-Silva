@@ -1,9 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import {
-  RecipeDBDTO,
-  RecipeDTO,
-} from "../model/recipeTypes";
+import { EditRecipeDTO, RecipeDBDTO, RecipeDTO } from "../model/recipeTypes";
 
 export class RecipeDatabase extends BaseDatabase {
   private recipesTable = "cookenu_recipes";
@@ -32,7 +29,8 @@ export class RecipeDatabase extends BaseDatabase {
           "title",
           "description",
           "preparation_mode as preparationMode",
-          "creation_date as creationDate"
+          "creation_date as creationDate",
+          " author_id as authorId"
         )
         .where("id", idRecipe);
       return recipe[0];
@@ -63,6 +61,29 @@ export class RecipeDatabase extends BaseDatabase {
         .limit(limit)
         .offset(offset);
       return result;
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage);
+    }
+  };
+
+  public editRecipe = async (recipe: EditRecipeDTO): Promise<void> => {
+    try {
+      const { title, description, preparationMode } = recipe;
+      await BaseDatabase.connection
+        .update({ title, description, preparation_mode: preparationMode })
+        .where({ id: recipe.id })
+        .into(this.recipesTable);
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage);
+    }
+  };
+
+  public delRecipe = async (idRecipe: string): Promise<void> => {
+    try {
+      await BaseDatabase.connection
+        .from(this.recipesTable)
+        .where("id", idRecipe)
+        .del();
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
     }
