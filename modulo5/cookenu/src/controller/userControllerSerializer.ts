@@ -5,6 +5,7 @@ import {
   MissingParametersToken,
 } from "../error/customError";
 import {
+  AccountInput,
   CreateUserInput,
   FollowInput,
   LoginInput,
@@ -50,4 +51,12 @@ export const validateFollowInput = (input: FollowInput): void => {
     } else if (!input.token) {
       throw new MissingParametersToken();
     }
+};
+
+export const validateAccount = (input: AccountInput): void => {
+  if (!input.email || !input.password) {
+    throw new MissingParameters();
+  } else if (!input.token) {
+    throw new MissingParametersToken();
+  }
 };

@@ -1,13 +1,14 @@
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
 import {
+  validateAccount,
   validateFollowInput,
   validateLoginInput,
   validateToken,
   validateUnFollowInput,
   validateUserInput,
 } from "./userControllerSerializer";
-import { BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, UnFollowInput } from "../model/userTypes";
+import { AccountInput, BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, UnFollowInput } from "../model/userTypes";
 import { validateRecipeFeedInput } from "./RecipeControllerSerializer";
 
 export class UserController {
@@ -150,5 +151,25 @@ export class UserController {
       res.status(error.status || 400).send(error.message);
     }
   };
+
+  public delAccount  = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const message = "Account Deleted successfully";
+
+      const input: AccountInput  = {
+        token: req.headers.authorization as string,
+        email: req.body.email,
+        password: req.body.password,
+      };
+      // validar todos os itens to input
+      validateAccount(input)
+   
+      await this.userBusiness.delAccount(input);
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  }; 
 
 }

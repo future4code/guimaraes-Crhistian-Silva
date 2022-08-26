@@ -53,6 +53,7 @@ export class UserDatabase extends BaseDatabase {
     inputRelations: FollowDTO,
   ): Promise<void> => {
     try {
+      
       await BaseDatabase.connection
         .insert(
           {
@@ -105,6 +106,19 @@ export class UserDatabase extends BaseDatabase {
         .limit(limit)
         .offset(offset);
       return result;
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage);
+    }
+  };
+
+  public delAccount = async (
+    idUser: string
+  ): Promise<void> => {
+    try {
+      await BaseDatabase.connection
+        .from(this.userTable)
+        .where("id", idUser)
+        .del();
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);
     }

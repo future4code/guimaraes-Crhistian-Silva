@@ -5,13 +5,13 @@ CREATE TABLE IF NOT EXISTS cookenu_users (
     name VARCHAR(64) NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL ,
     password VARCHAR(64) NOT NULL,
-    role VARCHAR(64) NOT NULL DEFAULT "NORMAL"
+    role VARCHAR(64) NOT NULL DEFAULT "normal"
 );
 
 
 CREATE TABLE IF NOT EXISTS cookenu_recipes (
     id VARCHAR(64) PRIMARY KEY,
-    title VARCHAR(64) UNIQUE NOT NULL,
+    title VARCHAR(100) NOT NULL,
     description  VARCHAR(255) NOT NULL ,
     preparation_mode VARCHAR(500) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS cookenu_recipes (
 
 CREATE TABLE IF NOT EXISTS cookenu_users_relations (
     id VARCHAR(64) PRIMARY KEY,
-    id_user_follower VARCHAR(64) UNIQUE NOT NULL,
+    id_user_follower VARCHAR(64) NOT NULL,
     id_user_followed  VARCHAR(255) NOT NULL ,
     FOREIGN KEY (id_user_follower) REFERENCES cookenu_users (id),
     FOREIGN KEY (id_user_followed) REFERENCES cookenu_users (id)

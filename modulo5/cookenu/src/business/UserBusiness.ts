@@ -1,4 +1,5 @@
 import {
+  AccountInput,
   BusinessFeedInput,
   FeedDTO,
   FollowDTO,
@@ -16,6 +17,7 @@ import {
   NotAllowedFollow,
   RecipesNotFound,
   RelationsNotFound,
+  Unauthorized,
   UserFollowdNotFound,
   UserNotFound,
 } from "../error/customError";
@@ -237,5 +239,35 @@ export class UserBusiness {
       recipe.creationDate = newDate;
     }
     return recipes;
+  };
+  
+  public delAccount = async (input: AccountInput): Promise<void> => {
+    const { email, password, token } = input;
+// como se trata de deletar a conta, acho válido fazer todas as autenticações possíveis, se for redundante, me diga
+    const authentication = this.authenticator.getTokenData(token);
+    
+    validateRole(authentication.role);
+
+    const user = await this.userDB.getUserByEmail(email)
+
+    if (!user) {
+      throw new UserNotFound();
+    }
+
+    const hashCompare = await this.hashManager.compareHash(
+      password,
+      user.password
+    );
+  
+    if (!hashCompare) {
+      throw new InvalidPassword();
+    }
+  
+     // validação de tipo da conta, se for usuário comum e não for o dono não pode deletar
+     if (authentication.role !== "admin" && authentication.id !== user.id) {
+      throw new Unauthorized();
+  }
+
+    await this.userDB.delAccount(authentication.id)  
   };
 }

@@ -62,3 +62,9 @@ export type FeedDTO = {
   offset: number,
   limit: number
 }
+
+export interface AccountInput{
+  token: string,
+  email: string,
+  password: string,
+}

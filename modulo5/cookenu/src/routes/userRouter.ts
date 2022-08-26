@@ -19,6 +19,10 @@ userRouter.get("/feed", userController.getFeed)
 
 userRouter.get("/:id", userController.getUserById)
 
+userRouter.delete("/profile/delete", userController.delAccount)
+
+
+
 
 
 
