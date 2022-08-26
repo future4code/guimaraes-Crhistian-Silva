@@ -5,6 +5,7 @@ import {
   FollowDTO,
   FollowInput,
   LoginInput,
+  PasswordInput,
   UnFollowInput,
   UserDTO,
   UserProfile,
@@ -27,17 +28,20 @@ import { IdGenerator } from "../services/IdGenerator";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { validateRole } from "../controller/userControllerSerializer";
 import { UserFeedDTO } from "../model/recipeTypes";
+import { MailDataBase } from "../services/MailTransporter";
 
 export class UserBusiness {
   private userDB: UserDatabase;
   private hashManager: HashManager;
   private authenticator: Authenticator;
   private idGenerator: IdGenerator;
+  private emailConfirmation: MailDataBase;
   constructor() {
     (this.userDB = new UserDatabase()),
       (this.hashManager = new HashManager()),
       (this.authenticator = new Authenticator()),
-      (this.idGenerator = new IdGenerator());
+      (this.idGenerator = new IdGenerator()),
+      (this.emailConfirmation = new MailDataBase());
   }
   public signUp = async (input: CreateUserInput): Promise<string> => {
     const { name, email, password, role } = input;
@@ -206,7 +210,7 @@ export class UserBusiness {
   };
 
   public getFeed = async (input: BusinessFeedInput): Promise<UserFeedDTO[]> => {
-    let recipes: UserFeedDTO[] = []
+    let recipes: UserFeedDTO[] = [];
 
     //aqui sem deixar como any gera um erro
 
@@ -240,15 +244,15 @@ export class UserBusiness {
     }
     return recipes;
   };
-  
+
   public delAccount = async (input: AccountInput): Promise<void> => {
     const { email, password, token } = input;
-// como se trata de deletar a conta, acho válido fazer todas as autenticações possíveis, se for redundante, me diga
+    // como se trata de deletar a conta, acho válido fazer todas as autenticações possíveis, se for redundante, me diga
     const authentication = this.authenticator.getTokenData(token);
-    
+
     validateRole(authentication.role);
 
-    const user = await this.userDB.getUserByEmail(email)
+    const user = await this.userDB.getUserByEmail(email);
 
     if (!user) {
       throw new UserNotFound();
@@ -258,16 +262,58 @@ export class UserBusiness {
       password,
       user.password
     );
-  
+
     if (!hashCompare) {
       throw new InvalidPassword();
     }
-  
-     // validação de tipo da conta, se for usuário comum e não for o dono não pode deletar
-     if (authentication.role !== "admin" && authentication.id !== user.id) {
-      throw new Unauthorized();
-  }
 
-    await this.userDB.delAccount(authentication.id)  
+    // validação de tipo da conta, se for usuário comum e não for o dono não pode deletar
+    if (authentication.role !== "admin" && authentication.id !== user.id) {
+      throw new Unauthorized();
+    }
+
+    await this.userDB.delAccount(authentication.id);
+  };
+
+  public requestPassword = async (input: AccountInput): Promise<void> => {
+    const { email, password } = input;
+    // como se trata de alterar a senha, acho válido fazer todas as autenticações possíveis, se for redundante, me diga
+
+    const authentication = this.authenticator.getTokenData(input.token);
+
+    const user = await this.userDB.getUserById(authentication.id);
+
+    const hashCompare = await this.hashManager.compareHash(
+      password,
+      user.password
+    );
+
+    if (!hashCompare) {
+      throw new InvalidPassword();
+    }
+
+    const payload = {
+      id: user.id,
+      role: user.role,
+    };
+
+
+    const newToken = this.authenticator.generateToken(payload);
+
+    await this.emailConfirmation.sendEmail(email, user.id, newToken);
+  };
+
+  public updatePassword = async (input: PasswordInput): Promise<void> => {
+    const { id, token, password } = input;
+
+    const authentication = this.authenticator.getTokenData(token);
+
+    if (authentication.id !== id) {
+      throw new UserNotFound();
+    }
+
+    const hashPassword = await this.hashManager.generateHash(password);
+
+    await this.userDB.updatePassword(id, hashPassword);
   };
 }

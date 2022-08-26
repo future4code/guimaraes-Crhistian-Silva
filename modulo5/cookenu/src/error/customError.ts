@@ -117,3 +117,8 @@ export class NotAllowedFollow extends CustomError {
     super(401, "You Don´t follow yourself");
   }
 }
+  export class NodeMailerError extends CustomError {
+    constructor() {
+      super(400, "Node_Mailer_Error");
+    }
+}

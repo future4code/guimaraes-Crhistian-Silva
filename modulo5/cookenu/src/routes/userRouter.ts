@@ -21,6 +21,12 @@ userRouter.get("/:id", userController.getUserById)
 
 userRouter.delete("/profile/delete", userController.delAccount)
 
+userRouter.patch("/password", userController.requestPassword)
+
+userRouter.patch("/password/:id/:token", userController.updatePassword)
+
+
+
 
 
 

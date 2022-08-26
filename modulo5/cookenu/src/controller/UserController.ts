@@ -8,7 +8,7 @@ import {
   validateUnFollowInput,
   validateUserInput,
 } from "./userControllerSerializer";
-import { AccountInput, BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, UnFollowInput } from "../model/userTypes";
+import { AccountInput, BusinessFeedInput, CreateUserInput, FeedInput, FollowInput, LoginInput, PasswordInput, UnFollowInput } from "../model/userTypes";
 import { validateRecipeFeedInput } from "./RecipeControllerSerializer";
 
 export class UserController {
@@ -171,5 +171,46 @@ export class UserController {
       res.status(error.status || 400).send(error.message);
     }
   }; 
+
+  public requestPassword  = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const message = "REQUEST SUCCESFULL, PLEASE VERIFY YOUR EMAIL";
+
+      const input: AccountInput  = {
+        token: req.headers.authorization as string,
+        email: req.body.email,
+        password: req.body.password,
+      };
+
+
+      validateAccount(input);
+
+      await this.userBusiness.requestPassword(input);
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
+
+  public updatePassword  = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const message = "Request Successfull";
+
+      const input:PasswordInput  = {
+        token: req.params.token,
+        id: req.params.id,
+        password: req.body.password
+      };
+
+      await this.userBusiness.updatePassword(input);
+
+      res.status(200).send(message);
+    } catch (error: any) {
+      res.status(error.status || 400).send(error.message);
+    }
+  };
+
+
 
 }

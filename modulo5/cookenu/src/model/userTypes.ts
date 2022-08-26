@@ -68,3 +68,14 @@ export interface AccountInput{
   email: string,
   password: string,
 }
+
+export interface AuthenticationData{
+  id: string, 
+  role: ROLE_TYPE
+}
+
+export interface PasswordInput{
+  token: string,
+  id: string,
+  password: string,
+}
