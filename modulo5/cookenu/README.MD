@@ -1,7 +1,7 @@
-<h1 align="center">Projeto Labook</h1>
+<h1 align="center">Projeto Cookenu</h1>
 
-<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/VUjTihGb" target="_blank">Labook API</a>.</p>
-<p>Link do Deploy Heroku => <a href="https://projeto-labook-crhis.herokuapp.com" target="_blank">Heroku-Projeto-Labook</a>.</p>
+<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/VUjTihGb" target="_blank">Cookenu API</a>.</p>
+<p>Link do Deploy Heroku => <a href="https://projeto-labook-crhis.herokuapp.com" target="_blank">Heroku-Projeto-Cookenu</a>.</p>
 
 <h1 id="topo">Conteúdo</h1>
 
@@ -23,16 +23,22 @@
   _ Dotenv: 16.0.1
   _ Mysql: 2.18.1
   _ Knex: 2.2.0
+  _ Bcryptsjs: 2.4.3
+  _ Jsonwebtoken: 8.5.1,
+  _ Nodemailer: 6.7.8
   _ @types/cors": 2.8.12
   _ @types/express": 4.17.13
   _ @types/knex": 0.16.1
   _ @types/node": 18.6.2
   _ @types/uuid": 8.3.4
+  _ @types/bcryptjs: 2.4.2
+  _ @types/jsonwebtoken: 8.5.8
+  _ @types/nodemailer: 6.4.5
 
         <h2 id="sobre">:notebook: Sobre </h2>
 
-  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos, tendo classes User e Post, com seus diversos atributos e métodos, foi feito o encapsulamento para que haja a segurança dos dados recebidos e verificações necessárias, o principal desafio foi entender como retornar alguns atributos, mas acredito que o resultado foi satisfatório.
-  O projeto se apresenta na forma de comandos que interagem com Usuários e Posts, baseando-se em uma relação de redes sociais entre usuários onde pode-se criar usuários, criar posts, criar relações de amizade entre usuários, criar relações entre curtidas nos posts de usuários e descurti-los, também foram criados comandos de busca de  um post específico através do seu Id, buscar todos os posts de um determinado tipo, buscar todos os posts de amigos, todos os dados requisitados para que os comandos de endpoints funcionem e suas formas corretas de uso, estão explicitados no Link da Documentação do Postman em anexo
+  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos, tendo classes User e Recipes, com seus diversos atributos e métodos, foi feito o encapsulamento para que haja a segurança dos dados recebidos, verificações necessárias e criado criptografia de Password para inserção no banco de dados, o principal desafio desse projeto foi entender quais endpoints precisam de certas verificações mais robustas e outros não, acredito que todas as validações estão robustas dentro do que foi pedido.
+  O projeto se apresenta na forma de comandos que interagem com Usuários e Receitas(Recipes), baseando-se em uma relação de um site ou app de culinária onde existem interações entre usuários -> receitas e também usuários -> usuários, onde pode-se criar usuários, criar receitas, criar relações de seguir usuários, e também deixar de segui-los, também foram criados comandos de busca de  um receitas específico através do seu Id, buscar todos as receitas de um determinado do usuário seguidos, também foi criado endpoints para troca de senha através de umm link enviado no e-mail cadastrado, todos os dados requisitados para que os comandos de endpoints funcionem e suas formas corretas de uso, estão explicitados no Link da Documentação do Postman em anexo
   <h4 align="right"><a href="#topo">Topo</a></h4>
 
 <h2 id="funciona">:rocket: O que funciona </h2>
@@ -41,7 +47,7 @@
 <h4 align="right"><a href="#topo">Topo</a></h4>
 
 <h2 id="pre-requisitos">✅ 🖼️ Pré-requisitos </h2>
-Para começar, você terá que  instalar em sua máquina as seguintes ferramentas: Git, Node.js., Express, TypeScript, Cors, Ts-node-dev, UUid, Axios, Mysql, Dotenv e um editor de código-fonte para trabalhar com o código, usei o VS Code.
+Para começar, você terá que  instalar em sua máquina as seguintes ferramentas: Git, Node.js., Express, TypeScript, Cors, Ts-node-dev, UUid, Axios, Mysql, Dotenv, Jsonwetoken, Bcrypt, Nodemailer e seus respectivos types, também um editor de código-fonte para trabalhar com o código, usei o VS Code.
 
 ```bash
 

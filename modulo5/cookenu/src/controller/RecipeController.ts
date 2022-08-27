@@ -13,7 +13,7 @@ export class RecipeController {
   constructor() {
     this.recipeBusiness = new RecipeBusiness();
   }
-  public createRecipe = async (req: Request, res: Response) => {
+  public createRecipe = async (req: Request, res: Response): Promise<void> => {
     try {
       const message = "SUCESS, RECIPE CREATED";
 
@@ -35,7 +35,7 @@ export class RecipeController {
     }
   };
 
-  public getRecipeById = async (req: Request, res: Response): Promise<any> => {
+  public getRecipeById = async (req: Request, res: Response): Promise<void> => {
     try {
       const input: RecipeInputById = {
         idRecipe: req.params.id as string,
@@ -52,7 +52,7 @@ export class RecipeController {
     }
   };
 
-  public editRecipe = async (req: Request, res: Response) => {
+  public editRecipe = async (req: Request, res: Response): Promise<void>=> {
     try {
       const message = "Recipe changed successfully!! ";
 
@@ -72,7 +72,7 @@ export class RecipeController {
     }
   };
 
-  public delRecipe = async (req: Request, res: Response): Promise<any> => {
+  public delRecipe = async (req: Request, res: Response): Promise<void> => {
     try {
       const message = "SUCESS, YOUR REQUEST HAS BEEN ACCEPTED, RECIPE DELETED";
     

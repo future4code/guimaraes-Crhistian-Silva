@@ -8,6 +8,7 @@ import {
   PasswordInput,
   UnFollowInput,
   UserDTO,
+  UserFeedDTO,
   UserProfile,
 } from "./../model/userTypes";
 import { HashManager } from "./../services/HashManager";
@@ -21,13 +22,13 @@ import {
   Unauthorized,
   UserFollowdNotFound,
   UserNotFound,
+  UserNotFoundEmail,
 } from "../error/customError";
 import { User } from "../model/user";
 import { CreateUserInput } from "../model/userTypes";
 import { IdGenerator } from "../services/IdGenerator";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { validateRole } from "../controller/userControllerSerializer";
-import { UserFeedDTO } from "../model/recipeTypes";
 import { MailDataBase } from "../services/MailTransporter";
 
 export class UserBusiness {
@@ -71,7 +72,11 @@ export class UserBusiness {
   };
 
   public login = async (input: LoginInput): Promise<string> => {
-    const { email, password } = input;
+    const { email, password, token } = input;
+
+    const authentication = this.authenticator.getTokenData(token);
+
+    validateRole(authentication.role);
 
     const user = await this.userDB.getUserByEmail(email);
 
@@ -93,8 +98,8 @@ export class UserBusiness {
       role: user.role,
     };
 
-    const token = this.authenticator.generateToken(payload);
-    return token;
+    const newToken = this.authenticator.generateToken(payload);
+    return newToken;
   };
 
   public getUser = async (token: string): Promise<UserProfile> => {
@@ -212,8 +217,6 @@ export class UserBusiness {
   public getFeed = async (input: BusinessFeedInput): Promise<UserFeedDTO[]> => {
     let recipes: UserFeedDTO[] = [];
 
-    //aqui sem deixar como any gera um erro
-
     const tokenData = this.authenticator.getTokenData(input.token);
 
     const usersRelation = await this.userDB.checkRelations(
@@ -275,28 +278,19 @@ export class UserBusiness {
     await this.userDB.delAccount(authentication.id);
   };
 
-  public requestPassword = async (input: AccountInput): Promise<void> => {
-    const { email, password } = input;
+  public forgotPassword = async (email: string): Promise<void> => {
     // como se trata de alterar a senha, acho válido fazer todas as autenticações possíveis, se for redundante, me diga
 
-    const authentication = this.authenticator.getTokenData(input.token);
+    const user = await this.userDB.getUserByEmail(email);
 
-    const user = await this.userDB.getUserById(authentication.id);
-
-    const hashCompare = await this.hashManager.compareHash(
-      password,
-      user.password
-    );
-
-    if (!hashCompare) {
-      throw new InvalidPassword();
+    if (!user) {
+      throw new UserNotFoundEmail();
     }
 
     const payload = {
       id: user.id,
       role: user.role,
     };
-
 
     const newToken = this.authenticator.generateToken(payload);
 

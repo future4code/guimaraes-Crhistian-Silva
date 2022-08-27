@@ -1,4 +1,4 @@
-import { RecipeDTO, ValuesEditRecipe } from './../model/recipeTypes';
+import { RecipeDTO, ValuesEditRecipe } from "./../model/recipeTypes";
 import { UserDatabase } from "../data/UserDatabase";
 import {
   AuthorRecipeNotFound,
@@ -7,17 +7,13 @@ import {
   SameIdError,
   UserNotFound,
 } from "../error/customError";
-import {
-  RecipeInput,
-  POST_TYPES,
-  RecipeInputById,
-} from "../model/recipeTypes";
+import { RecipeInput, POST_TYPES, RecipeInputById } from "../model/recipeTypes";
 import { FeedInput } from "../model/userTypes";
 
 export const validateRecipeInput = (input: RecipeInput): void => {
   if (!input.title || !input.description || !input.preparationMode) {
     throw new MissingParameters();
-  }else if(!input.token){
+  } else if (!input.token) {
     throw new MissingParametersToken();
   }
 };
@@ -25,44 +21,43 @@ export const validateRecipeInput = (input: RecipeInput): void => {
 export const validateRecipeFeedInput = (input: FeedInput): void => {
   if (!input.idFollowd) {
     throw new MissingParameters();
-  }else if(!input.token){
+  } else if (!input.token) {
     throw new MissingParametersToken();
   }
 };
 
-export const validateRecipeIdInput = (input:RecipeInputById ): void => {
+export const validateRecipeIdInput = (input: RecipeInputById): void => {
   if (!input.idRecipe) {
     throw new MissingParameters();
-  }else if(!input.token){
+  } else if (!input.token) {
     throw new MissingParametersToken();
   }
 };
 
-export const validateValuesRecipeInput = (input: ValuesEditRecipe, recipe: RecipeDTO): ValuesEditRecipe  =>{
+export const validateValuesRecipeInput = (
+  input: ValuesEditRecipe,
+  recipe: RecipeDTO
+): ValuesEditRecipe => {
+  let { title, description, preparationMode } = input;
 
-  let { title, description, preparationMode } = input
+  if (!title) {
+    title = recipe.title;
+  }
 
-  if(!title){
-     title = recipe.title
+  if (!description) {
+    description = recipe.description;
   }
-  
-  if(!description){
-     description = recipe.description
+  if (!preparationMode) {
+    preparationMode = recipe.preparationMode;
   }
-  if(!preparationMode){
-     preparationMode = recipe.preparationMode
-  } 
 
   const newInput = {
-    title, description, preparationMode
-  }
-  return newInput
-}
-
-
-
-
-
+    title,
+    description,
+    preparationMode,
+  };
+  return newInput;
+};
 
 export const validateIdAuthorRecipe = async (id: string): Promise<void> => {
   const user = new UserDatabase();
@@ -72,8 +67,6 @@ export const validateIdAuthorRecipe = async (id: string): Promise<void> => {
     throw new AuthorRecipeNotFound();
   }
 };
-
-
 
 export const validateIdAuthor = async (id: string): Promise<void> => {
   const user = new UserDatabase();

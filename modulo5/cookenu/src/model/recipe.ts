@@ -1,4 +1,3 @@
-
 export class Recipe {
   constructor(
     private title: string,

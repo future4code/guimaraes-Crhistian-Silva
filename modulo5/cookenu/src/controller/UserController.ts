@@ -1,3 +1,4 @@
+import { MissingEmail } from './../error/customError';
 import { UserBusiness } from "../business/UserBusiness";
 import { Request, Response } from "express";
 import {
@@ -42,13 +43,14 @@ export class UserController {
       const input: LoginInput = {
         email: req.body.email,
         password: req.body.password,
+        token: req.headers.authorization as string
       };
 
       validateLoginInput(input);
 
-      const token = await this.userBusiness.login(input);
+      const newToken = await this.userBusiness.login(input);
 
-      res.status(200).send({ message: "Login Sucessfull !!", token });
+      res.status(200).send({ message: "Login Sucessfull !!", newToken });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
@@ -81,7 +83,7 @@ export class UserController {
       
       await this.userBusiness.followUser(input);
 
-      res.status(200).send(message);
+      res.status(201).send(message);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
@@ -172,20 +174,17 @@ export class UserController {
     }
   }; 
 
-  public requestPassword  = async (req: Request, res: Response): Promise<void> => {
+  public forgotPassword  = async (req: Request, res: Response): Promise<void> => {
     try {
       const message = "REQUEST SUCCESFULL, PLEASE VERIFY YOUR EMAIL";
 
-      const input: AccountInput  = {
-        token: req.headers.authorization as string,
-        email: req.body.email,
-        password: req.body.password,
-      };
+      const email: string  =  req.body.email 
 
+      if(!email){
+        throw new MissingEmail();
+      }
 
-      validateAccount(input);
-
-      await this.userBusiness.requestPassword(input);
+      await this.userBusiness.forgotPassword(email);
 
       res.status(200).send(message);
     } catch (error: any) {
@@ -210,7 +209,4 @@ export class UserController {
       res.status(error.status || 400).send(error.message);
     }
   };
-
-
-
 }

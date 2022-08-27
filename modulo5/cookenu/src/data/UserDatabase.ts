@@ -1,12 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
-import {
-  BusinessFeedInput,
-  FeedDTO,
-  FollowDTO,
-  UserDTO,
-} from "../model/userTypes";
-import { UserFeedDTO } from "../model/recipeTypes";
+import { FeedDTO, FollowDTO, UserDTO, UserFeedDTO } from "../model/userTypes";
 
 export class UserDatabase extends BaseDatabase {
   private userTable = "cookenu_users";

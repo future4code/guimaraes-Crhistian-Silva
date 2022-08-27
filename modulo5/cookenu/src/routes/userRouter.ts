@@ -1,39 +1,26 @@
-import express from "express"
-import { UserController } from "../controller/UserController"
+import express from "express";
+import { UserController } from "../controller/UserController";
 
-export const userRouter = express.Router()
+export const userRouter = express.Router();
 
-const userController = new UserController()
+const userController = new UserController();
 
-userRouter.post("/signup", userController.signUp)
+userRouter.post("/signup", userController.signUp);
 
-userRouter.post("/login", userController.login)
+userRouter.post("/login", userController.login);
 
-userRouter.get("/profile", userController.getUser)
+userRouter.get("/profile", userController.getUser);
 
-userRouter.post("/follow", userController.followUser)
+userRouter.post("/follow", userController.followUser);
 
-userRouter.delete("/unfollow", userController.unfollowUser)
+userRouter.delete("/unfollow", userController.unfollowUser);
 
-userRouter.get("/feed", userController.getFeed)
+userRouter.get("/feed", userController.getFeed);
 
-userRouter.get("/:id", userController.getUserById)
+userRouter.get("/:id", userController.getUserById);
 
-userRouter.delete("/profile/delete", userController.delAccount)
+userRouter.delete("/profile/delete", userController.delAccount);
 
-userRouter.patch("/password", userController.requestPassword)
+userRouter.patch("/password", userController.forgotPassword);
 
-userRouter.patch("/password/:id/:token", userController.updatePassword)
-
-
-
-
-
-
-
-
-
-
-
-
-
+userRouter.patch("/password/:id/:token", userController.updatePassword);

@@ -4,70 +4,60 @@ export enum POST_TYPES {
 }
 
 export type RecipeInput = {
-  title: string,
-  description: string,
-  preparationMode: string,
-  token: string
+  title: string;
+  description: string;
+  preparationMode: string;
+  token: string;
 };
 
-export interface RecipeDTO{
-  authorId: string,
-  id: string,
-  title: string,
-  description: string,
-  preparationMode: string,
-  creationDate?: Date | string
+export interface RecipeDTO {
+  authorId: string;
+  id: string;
+  title: string;
+  description: string;
+  preparationMode: string;
+  creationDate?: Date | string;
 }
 
 export type RecipeFeedInput = {
-  idFollowd: string,
-  token: string
+  idFollowd: string;
+  token: string;
 };
 
 export type RecipeDBDTO = {
-  idFollowed: string,
-  offset: number,
-  limit: number,
+  idFollowed: string;
+  offset: number;
+  limit: number;
 };
 
 export type InputRecipe = {
-  authorId: string,
-  offset: number,
-  limit: number
-}
-
-export type RecipeInputById = {
-  idRecipe: string,
-  token: string,
-}
-
-export interface UserFeedDTO{
-  id: string,
-  title: string,
-  description: string,
-  creationDate: string,
-  userId: string,
-  userName: string
-}
-
-
-export type EditRecipeInput = {
-  title: string,
-  description: string | undefined,
-  preparationMode: string | undefined,
-  token: string,
-  id: string
+  authorId: string;
+  offset: number;
+  limit: number;
 };
 
-export interface EditRecipeDTO{
-  id:string,
-  title:string | undefined,
-  description: string | undefined,
-  preparationMode:string | undefined
+export type RecipeInputById = {
+  idRecipe: string;
+  token: string;
+};
+
+export type EditRecipeInput = {
+  title: string;
+  description: string | undefined;
+  preparationMode: string | undefined;
+  token: string;
+  id: string;
+};
+
+export interface EditRecipeDTO {
+  id: string;
+  title: string | undefined;
+  description: string | undefined;
+  preparationMode: string | undefined;
 }
 
-export interface ValuesEditRecipe{
-  title: string | undefined,
-  description: string | undefined,
-  preparationMode: string | undefined
+export interface ValuesEditRecipe {
+  title: string | undefined;
+  description: string | undefined;
+  preparationMode: string | undefined;
 }

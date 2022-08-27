@@ -14,7 +14,7 @@ import {
 } from "../model/userTypes";
 
 export const validateUserInput = (input: CreateUserInput): void => {
-  if (!input.name || !input.email || !input.password) {
+  if (!input.name || !input.email || !input.password || !input.role) {
     throw new MissingParameters();
   }
 };
@@ -22,6 +22,8 @@ export const validateUserInput = (input: CreateUserInput): void => {
 export const validateLoginInput = (input: LoginInput): void => {
   if (!input.email || !input.password) {
     throw new MissingParametersLogin();
+  } else if (!input.token) {
+    throw new MissingParametersToken();
   }
 };
 
@@ -45,12 +47,12 @@ export const validateFollowInput = (input: FollowInput): void => {
   }
 };
 
-  export const validateUnFollowInput = (input: UnFollowInput): void => {
-    if (!input.userUnfollowId) {
-      throw new MissingParameters();
-    } else if (!input.token) {
-      throw new MissingParametersToken();
-    }
+export const validateUnFollowInput = (input: UnFollowInput): void => {
+  if (!input.userUnfollowId) {
+    throw new MissingParameters();
+  } else if (!input.token) {
+    throw new MissingParametersToken();
+  }
 };
 
 export const validateAccount = (input: AccountInput): void => {
