@@ -13,9 +13,7 @@ import { AccountInput, BusinessFeedInput, CreateUserInput, FeedInput, FollowInpu
 import { validateRecipeFeedInput } from "./RecipeControllerSerializer";
 
 export class UserController {
-  private userBusiness: UserBusiness;
-  constructor() {
-    this.userBusiness = new UserBusiness();
+  constructor( private userBusiness: UserBusiness) {
   }
   public signUp = async (req: Request, res: Response): Promise<void> => {
     try {

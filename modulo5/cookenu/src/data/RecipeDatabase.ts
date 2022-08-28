@@ -1,8 +1,9 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
 import { EditRecipeDTO, RecipeDBDTO, RecipeDTO } from "../model/recipeTypes";
+import { RecipeRepository } from "../business/RecipeRepository";
 
-export class RecipeDatabase extends BaseDatabase {
+export class RecipeDatabase extends BaseDatabase implements RecipeRepository {
   private recipesTable = "cookenu_recipes";
 
   public insertRecipe = async (recipe: RecipeDTO): Promise<void> => {

@@ -1,26 +1,54 @@
+import { UserDatabase } from "./../data/UserDatabase";
+import { UserBusiness } from "./../business/UserBusiness";
 import express from "express";
 import { UserController } from "../controller/UserController";
+import { HashManager } from "../services/HashManager";
+import { Authenticator } from "../services/Authenticator";
+import { IdGenerator } from "../services/IdGenerator";
+import { MailDataBase } from "../services/MailTransporter";
 
 export const userRouter = express.Router();
 
-const userController = new UserController();
+const hashManager = new HashManager();
+const authenticator = new Authenticator();
+const idGenerator = new IdGenerator();
+const emailConfirmation = new MailDataBase();
+const userDB = new UserDatabase();
 
-userRouter.post("/signup", userController.signUp);
+const userBusiness = new UserBusiness(
+  userDB,
+  hashManager,
+  authenticator,
+  idGenerator,
+  emailConfirmation
+);
 
-userRouter.post("/login", userController.login);
+const userController = new UserController(userBusiness);
 
-userRouter.get("/profile", userController.getUser);
+userRouter.post("/signup", (req, res) => userController.signUp(req, res));
 
-userRouter.post("/follow", userController.followUser);
+userRouter.post("/login", (req, res) => userController.login(req, res));
 
-userRouter.delete("/unfollow", userController.unfollowUser);
+userRouter.get("/profile", (req, res) => userController.getUser(req, res));
 
-userRouter.get("/feed", userController.getFeed);
+userRouter.post("/follow", (req, res) => userController.followUser(req, res));
 
-userRouter.get("/:id", userController.getUserById);
+userRouter.delete("/unfollow", (req, res) =>
+  userController.unfollowUser(req, res)
+);
 
-userRouter.delete("/profile/delete", userController.delAccount);
+userRouter.get("/feed", (req, res) => userController.getFeed(req, res));
 
-userRouter.patch("/password", userController.forgotPassword);
+userRouter.get("/:id", (req, res) => userController.getUserById(req, res));
 
-userRouter.patch("/password/:id/:token", userController.updatePassword);
+userRouter.delete("/profile/delete", (req, res) =>
+  userController.delAccount(req, res)
+);
+
+userRouter.patch("/password", (req, res) =>
+  userController.forgotPassword(req, res)
+);
+
+userRouter.patch("/password/:id/:token", (req, res) =>
+  userController.updatePassword(req, res)
+);

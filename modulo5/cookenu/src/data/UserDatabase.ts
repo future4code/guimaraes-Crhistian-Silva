@@ -1,8 +1,9 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { CustomError } from "../error/customError";
 import { FeedDTO, FollowDTO, UserDTO, UserFeedDTO } from "../model/userTypes";
+import { UserRepository } from "../business/UserRepository";
 
-export class UserDatabase extends BaseDatabase {
+export class UserDatabase extends BaseDatabase implements UserRepository {
   private userTable = "cookenu_users";
   private relationsTable = "cookenu_users_relations";
 

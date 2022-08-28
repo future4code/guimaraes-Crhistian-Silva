@@ -1,14 +1,35 @@
+import { RecipeController } from "./../controller/RecipeController";
+import { RecipeBusiness } from "./../business/RecipeBusiness";
+import { RecipeDatabase } from "./../data/RecipeDatabase";
 import express from "express";
-import { RecipeController } from "../controller/RecipeController";
+import { UserDatabase } from "../data/UserDatabase";
+import { Authenticator } from "../services/Authenticator";
+import { IdGenerator } from "../services/IdGenerator";
 
 export const recipeRouter = express.Router();
 
-const recipeController = new RecipeController();
+const authenticator = new Authenticator();
+const idGenerator = new IdGenerator();
+const userDB = new UserDatabase();
+const recipeDB = new RecipeDatabase();
 
-recipeRouter.post("/create", recipeController.createRecipe);
+const recipeBusiness = new RecipeBusiness(
+  userDB,
+  recipeDB,
+  authenticator,
+  idGenerator
+);
 
-recipeRouter.get("/:id", recipeController.getRecipeById);
+const recipeController = new RecipeController(recipeBusiness);
 
-recipeRouter.patch("/:id", recipeController.editRecipe);
+recipeRouter.post("/create", (req, res) =>
+  recipeController.createRecipe(req, res)
+);
 
-recipeRouter.delete("/:id", recipeController.delRecipe);
+recipeRouter.get("/:id", (req, res) =>
+  recipeController.getRecipeById(req, res)
+);
+
+recipeRouter.patch("/:id", (req, res) => recipeController.editRecipe(req, res));
+
+recipeRouter.delete("/:id", (req, res) => recipeController.delRecipe(req, res));

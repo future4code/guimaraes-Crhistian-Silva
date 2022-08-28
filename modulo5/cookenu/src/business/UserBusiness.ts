@@ -12,7 +12,6 @@ import {
   UserProfile,
 } from "./../model/userTypes";
 import { HashManager } from "./../services/HashManager";
-import { UserDatabase } from "../data/UserDatabase";
 import {
   AlreadyExists,
   InvalidPassword,
@@ -26,24 +25,20 @@ import {
 } from "../error/customError";
 import { User } from "../model/user";
 import { CreateUserInput } from "../model/userTypes";
-import { IdGenerator } from "../services/IdGenerator";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { validateRole } from "../controller/userControllerSerializer";
+import { UserRepository } from "./UserRepository";
+import { IdGenerator } from "../services/IdGenerator";
 import { MailDataBase } from "../services/MailTransporter";
 
 export class UserBusiness {
-  private userDB: UserDatabase;
-  private hashManager: HashManager;
-  private authenticator: Authenticator;
-  private idGenerator: IdGenerator;
-  private emailConfirmation: MailDataBase;
-  constructor() {
-    (this.userDB = new UserDatabase()),
-      (this.hashManager = new HashManager()),
-      (this.authenticator = new Authenticator()),
-      (this.idGenerator = new IdGenerator()),
-      (this.emailConfirmation = new MailDataBase());
-  }
+  constructor(
+    private userDB: UserRepository,
+    private hashManager: HashManager,
+    private authenticator: Authenticator,
+    private idGenerator: IdGenerator,
+    private emailConfirmation: MailDataBase
+  ) {}
   public signUp = async (input: CreateUserInput): Promise<string> => {
     const { name, email, password, role } = input;
 
@@ -115,7 +110,6 @@ export class UserBusiness {
 
     const user: UserProfile = {
       id: userResult.id,
-      name: userResult.name,
       email: userResult.email,
     };
     return user;
@@ -183,7 +177,6 @@ export class UserBusiness {
 
     const user: UserProfile = {
       id: userResult.id,
-      name: userResult.name,
       email: userResult.email,
     };
     return user;

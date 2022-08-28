@@ -9,9 +9,8 @@ import { RecipeBusiness } from "../business/RecipeBusiness";
 import { validateToken } from "./userControllerSerializer";
 
 export class RecipeController {
-  private recipeBusiness: RecipeBusiness;
-  constructor() {
-    this.recipeBusiness = new RecipeBusiness();
+
+  constructor(  private recipeBusiness: RecipeBusiness) {
   }
   public createRecipe = async (req: Request, res: Response): Promise<void> => {
     try {

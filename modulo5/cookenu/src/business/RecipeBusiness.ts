@@ -1,4 +1,3 @@
-import { Authenticator } from "./../services/Authenticator";
 import {
   EditRecipeDTO,
   EditRecipeInput,
@@ -7,10 +6,6 @@ import {
   RecipeInputById,
   ValuesEditRecipe,
 } from "../model/recipeTypes";
-import { IdGenerator } from "../services/IdGenerator";
-import { RecipeDatabase } from "../data/RecipeDatabase";
-import { Recipe } from "../model/recipe";
-import { UserDatabase } from "../data/UserDatabase";
 import {
   AuthorRecipeNotFound,
   NotAllowed,
@@ -19,18 +14,19 @@ import {
   UserNotFound,
 } from "../error/customError";
 import { validateValuesRecipeInput } from "../controller/RecipeControllerSerializer";
+import { RecipeRepository } from "./RecipeRepository";
+import { UserRepository } from "./UserRepository";
+import { Recipe } from "../model/recipe";
+import { IdGenerator } from "../services/IdGenerator";
+import { Authenticator } from "./../services/Authenticator";
 
 export class RecipeBusiness {
-  private recipeDB: RecipeDatabase;
-  private authenticator: Authenticator;
-  private idGenerator: IdGenerator;
-  private userDB: UserDatabase;
-  constructor() {
-    this.recipeDB = new RecipeDatabase();
-    this.authenticator = new Authenticator();
-    this.idGenerator = new IdGenerator();
-    this.userDB = new UserDatabase();
-  }
+  constructor(
+    private userDB: UserRepository,
+    private recipeDB: RecipeRepository,
+    private authenticator: Authenticator,
+    private idGenerator: IdGenerator
+  ) {}
   public createRecipe = async (input: RecipeInput): Promise<void> => {
     const { title, description, preparationMode, token } = input;
 
