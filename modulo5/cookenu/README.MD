@@ -1,7 +1,7 @@
 <h1 align="center">Projeto Cookenu</h1>
 
-<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/VUjTihGb" target="_blank">Cookenu API</a>.</p>
-<p>Link do Deploy Heroku => <a href="https://projeto-labook-crhis.herokuapp.com" target="_blank">Heroku-Projeto-Cookenu</a>.</p>
+<p>Link para Conferir a DOCUMENTAÇÃO => <a href="https://documenter.getpostman.com/view/19720614/VUxKTUvQ" target="_blank">Cookenu API</a>.</p>
+<p>Link do Deploy Heroku => <a href="https://cookenu-crhis.herokuapp.com/" target="_blank">Heroku-Projeto-Cookenu</a>.</p>
 
 <h1 id="topo">Conteúdo</h1>
 
@@ -37,7 +37,7 @@
 
         <h2 id="sobre">:notebook: Sobre </h2>
 
-  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos baseado emm Arquitetura de 3 camadas, tendo classes User e Recipes, com seus diversos atributos e métodos, foi feito o encapsulamento para que haja a segurança dos dados recebidos, verificações necessárias e criado criptografia de Password para inserção no banco de dados, o principal desafio desse projeto foi entender quais endpoints precisam de certas verificações mais robustas e outros não, acredito que todas as validações estão robustas dentro do que foi pedido.
+  💬 estudante da <a href="http://www.labenu.com.br" target="_blank">Labenu</a> Projeto desenvolvido com Programação Orientada a Objetos baseado em Arquitetura de 3 camadas, também foi feito algumas injeções de dependências e alguns conceitos de Arquitetura Limpa, tendo classes User e Recipes, com seus diversos atributos e métodos, foi feito o encapsulamento para que haja a segurança dos dados recebidos, verificações necessárias e criado criptografia de Password para inserção no banco de dados, o principal desafio desse projeto foi entender quais endpoints precisam de certas verificações mais robustas e outros não, acredito que todas as validações estão robustas dentro do que foi pedido.
   O projeto se apresenta na forma de comandos que interagem com Usuários e Receitas(Recipes), baseando-se em uma relação de um site ou app de culinária onde existem interações entre usuários -> receitas e também usuários -> usuários, onde pode-se criar usuários, criar receitas, criar relações de seguir usuários, e também deixar de segui-los, também foram criados comandos de busca de  um receitas específico através do seu Id, buscar todos as receitas de um determinado do usuário seguidos, também foi criado endpoints para troca de senha através de umm link enviado no e-mail cadastrado, todos os dados requisitados para que os comandos de endpoints funcionem e suas formas corretas de uso, estão explicitados no Link da Documentação do Postman em anexo
   <h4 align="right"><a href="#topo">Topo</a></h4>
 

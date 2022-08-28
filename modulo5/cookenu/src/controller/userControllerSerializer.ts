@@ -39,6 +39,7 @@ export const validateRole = (role: ROLE_TYPE): void => {
   }
 };
 
+
 export const validateFollowInput = (input: FollowInput): void => {
   if (!input.idFollowd) {
     throw new MissingParameters();

@@ -15,6 +15,7 @@ import { HashManager } from "./../services/HashManager";
 import {
   AlreadyExists,
   InvalidPassword,
+  InvalidToken,
   NotAllowedFollow,
   RecipesNotFound,
   RelationsNotFound,
@@ -74,11 +75,13 @@ export class UserBusiness {
     validateRole(authentication.role);
 
     const user = await this.userDB.getUserByEmail(email);
-
     if (!user) {
       throw new UserNotFound();
     }
 
+    if(authentication.id !== user.id){
+      throw new InvalidToken()
+    }
     const hashCompare = await this.hashManager.compareHash(
       password,
       user.password

@@ -80,7 +80,7 @@ export class UserDatabase extends BaseDatabase implements UserRepository {
     try {
       await BaseDatabase.connection
         .from(this.relationsTable)
-        .where("id_user_followed", idUserUnfollow)
+        .where("id_user_followd", idUserUnfollow)
         .del();
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage);

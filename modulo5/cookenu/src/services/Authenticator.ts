@@ -21,7 +21,6 @@ export class Authenticator {
         token,
         process.env.JWT_KEY as string
       ) as AuthenticationData;
-
       return payload;
     } catch (error: any) {
       throw new InvalidToken();
