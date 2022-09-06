@@ -2,19 +2,14 @@ import { InvalidEmail, MissingParametersToken } from './../error/customError';
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
 import { InvalidName, MissingParameters, MissingParametersLogin } from "../error/customError";
-
-import { EditUserInputDTO, LoginInput, UserInputDTO } from "../model/types";
+import { EditUserInputDTO, LoginInput, UserInputDTO } from "../model/userTypes";
 
 export class UserController {
-  private userBusiness: UserBusiness
-  constructor(){
-    this.userBusiness = new UserBusiness()
-  }
   public signUp = async (req: Request, res: Response) => {
     try {
-      const { name, nickname, email, password, role} = req.body;
-      if (!name || !nickname || !email || !password || !role) {
+      const { name, nickname, email, password } = req.body;
 
+      if (!name || !nickname || !email || !password) {
         throw new MissingParameters();
       }
 
@@ -27,11 +22,9 @@ export class UserController {
         nickname,
         email,
         password,
-        role
       };
-
-      const token = await this.userBusiness.signUp(input);
-
+      const userBusiness = new UserBusiness();
+      const token = await userBusiness.signUp(input);
 
       res.status(201).send({ message: "Usuário criado!", token });
     } catch (error: any) {
@@ -47,7 +40,8 @@ export class UserController {
         id: req.params.id,
       };
 
-      await this.userBusiness.editUser(input);
+      const userBusiness = new UserBusiness();
+      userBusiness.editUser(input);
 
       res.status(201).send({ message: "Usuário alterado!" });
     } catch (error: any) {
@@ -62,7 +56,10 @@ export class UserController {
       if(!token){
         throw new MissingParametersToken()
       }
-      const user = await this.userBusiness.getUser(token)
+      const userBusiness = new UserBusiness();
+
+      const user = await userBusiness.getUser(token)
+
       res.status(200).send(user);
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
@@ -84,9 +81,9 @@ export class UserController {
         email,
         password,
       };
+      const userBusiness = new UserBusiness();
+      const token = await userBusiness.login(input);
 
-      const token = await this.userBusiness.login(input)
-      
       res.status(200).send({ message: "Usuário Logado com Sucesso!", token });
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);

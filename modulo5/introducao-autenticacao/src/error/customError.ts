@@ -24,9 +24,7 @@ export class InvalidPassword extends CustomError {
 
 export class MissingParameters extends CustomError {
   constructor() {
-
-    super(422, 'Preencha os campos "name","nickname", "email", "password" e "role"');
-
+    super(422, 'Preencha os campos "name","nickname", "email" e "password"');
   }
 }
 
@@ -49,11 +47,8 @@ export class UserNotFound extends CustomError {
 }
 
 
-}
-
-export class UserUnauthorized extends CustomError {
+export class Unauthorized extends CustomError {
   constructor() {
-    super(401, 'Somente usuário "NORMAL" autorizado');
+    super(401, "Usuário não autorizado");
   }
-
 }
