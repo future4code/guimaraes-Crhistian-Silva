@@ -1,7 +1,8 @@
-import { AuthenticationData } from './../services/Authenticator';
+
 import { CustomError } from "../error/customError";
 import { User } from "../model/user";
-import { EditUserInput, user } from "../model/userTypes";
+import { AuthenticationData, EditUserInput, user } from "../model/types";
+
 import { BaseDatabase } from "./BaseDatabase";
 
 const userTableName = "Auth_users";
@@ -16,6 +17,7 @@ export class UserDatabase extends BaseDatabase {
           nickname: user.nickname,
           email: user.email,
           password: user.password,
+          role: user.role
         })
         .into(userTableName);
     } catch (error: any) {
@@ -46,7 +48,8 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  public getUserById = async (id: AuthenticationData): Promise<user> => {
+  public getUserById = async (id: string): Promise<user> => {
+
     try {
       const user: user[] = await UserDatabase.connection
         .select("*")

@@ -1,4 +1,5 @@
 import { AuthenticationData } from './../services/Authenticator';
+
 import { IdGenerator } from "./../services/IdGenerator";
 import { UserDatabase } from "../data/UserDatabase";
 import {
@@ -14,6 +15,30 @@ import {
   EditUserInput,
   LoginInput,
   UserResult,
+} from "../model/types";
+import { User } from "../model/user";
+import { HashManager } from "../services/HashManager";
+import Authenticator from "../services/Authenticator";
+
+const idGenerator = new IdGenerator();
+
+const hashManager = new HashManager();
+
+export class UserBusiness {
+  private userDB: UserDatabase;
+  constructor() {
+    this.userDB = new UserDatabase();
+  }
+  public signUp = async (input: UserInputDTO): Promise<string> => {
+    const { name, nickname, email, password } = input;
+
+    let role = String(input.role).toUpperCase();
+
+    if (role !== "NORMAL" && role !== "ADMIN") {
+      role = "NORMAL";
+    }
+
+=======
 } from "../model/userTypes";
 import { Authenticator } from "../services/Authenticator";
 import { User } from "../model/user";
@@ -35,46 +60,47 @@ export class UserBusiness {
     const id: string = idGenerator.generateId();
 
     const hashPassword = await hashManager.generateHash(password)
-
     const newUser: user = {
       id,
       name: user.getName(),
       nickname: user.getNickname(),
       email: user.getEmail(),
       password: hashPassword,
+      role,
     };
 
-    const userDatabase = new UserDatabase();
-    await userDatabase.insertUser(newUser);
+    await this.userDB.insertUser(newUser);
 
-    const token = authenticator.generateToken({ id });
+    const token = Authenticator.generateToken({ id, role });
+
     return token;
   };
 
   public login = async (input: LoginInput): Promise<string> => {
 
-    const {email, password } = input;
+    const { email, password } = input;
 
     // aqui crio um novo usuário para fazer as verificações de email e senha com regex
 
-    const userDB = new UserDatabase();
-    const user = await userDB.getUserByEmail(email)
+    const user = await this.userDB.getUserByEmail(email);
 
-    const hashCompare = await hashManager.compareHash(password, user.password)
+    const hashCompare = await hashManager.compareHash(password, user.password);
 
-    if(!user){
+    if (!user) {
       throw new UserNotFound();
     }
-    if(!hashCompare){
+    if (!hashCompare) {
       throw new InvalidPassword();
     }
 
-    const id = user.id
+    const payload: AuthenticationData = {
+      id: user.id,
+      role: user.role,
+    };
 
-    const token = authenticator.generateToken({id});
+    const token = Authenticator.generateToken(payload);
     return token;
   };
-
 
   public editUser = async (input: EditUserInputDTO) => {
     const { name, nickname, id } = input;
@@ -90,14 +116,13 @@ export class UserBusiness {
       name,
       nickname,
     };
-    const userDatabase = new UserDatabase();
-    await userDatabase.editUser(editUserInput);
+
+    await this.userDB.editUser(editUserInput);
   };
 
   public getUserByEmail = async (email: string): Promise<user> => {
-    const userDB = new UserDatabase();
+    const user = await this.userDB.getUserByEmail(email);
 
-    const user = await userDB.getUserByEmail(email);
 
     if (!user) {
       throw new UserNotFound();
@@ -106,11 +131,14 @@ export class UserBusiness {
   };
 
   public getUser = async (token: string): Promise<UserResult> => {
-    const userDB = new UserDatabase();
 
-    const {id} = authenticator.getTokenData(token)
+    const authentication = Authenticator.getTokenData(token)
 
-    const result = await userDB.getUserById({id});
+    if(authentication.role !== "NORMAL"){
+      throw new UserUnauthorized();
+    }
+
+    const result = await this.userDB.getUserById(authentication.id);
 
     if (!result) {
       throw new UserNotFound();
@@ -118,8 +146,9 @@ export class UserBusiness {
 
     const user = {
       id: result.id,
-      email: result.email
-    }
+      email: result.email,
+    };
+
     return user;
   };
 }

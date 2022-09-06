@@ -1,13 +1,11 @@
 import * as jwt from "jsonwebtoken";
 import { Unauthorized } from "../error/customError";
+import { AuthenticationData } from "../model/types";
 
-export type AuthenticationData = {
-  id: string;
-};
+class Authenticator {
+  public generateToken = (payload: AuthenticationData): string => {
+    const token = jwt.sign(payload, process.env.JWT_KEY as string, {
 
-export class Authenticator {
-  public generateToken = ({ id }: AuthenticationData): string => {
-    const token = jwt.sign({ id }, process.env.JWT_KEY as string, {
       expiresIn: process.env.JWT_DURATION,
     });
     return token;
@@ -27,5 +25,7 @@ export class Authenticator {
   };
 }
 
-//Exercício 2
-//a) tranforma a propriedade em uma string
+
+export default new Authenticator();
+
+
