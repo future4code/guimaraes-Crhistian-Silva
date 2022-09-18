@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { ModalityBusiness } from './../business/ModalityBusiness';
-
 import { ModalityInput } from "../model/modalityTypes";
 import { validateCompetitionInput, validateModalityInput } from "./ModalityControllerSerializer";
-import { BaseDatabase } from "../data/Basedatabase";
 
 export class ModalityController {
   constructor(private modalityBusiness: ModalityBusiness){}
@@ -25,7 +23,6 @@ export class ModalityController {
     } catch (error: any) {
       res.status(error.status || 400).send(error.message);
     }
-    await BaseDatabase.destroyConnection();
   };
   
   public createModality = async (req: Request, res: Response): Promise<void> => {
@@ -45,9 +42,8 @@ export class ModalityController {
 
       res.status(201).send(message);
     } catch (error: any) {
-      res.status(error.status || 400).send(error.message);
-    }
-    await BaseDatabase.destroyConnection();
+      res.status(error.status || 400).send(error.message)
+    };
   };
 
   public getRanking = async (req: Request, res: Response): Promise<void> => {
