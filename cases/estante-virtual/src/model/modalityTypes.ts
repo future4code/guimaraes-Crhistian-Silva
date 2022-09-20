@@ -1,16 +1,16 @@
 
 
 export interface ModalityInput{
-    name: string;
+    competitionName: string;
     athleteName: string;
-    value: number;
+    value: number | [];
     unity: string;
 }
 
 export interface ModalityDTO{
-    id: string;
+    idCompetition: string;
     name: string;
-    athlete_name: string;
-    value: number;
+    athleteName: string;
+    value: number | number[];
     unity: string;
 }

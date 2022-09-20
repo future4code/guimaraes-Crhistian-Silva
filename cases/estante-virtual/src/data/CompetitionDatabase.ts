@@ -1,3 +1,4 @@
+import { ENUM_STATUS } from './../model/competitionTypes';
 import { CompetitionRepository } from "../business/CompetitionRepository";
 import { CustomError } from "../error/CustomError";
 import { CompetitionDTO } from "../model/competitionTypes";
@@ -22,21 +23,46 @@ export class CompetitionDatabase extends BaseDatabase implements CompetitionRepo
     }
   };
 
+  public async getCompetition(competition: string): Promise<CompetitionDTO> {
+    try {
+      const result: CompetitionDTO[] = await BaseDatabase.connection
+        .select("*")
+        .from(CompetitionDatabase.TABLE_COMPETITION)
+        .where("name", competition);
+      return result[0];
+    } catch (error: any) {
+      throw new CustomError(500, error.message || error.sqlMessage);
+    }
+  }
+
   public createModality = async (modality: ModalityDTO): Promise<void> => {
     try {
       await BaseDatabase.connection
         .insert({
-          id: modality.id,
+          id_competition: modality.idCompetition,
           name: modality.name,
-          athlete_name: modality.athlete_name,
+          athlete_name: modality.athleteName,
           value: modality.value,
           unity: modality.unity,
         })
-        .into("MODALITIES");
+        .into(CompetitionDatabase.TABLE_MODALITIES);
     } catch (error: any) {
       throw new CustomError(500, error.message || error.sqlMessage);
     }
   };
+
+
+  public finishCompetition = async (status: ENUM_STATUS): Promise<void> => {
+    try {
+      await BaseDatabase.connection
+        .update({status:status})
+        .into(CompetitionDatabase.TABLE_COMPETITION);
+    } catch (error: any) {
+      throw new CustomError(500, error.message || error.sqlMessage);
+    }
+  };
+
+
 
   public async getRanking(modality: string): Promise<ModalityDTO[]> {
     try {

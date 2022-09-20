@@ -1,6 +1,6 @@
 export enum ENUM_STATUS{
     OPEN = "OPEN",
-    CLOSED = "CLOSED",
+    FINISHED = "FINISHED",
     TO_START = "TO START"
 
 }

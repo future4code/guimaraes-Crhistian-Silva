@@ -2,17 +2,17 @@
 export class Modality {
 
   constructor(
-    private id: string,
+    
+    private idCompetition: string,
     private name: string,
     private athleteName: string,
-    private value: number,
+    private value: number | number[],
     private unity: string,
-  ) {
-  }
-  getId() {
-    return this.id;
-  }
 
+  ) {}
+  getIdCompetition(){
+    return this.idCompetition
+  } 
   getName() {
     return this.name;
   }
@@ -28,5 +28,5 @@ export class Modality {
   getUnity() {
     return this.unity;
   }
-  
+ 
 }

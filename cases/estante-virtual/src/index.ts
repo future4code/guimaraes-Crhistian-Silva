@@ -1,14 +1,11 @@
 import { app } from "./app"
-import { modalityRouter } from "./routes/ModalityRouter"
+import { competitionRouter } from "./routes/ModalityRouter"
 
 //1
-app.use("/competition", modalityRouter)
+app.use("/competition", competitionRouter)
 
 
 //2
-
-app.use("/modalities", modalityRouter)
-
 
 
 

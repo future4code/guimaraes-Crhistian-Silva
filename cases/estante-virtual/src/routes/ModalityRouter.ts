@@ -1,23 +1,30 @@
-import { ModalityBusiness } from './../business/ModalityBusiness';
 import express from "express"
-import { ModalityController } from "../controller/ModalityController"
+import { CompetitionBusiness } from "../business/CompetitionBusiness";
+import { CompetitionController } from "../controller/CompetitionController";
 import { CompetitionDatabase } from "../data/CompetitionDatabase";
 import { IdGenerator } from "../services/IdGenerator";
 
-export const modalityRouter = express.Router()
+export const competitionRouter = express.Router()
 
-const modalityDB = new CompetitionDatabase();
+
+const competitionDB = new CompetitionDatabase();
 const idGenerator = new IdGenerator();
 
-const modalityBusiness = new ModalityBusiness(modalityDB, idGenerator)
+const competitionBusiness = new CompetitionBusiness(competitionDB, idGenerator)
 
-const modalityController = new ModalityController(modalityBusiness)
+const competitionController = new CompetitionController(competitionBusiness)
 
-modalityRouter.post('/create', (req, res) => modalityController.createCompetition(req, res) )
+competitionRouter.post('/create', (req, res) => competitionController.createCompetition(req, res) )
 
-modalityRouter.post('/create', (req, res) => modalityController.createModality(req, res) )
+competitionRouter.get('/:name', (req, res) => competitionController.getCompetition(req, res) )
 
-modalityRouter.post('/ranking', (req, res) => modalityController.getRanking(req, res) )
+competitionRouter.post('/modality/create', (req, res) => competitionController.createModality(req, res) )
+
+competitionRouter.put('/:name', (req, res) => competitionController.finishCompetition(req, res) )
+
+
+
+
 
 
 
