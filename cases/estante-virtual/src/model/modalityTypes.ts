@@ -3,7 +3,7 @@
 export interface ModalityInput{
     competitionName: string;
     athleteName: string;
-    value: number | [];
+    value: number[] | number;
     unity: string;
 }
 
@@ -13,4 +13,9 @@ export interface ModalityDTO{
     athleteName: string;
     value: number | number[];
     unity: string;
+}
+
+export interface Ranking{
+    message: string,
+    athlete: string[]
 }

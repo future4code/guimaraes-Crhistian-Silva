@@ -22,6 +22,8 @@ competitionRouter.post('/modality/create', (req, res) => competitionController.c
 
 competitionRouter.put('/:name', (req, res) => competitionController.finishCompetition(req, res) )
 
+competitionRouter.get('/ranking/:name', (req, res) => competitionController.getRanking(req, res) )
+
 
 
 

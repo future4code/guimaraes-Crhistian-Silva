@@ -5,6 +5,6 @@ export interface CompetitionRepository {
   createCompetition(competition: CompetitionDTO): Promise<void>;
   getCompetition(competition: string): Promise<CompetitionDTO>;
   createModality(modality: ModalityDTO): Promise<void>;
-  finishCompetition(modality: string): Promise<void>;
-  getRanking(modality: string): Promise<ModalityDTO[]>;
+  updateCompetition(status: string, competitionName: string): Promise<void>;
+  getRanking(modality: string): Promise<any>;
 }

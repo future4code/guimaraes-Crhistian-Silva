@@ -51,25 +51,24 @@ export class CompetitionDatabase extends BaseDatabase implements CompetitionRepo
     }
   };
 
-
-  public finishCompetition = async (status: ENUM_STATUS): Promise<void> => {
+  public updateCompetition = async (status: string, competitionName:string): Promise<void> => {
     try {
       await BaseDatabase.connection
         .update({status:status})
-        .into(CompetitionDatabase.TABLE_COMPETITION);
+        .into(CompetitionDatabase.TABLE_COMPETITION)
+        .where("name", competitionName);
     } catch (error: any) {
       throw new CustomError(500, error.message || error.sqlMessage);
     }
   };
 
-
-
-  public async getRanking(modality: string): Promise<ModalityDTO[]> {
+  public async getRanking(modality: string): Promise<any> {
     try {
-      const result: ModalityDTO[] = await BaseDatabase.connection
-        .select("*")
+      const result= await BaseDatabase.connection
+        .select("athlete_name as athleteName", "value", "unity")
         .from(CompetitionDatabase.TABLE_MODALITIES)
-        .where(modality);
+        .where("name", modality)
+        .orderBy("value", "desc")
       return result;
     } catch (error: any) {
       throw new CustomError(500, error.message || error.sqlMessage);

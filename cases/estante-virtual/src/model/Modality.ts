@@ -6,7 +6,7 @@ export class Modality {
     private idCompetition: string,
     private name: string,
     private athleteName: string,
-    private value: number | number[],
+    private value: number[] | number,
     private unity: string,
 
   ) {}

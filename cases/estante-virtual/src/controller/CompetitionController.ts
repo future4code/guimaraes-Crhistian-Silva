@@ -75,14 +75,10 @@ export class CompetitionController {
     }
   };
 
-
-
-
-
   public getRanking = async (req: Request, res: Response): Promise<void> => {
     try {
-      const modality = req.params.modality
-
+      const modality = req.params.name
+      
       const result = await this.competitionBusiness.getRanking(modality);
 
       res.status(200).send(result);

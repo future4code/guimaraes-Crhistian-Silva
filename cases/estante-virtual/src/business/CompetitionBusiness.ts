@@ -1,11 +1,19 @@
-import { CompetitionDTO, CompetitionInput, ENUM_STATUS } from "./../model/competitionTypes";
+import { Ranking } from "./../model/modalityTypes";
+import {
+  CompetitionDTO,
+  CompetitionInput,
+  ENUM_STATUS,
+} from "./../model/competitionTypes";
 import { Modality } from "./../model/Modality";
 import { ModalityDTO, ModalityInput } from "../model/modalityTypes";
 import { CompetitionRepository } from "./CompetitionRepository";
 import { IdGenerator } from "../services/IdGenerator";
 import { CompetitionNotFound, ModalityNotFound } from "../error/CustomError";
 import { Competition } from "../model/Competition";
-import { validateCompetitionFinish, validateCompetitionStatus } from "../controller/CompetitionControllerSerializer";
+import {
+  validateCompetitionStatus,
+  validateCompetitionUpdate,
+} from "../controller/CompetitionControllerSerializer";
 export class CompetitionBusiness {
   constructor(
     private competitionDB: CompetitionRepository,
@@ -42,8 +50,6 @@ export class CompetitionBusiness {
   };
 
   public createModality = async (input: ModalityInput): Promise<void> => {
-    let maxValue: number = 0;
-
     const { competitionName, athleteName, value, unity } = input;
 
     // aqui busco  a competição para adicionar o id dela na tabela de modalidades e também verificar o status dela
@@ -53,6 +59,13 @@ export class CompetitionBusiness {
     );
 
     validateCompetitionStatus(competition);
+
+    if (competition.status === ENUM_STATUS.TO_START) {
+      await this.competitionDB.updateCompetition(
+        ENUM_STATUS.OPEN,
+        competitionName
+      );
+    }
 
     if (competition.name.toLowerCase() === "javelin throw") {
       const values = value as [];
@@ -96,26 +109,40 @@ export class CompetitionBusiness {
     }
   };
 
-
   public finishCompetition = async (competitionName: string): Promise<void> => {
-
     const competition = await this.competitionDB.getCompetition(
       competitionName
     );
 
-    validateCompetitionFinish(competition);
-    
-     await this.competitionDB.finishCompetition(ENUM_STATUS.FINISHED)
+    validateCompetitionUpdate(competition);
+
+    await this.competitionDB.updateCompetition(
+      ENUM_STATUS.FINISHED,
+      competitionName
+    );
   };
 
+  public getRanking = async (modality: string): Promise<any> => {
+    let message: string = "";
 
+    const competition = await this.competitionDB.getCompetition(modality);
 
-  public getRanking = async (modality: string): Promise<ModalityDTO[]> => {
     const result = await this.competitionDB.getRanking(modality);
 
     if (!result.length) {
       throw new ModalityNotFound();
     }
-    return result;
+
+    if (competition.status === ENUM_STATUS.OPEN) {
+      message = "This modality is still open";
+    } else if (competition.status === ENUM_STATUS.FINISHED) {
+      message = "This modality has ended";
+    }
+    
+    const ranking = {
+      message,
+      result,
+    };
+    return ranking;
   };
 }
