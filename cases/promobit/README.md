@@ -13,8 +13,8 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - [Styled Components](https://styled-components.com/)
 - [TMDB-API](https://developers.themoviedb.org/3/getting-started/introduction)
 
-### ⚙️ Deploy Vercel
-Acesse aqui o deploy da aplicação no [Vercel](https://promobit-challenge-tmdb-movies.vercel.app/).
+### ⚙️ Deploy Surge
+Acesse aqui o deploy da aplicação no [Surge](https://daffy-help.surge.sh/).
 
 ###  🎲 Pré-requisitos
 
@@ -26,7 +26,7 @@ Além disto é bom ter um editor para trabalhar com o código como o  [VSCode](h
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/crhisfoz/Labenu-promobit>
+$ git clone <https://github.com/crhisfoz>
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd promobit
