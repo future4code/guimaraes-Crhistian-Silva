@@ -27,7 +27,6 @@ import {
     MovieRecommendationsContainer,
 } from "./styleMovieDetails";
 import { useEffect, useState } from "react";
-import { api } from "../../services/api";
 import { Link, useParams } from "react-router-dom";
 
 import { CardMovie } from "../../components/cardMovie/CardMovie";
@@ -157,7 +156,7 @@ export function MovieDetails(props) {
 
             <MovieTrailer>
                 {videos && videos.results.length ? (
-                    <ReactPlayer width='100%' height='100%' url={`https://www.youtube.com/watch?v=${videos ? videos.results[0].key : ""}`} controls={true} />
+                    <ReactPlayer width='100%' height='100%' loading="lazy" url={`http://www.youtube.com/watch?v=${videos ? videos.results[0].key : ""}`} controls={true} />
                 ) : (
                     <>
                         <img src={imgVideoNotFound} />

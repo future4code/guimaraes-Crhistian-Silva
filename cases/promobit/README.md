@@ -3,7 +3,7 @@
 </h1>
 
 ###  💻 Projeto
-O objetivo do projeto é listar os filmes mais populares da TMDB-API,fazer um filtro do filme de acordo com o gênero e acessar detalhes do filme.
+O objetivo do projeto é listar os filmes mais populares da TMDB-API,fazer um filtro do filme de acordo com o gênero e acessar detalhes do filme, também criei uma barra de Search para busca de filmes pelo nome.
 
 ### 🚀 Tecnologias
 Este projeto foi desenvolvido com as seguintes tecnologias:
@@ -26,10 +26,10 @@ Além disto é bom ter um editor para trabalhar com o código como o  [VSCode](h
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/JoOliverP/Promobit-Challenge-Tmdb-movies>
+$ git clone <https://github.com/crhisfoz/Labenu-promobit>
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd Promobit-Challenge-Tmdb-movies
+$ cd promobit
 
 # Instale as dependências
 $ npm install ou yarn install
@@ -60,8 +60,23 @@ $ npm start ou yarn start
 
 ### ✍🏻 Comentários
  Iniciei o projeto com o create-react-app , defini estilos globais a partir do layout do figma, usei o Styled Components para a construção do CSS de cada componente, utilizei o Axios para integração da Tmdb-Api.
-  Fiz uso de um contexto global para para fornecer dados da api para o componente Movie List e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando em alguns fóruns e outros códigos consegui fazer a lógica de filtragem, outra parte foi a pagina de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
+  Fiz uso de um contexto global para fornecer dados da api para o componente Home e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando em alguns fóruns e outros códigos consegui fazer a lógica de filtragem, outra parte foi a página de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
 
 ---
 
 Challenge by ♥ [Promobit]()
+
+<h2 align="center">
+🤓📚
+Desenvolvido por: 
+</h2>
+<table align="center">
+  <tr>
+      <td align="center"><a href="https://github.com/crhisfoz">
+        <img src="https://avatars.githubusercontent.com/u/89948060?v=4" style="border-radius: 50%" width="100px" alt="Imagem do perfil do Crhistian"/>
+      <br />
+        <sub><b>Crhistian Felipe da Silva</b></sub>
+      <br />
+      </td>    
+</table>
+

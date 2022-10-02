@@ -9,7 +9,7 @@ export const Content = styled.div`
     margin: 0 auto;
     /* background: #fff; */
     text-align: center;
-    padding: 5.3rem 0;
+    padding: 2.3rem 0;
 
     h1 {
         font-size: 3rem;
