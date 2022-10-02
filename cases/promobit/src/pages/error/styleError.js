@@ -1,10 +1,11 @@
 import styled from "styled-components"
-import fundoError from "../../assets/movies.jpg"
+import fundoError from "../../assets/notfound.png"
  
 export const StyledError = styled.div`
 @import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Paytone+One&display=swap');
+overflow: scroll;
+height: 88vh;
 background-image: url(${fundoError});
-height: 100vh;
 justify-content: center;
 align-items: center;
 display: flex;
@@ -15,8 +16,6 @@ width: 40rem;
 height: 20rem;
 display: flex;
 align-items: center;
-justify-content: center;
-
 }
 
 h1 {

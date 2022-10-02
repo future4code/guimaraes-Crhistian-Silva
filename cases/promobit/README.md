@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+<h1 align="center">
+     Promobit-Challenge-Tmdb-movies
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###  💻 Projeto
+O objetivo do projeto é listar os filmes mais populares da TMDB-API,fazer um filtro do filme de acordo com o gênero e acessar detalhes do filme.
 
-## Available Scripts
+### 🚀 Tecnologias
+Este projeto foi desenvolvido com as seguintes tecnologias:
+- [React](https://reactjs.org)
+- [React hooks](https://reactjs.org/docs/hooks-intro.html)
+- [Html,Css,Javascript](https://www.w3schools.com/)
+- [Styled Components](https://styled-components.com/)
+- [TMDB-API](https://developers.themoviedb.org/3/getting-started/introduction)
 
-In the project directory, you can run:
+### ⚙️ Deploy Vercel
+Acesse aqui o deploy da aplicação no [Vercel](https://promobit-challenge-tmdb-movies.vercel.app/).
 
-### `npm start`
+###  🎲 Pré-requisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como o  [VSCode](https://code.visualstudio.com/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🎲 Rodando a aplicação
 
-### `npm test`
+```bash
+# Clone este repositório
+$ git clone <https://github.com/JoOliverP/Promobit-Challenge-Tmdb-movies>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Acesse a pasta do projeto no terminal/cmd
+$ cd Promobit-Challenge-Tmdb-movies
 
-### `npm run build`
+# Instale as dependências
+$ npm install ou yarn install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Execute a aplicação em modo de desenvolvimento
+$ npm start ou yarn start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# O servidor inciará na porta:3000 - acesse <http://localhost:3000>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🧠 Desafios completados
+#####  Requisitos funcionais
+   ##### ✔️ O usuário deve ter acesso a uma listagem dos filmes mais populares do dia
+   ##### ✔️ O usuário deve conseguir paginar a lista para encontrar novos filmes
+   ##### ✔️ O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
+  ##### ✔️ O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos
+ #####  Requisitos não funcionais
+  ##### ✔️ O app deverá ser criado usando [React](https://reactjs.org/)I
+  ##### ✔️ -   Na raiz do projeto, será necessário incluir um arquivo  `README.md`  com as instruções para construir seu projeto localmente. Opcionalmente você pode detalhar as razões pelas escolhas de ferramentas e técnicas aplicadas ao desafio.
+  ##### ✔️ O app deverá se comportar da mesma forma na última versão estável dos seguintes browsers: Chrome, Firefox, Edge
+  ##### ✔️ O app deverá ser responsivo
+ 
+  #### 🎯 Desafios extras
+   ##### ✔️ O usuário deve conseguir filtrar os filmes listados por gênero, com a possibilidade de usar mais de um gênero
+   ##### ✔️ O usuário deve conseguir remover filtros e a listagem deve ser atualizada de acordo com o filtro removido
+   ##### ✔️❌ A página com detalhes de um filme deve possuir uma rota própria e estar preparada para ser indexada em mecanismos de pesquisa. (Possui a rota própria mas não configurei para indexação)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### ✍🏻 Comentários
+ Iniciei o projeto com o create-react-app , defini estilos globais a partir do layout do figma, usei o Styled Components para a construção do CSS de cada componente, utilizei o Axios para integração da Tmdb-Api.
+  Fiz uso de um contexto global para para fornecer dados da api para o componente Movie List e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando em alguns fóruns e outros códigos consegui fazer a lógica de filtragem, outra parte foi a pagina de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Challenge by ♥ [Promobit]()
