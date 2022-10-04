@@ -44,7 +44,7 @@ $ npm start ou yarn start
 #####  Requisitos funcionais
    ##### ✔️ O usuário deve ter acesso a uma listagem dos filmes mais populares do dia
    ##### ✔️ O usuário deve conseguir paginar a lista para encontrar novos filmes
-   ##### ✔️ O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
+   ##### ✔️ O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um filme na listagem
   ##### ✔️ O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos
  #####  Requisitos não funcionais
   ##### ✔️ O app deverá ser criado usando [React](https://reactjs.org/)I
@@ -60,7 +60,7 @@ $ npm start ou yarn start
 
 ### ✍🏻 Comentários
  Iniciei o projeto com o create-react-app , defini estilos globais a partir do layout do figma, usei o Styled Components para a construção do CSS de cada componente, utilizei o Axios para integração da Tmdb-Api.
-  Fiz uso de um contexto global para fornecer dados da api para o componente Home e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando em alguns fóruns e outros códigos consegui fazer a lógica de filtragem, outra parte foi a página de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
+  Fiz uso de um contexto global para fornecer dados da api para o componente Home e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando outros códigos consegui fazer a lógica de filtragem, outra parte foi a página de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
 
 ---
 
