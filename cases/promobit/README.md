@@ -55,12 +55,13 @@ $ npm start ou yarn start
   #### 🎯 Desafios extras
    ##### ✔️ O usuário deve conseguir filtrar os filmes listados por gênero, com a possibilidade de usar mais de um gênero
    ##### ✔️ O usuário deve conseguir remover filtros e a listagem deve ser atualizada de acordo com o filtro removido
-   ##### ✔️❌ A página com detalhes de um filme deve possuir uma rota própria e estar preparada para ser indexada em mecanismos de pesquisa. (Possui a rota própria mas não configurei para indexação)
+   ##### ✔️❌ A página com detalhes de um filme deve possuir uma rota própria e estar preparada para ser indexada em mecanismos de pesquisa.Possui rota própria mas não está indexada.
 
 
 ### ✍🏻 Comentários
  Iniciei o projeto com o create-react-app , defini estilos globais a partir do layout do figma, usei o Styled Components para a construção do CSS de cada componente, utilizei o Axios para integração da Tmdb-Api.
-  Fiz uso de um contexto global para fornecer dados da api para o componente Home e GenresFilter, a parte mais difícil foi fazer a filtragem por gênero pois a api não fornece um rota específica que sincronize com os filmes, mas pesquisando outros códigos consegui fazer a lógica de filtragem, outra parte foi a página de detalhes do filme foi necessário fazer alguns tratamentos no retorno da api para evitar alguns erros. 
+  Fiz uso de um contexto global para fornecer dados da api para o componente Home e GenresFilter.
+  
 
 ---
 
